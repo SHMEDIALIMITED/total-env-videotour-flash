@@ -7,8 +7,10 @@ package com.mpc.te.videotour
 	import com.mpc.te.videotour.model.Model;
 	import com.mpc.te.videotour.service.HTTPService;
 	import com.mpc.te.videotour.view.HotspotPool;
+	import com.mpc.te.videotour.view.HotspotView;
 	import com.mpc.te.videotour.view.StageVideoPlayer;
 	
+	import flash.display.DisplayObject;
 	import flash.display.Sprite;
 	import flash.display.StageAlign;
 	import flash.display.StageScaleMode;
@@ -31,38 +33,82 @@ package com.mpc.te.videotour
 			
 			var hotspots:Array = _model.shot.hotspotTracks;
 			
-			var i:int = hotspots.length;
-			while( --i > -1 ) {
+			// update hotspot tracks
+			//var pos;
+			var hotspot:Object, vidhotspot:Object;
+			for( var i:int = 0; i < hotspots.length; i++ ){
 				
-				var hotspot:Object = hotspots[i];
-				var keyframes:Array = hotspot.keyframes as Array;
+				vidhotspot = hotspots[i];
+				hotspot = vidhotspot.view;
 				
 				
 				
-				if(keyframes.length > 0 && (keyframes[0] as Array)[0] >= _player.time) {
-					if(!hotspot.view) {
-						hotspot.view = _hotspotPool.getItem();
-						addChild(hotspot.view);
+				if( _player.time >= vidhotspot.keyframes[0][0] && _player.time <= vidhotspot.keyframes[ vidhotspot.keyframes.length - 1 ][0] ){
+					
+					// get nearest keyframe (binary search) - takes int( log2(N) + 1 ) steps for dataset size N.
+					var j:int = 0;
+					var size:int = vidhotspot.keyframes.length + 1 >> 1;
+					while( size > 0 ){
+						var k:int = j + size;
+						if( vidhotspot.keyframes[ k ][0] < _player.time ) j = k;
+						size >>= 1; // half the step size
 					}
 					
+					var keyframeA:Array = vidhotspot.keyframes[ j ];
+					var keyframeB:Array = vidhotspot.keyframes[ j + 1 ];
+					
+					if( !keyframeA || !keyframeB ) continue; // might not be defined if things are loading in weird orders.?
+					var mf:Number = (_player.time - keyframeA[ 0 ]) / ( keyframeB[ 0 ] - keyframeA[ 0 ]);
+					
+					var Ax:Number = keyframeA[ 1 ];
+					var Ay:Number = keyframeA[ 2 ];
+					var Bx:Number = keyframeB[ 1 ];
+					var By:Number = keyframeB[ 2 ];
+					
+					var Px:Number = Ax * (1 - mf) + Bx * mf;
+					var Py:Number = Ay * (1 - mf) + By * mf;
+					
+					var xPos:Number = Px * stage.stageWidth;
+					var yPos:Number = Py * (stage.stageWidth / 16 * 9);
+					
+					if(_player.time < 1) {
+						//vidtour.css.show( hotspot.objPoint );
+						_hotpsotContainer.addChild(hotspot as DisplayObject) ;
+					}else {
+						
+						_hotpsotContainer.addChild(hotspot as DisplayObject) ;
+						hotspot.alpha = 0;
+						TweenMax.to(hotspot, 0.5, {alpha:1});
+						//$(hotspot.objPoint).fadeIn();
+					}
+					//vidtour.css.setTransform( hotspot.objPoint, 'translate3d(' + (x - hotspot.objPoint.offsetWidth * .5) + 'px, ' + (y - hotspot.objPoint.offsetHeight * .5) + 'px, 0)' );
+					hotspot.x = xPos;
+					hotspot.y = yPos;
+					
+					//TweenMax.to(hotspot, .4, {x:xPos, ease:Linear.easeNone});
+					//TweenMax.to(hotspot, 0.4, {y:yPos, ease:Linear.easeNone});
+					
+					
+					//				if( hotspot.objLabel ){
+					//					pos = this.setLabelPosition( x,y, hotspot.objLabel.offsetWidth, hotspot.objLabel.offsetHeight, videoWidth, videoHeight, vidhotspot.margin, vidhotspot.marginMin, vidhotspot.marginMax );
+					//					vidtour.css.show( hotspot.objLabel );
+					//					vidtour.css.setTransform( hotspot.objLabel, 'translate3d(' + pos.x + 'px, ' + pos.y + 'px, 0)' );
+					//				}
+					
+				}else{
+					if(_player.time < 1) {
+						if(_hotpsotContainer.contains(hotspot as DisplayObject)) _hotpsotContainer.removeChild(hotspot as DisplayObject );	
+					}else if(_hotpsotContainer.contains(hotspot as DisplayObject)) {
+						
+						TweenMax.to(hotspot, 0.5, {alpha:0, onComplete:function(hotspot:DisplayObject):void {
+							_hotpsotContainer.removeChild(hotspot);
+						}, onCompleteParams:[hotspot]});
+					}
+					
+					
 				}
-				
-				var j:int = 0;
-				var size:int = keyframes.length + 1 >> 1;
-				while( size > 0 ){
-					var k:int = j + size;
-					if( keyframes[ k ][0] < _player.time ) j = k;
-					size >>= 1; // half the step size
-				}
-				
-				var frame:Array = keyframes[j];
-				
-				
-				
-				TweenMax.to(hotspot.view, 0.2, { x: stage.stageWidth * frame[1], ease:Linear.easeNone});;
-				TweenMax.to(hotspot.view, 0.2, { y: stage.stageHeight * frame[2], ease:Linear.easeNone});;
-				
 			}
+
 			
 		}
 		
@@ -76,19 +122,43 @@ package com.mpc.te.videotour
 			var videoRectangle:Rectangle = new Rectangle(0,halfHeight - halfWidth /16 * 9, stageWidth, stageWidth / 16 * 9);
 			_player.resize(videoRectangle);
 			
-			_hotpsotContainer.width = videoRectangle.width;
-			_hotpsotContainer.height = videoRectangle.height;
+			// Correct hotspot y position
 			_hotpsotContainer.y = videoRectangle.y;
+		}
+		
+		private function onHotpsotClicked(hotspot:Object):void {
+			stage.removeEventListener(Event.ENTER_FRAME, render);	
+			
+			
+			
+			if(hotspot.hotspotType == 1) {
+				releaseShot();
+				_model.setShotByID(hotspot.target);
+			}else {
+				// Show Overlay
+			}
+		}
+		
+		private function releaseShot():void {
+			var hotspots:Array = _model.shot.hotspotTracks;
+			var hotspot:Object;
+			for(var i:int = 0; i < hotspots.length; ++i) {
+				_hotspotPool.returnItem(hotspot.view);
+				(hotspot.view as HotspotView).clicked.removeAll();
+			}
 		}
 		
 		private function onShotChanged(shot:Object):void {
 			
 			var hotspots:Array = shot.hotspotTracks;
-			var spot:Hotspot;
+			var hotspot:Object;
 			
-			for(var i:int = 0; i < hotspots[0].keyframes.length; ++i) {
-				
-				//trace(hotspots[0].keyframes[i]);
+			for(var i:int = 0; i < hotspots.length; ++i) {
+				hotspot = hotspots[i];
+				hotspot.view = _hotspotPool.getItem();
+				hotspot.view.text = (hotspot.labelText as String).toUpperCase();
+				hotspot.view.model = hotspot;
+				(hotspot.view as HotspotView).clicked.add(onHotpsotClicked);
 			}
 			
 			_player.play(shot.videoSource[0]);

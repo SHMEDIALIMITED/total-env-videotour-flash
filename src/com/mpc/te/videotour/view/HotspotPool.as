@@ -1,5 +1,5 @@
 package com.mpc.te.videotour.view {
-	import com.mpc.te.videotour.Hotspot;
+	import com.mpc.te.videotour.view.HotspotView;
 	
 	import flash.display.DisplayObject;
 
@@ -13,7 +13,9 @@ package com.mpc.te.videotour.view {
 		
 		public function getItem():DisplayObject{
 			var item:DisplayObject = _items.pop();
-			if(!item) item = new Hotspot();
+			if(!item) {
+				item = new HotspotView();
+			}
 			return item;
 		}
 		
