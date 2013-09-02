@@ -1,0 +1,17 @@
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svn/!svn/ver/26/trunk/SubumboLeg/src/org/osflash/statemachine/transitioning
+END
+TransitionPhase.as
+K 25
+svn:wc:ra_dav:version-url
+V 95
+/svn/!svn/ver/26/trunk/SubumboLeg/src/org/osflash/statemachine/transitioning/TransitionPhase.as
+END
+SignalTransitionController.as
+K 25
+svn:wc:ra_dav:version-url
+V 106
+/svn/!svn/ver/26/trunk/SubumboLeg/src/org/osflash/statemachine/transitioning/SignalTransitionController.as
+END
