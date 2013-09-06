@@ -2,7 +2,6 @@ package com.mpc.te.videotour.view {
 	
 	import flash.display.MovieClip;
 	import flash.events.MouseEvent;
-	import flash.text.TextField;
 	
 	import org.osflash.signals.Signal;
 	
@@ -11,7 +10,7 @@ package com.mpc.te.videotour.view {
 		
 		
 		private var _clicked:Signal;
-		private var _model:Object;
+		protected var _model:Object;
 		
 		public function Button() {
 			_clicked = new Signal(Object);

@@ -10,7 +10,7 @@ package com.mpc.te.videotour.view {
 
 		private var _video:StageVideoPlayer;	
 		private var _image:Image;
-		private var _closeButton:CloseButton;
+		private var _closeButton:OverlayCloseButton;
 		private var _backdrop:Shape;
 		private var _text:OverlayTextView;
 		
@@ -33,7 +33,7 @@ package com.mpc.te.videotour.view {
 			addChild(_image);
 			_image.visible = false;	
 			
-			_closeButton = new CloseButton();
+			_closeButton = new OverlayCloseButton();
 			addChild(_closeButton);
 			
 			_text = new OverlayTextView();
@@ -105,7 +105,7 @@ package com.mpc.te.videotour.view {
 			_image.x = rectangle.x - _image.width * .5;
 			_image.y = rectangle.y - _image.height * .5;
 			
-			_closeButton.x = rectangle.width - _closeButton.width * .5;
+			_closeButton.x = rectangle.width - 21;
 			_closeButton.y = _closeButton.height * .5;
 			
 			_text.x = rectangle.width - _text.width - 60;

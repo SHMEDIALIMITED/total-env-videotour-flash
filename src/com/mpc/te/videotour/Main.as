@@ -1,6 +1,7 @@
 package com.mpc.te.videotour
 {
 	
+	import com.flashdynamix.utils.SWFProfiler;
 	import com.greensock.TweenMax;
 	import com.greensock.easing.Linear;
 	import com.mpc.te.videotour.model.HotspotVO;
@@ -23,7 +24,7 @@ package com.mpc.te.videotour
 	
 	import org.osflash.signals.Signal;
 	
-	[SWF(width="800", height="800", backgroundColor="#000000")]
+	[SWF(width="800", height="800", backgroundColor="#000000", frameRate="60")]
 	public class Main extends Sprite {
 		
 		private function render(e:Event):void {
@@ -55,9 +56,7 @@ package com.mpc.te.videotour
 		
 		private function onHotpsotClicked(hotspot:Object):void {
 			
-			
-			if(hotspot.hotspotType == 1) {
-				//stage.removeEventListener(Event.ENTER_FRAME, render);	
+			if(hotspot.hotspotType == 1) {			
 				releaseShot();
 				_model.setShotByID(hotspot.target);
 			}else {	
@@ -69,12 +68,9 @@ package com.mpc.te.videotour
 			var hotspots:Array = _model.shot.hotspotTracks;
 			var hotspot:Object;
 			
-			
-			
 			for(var i:int = 0; i < hotspots.length; ++i) {
 				hotspot = hotspots[i];
-			
-				(hotspot.view as HotspotView).clicked.removeAll();
+				(hotspot.view as HotspotView).destroy();
 				if(_hotpsotRenderer.contains((hotspot.view as HotspotView)))
 					_hotpsotRenderer.removeChild((hotspot.view as HotspotView));
 			}
@@ -165,6 +161,9 @@ package com.mpc.te.videotour
 		}
 		
 		private function onAddedToStage(e:Event):void {
+			
+			SWFProfiler.init(stage, this);
+			
 			initSignals();
 			initViews();
 		}
