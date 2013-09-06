@@ -16,7 +16,7 @@ package com.mpc.te.videotour.view {
 	
 	import org.osflash.signals.Signal;
 	
-	public class StageVideoPlayer extends Sprite {
+	public final class StageVideoPlayer extends Sprite {
 		
 		
 		public function resize (rect:Rectangle):void {	
@@ -30,7 +30,7 @@ package com.mpc.te.videotour.view {
 			}
 		}
 	
-		public function play(url):void {
+		public function play(url:String=null):void {
 			if(_paused) _stream.resume();
 			else _stream.play(url);
 			_paused = false;
@@ -42,7 +42,10 @@ package com.mpc.te.videotour.view {
 		}
 		
 		public function stop():void {
-			_stream.close();
+			
+			
+			_stream.dispose();
+			
 		}
 	
 		
@@ -83,8 +86,9 @@ package com.mpc.te.videotour.view {
 		
 		private function onAddedToStage(e:Event):void {
 			this.removeEventListener(Event.ADDED_TO_STAGE, onAddedToStage);
-			if(stage.stageVideos.length < 0) {
-				_stageVideo = stage.stageVideos[0];
+			if(stage.stageVideos.length > _stageVideoIndex) {
+				_stageVideo = stage.stageVideos[_stageVideoIndex];
+				_stageVideo.depth = _stageVideoIndex;
 				_stageVideo.addEventListener(StageVideoEvent.RENDER_STATE, stageVideoStateChange);  
 			} else {
 				_video = new Video();
@@ -99,7 +103,8 @@ package com.mpc.te.videotour.view {
 			_ready = true;
 		}
 		
-		public function StageVideoPlayer() {
+		public function StageVideoPlayer(stageVideoIndex:int) {
+			_stageVideoIndex = stageVideoIndex;
 			_readySignal = new Signal();
 			_connection = new NetConnection();
 			_connection.addEventListener(NetStatusEvent.NET_STATUS, onNetStatus);
@@ -109,7 +114,7 @@ package com.mpc.te.videotour.view {
 		}
 		
 		
-		
+		private var _stageVideoIndex:int;
 		private var _stream:NetStream;
 		private var _connection:NetConnection;
 		private var _stageVideo:StageVideo;

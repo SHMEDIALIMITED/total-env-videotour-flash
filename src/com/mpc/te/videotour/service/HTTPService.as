@@ -38,8 +38,6 @@ package com.mpc.te.videotour.service {
 		}
 		
 		protected function onComplete(e:Event):void {
-			
-			
 			_completed.dispatch(e.target.data, this);
 		}
 		
