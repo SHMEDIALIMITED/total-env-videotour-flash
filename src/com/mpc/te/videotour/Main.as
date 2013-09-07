@@ -160,7 +160,7 @@ package com.mpc.te.videotour
 		
 		private function start():void {
 			onResize(null);
-			_model.setShotByID('shot15');
+			_model.setShotByID('shot1');
 			stage.addEventListener(Event.ENTER_FRAME, render);
 		}
 		
@@ -201,7 +201,7 @@ package com.mpc.te.videotour
 			addChild(_hotpsotRenderer);
 			
 			_pictureRenderer = new PictureRenderer();
-			addChild(_pictureRenderer);
+			//addChild(_pictureRenderer);
 			
 			_overlay = new Overlay();
 			_overlay.closed.add(onOverlayClosed);
