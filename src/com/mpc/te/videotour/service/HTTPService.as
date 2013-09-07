@@ -1,5 +1,4 @@
 package com.mpc.te.videotour.service {
-	import flash.events.ErrorEvent;
 	import flash.events.Event;
 	import flash.events.IOErrorEvent;
 	import flash.events.SecurityErrorEvent;
@@ -12,29 +11,27 @@ package com.mpc.te.videotour.service {
 		
 		private var _loader:URLLoader;
 		private var _completed:Signal;
+		private var _request:URLRequest;
 		
 		public function HTTPService() {
-			
 			_loader = new URLLoader();
 			_loader.addEventListener(Event.COMPLETE, onComplete);
 			_loader.addEventListener(IOErrorEvent.IO_ERROR, onIOError);
 			_loader.addEventListener(SecurityErrorEvent.SECURITY_ERROR, onSecurityError);
-			
 			_completed = new Signal(Object, HTTPService);
 		}
 		
-		public function send(request):void {
+		public function send(request:URLRequest):void {
+			_request = request;
 			_loader.load(request);
 		}
 		
 		protected function onSecurityError(e:SecurityErrorEvent):void {
-			// TODO Auto-generated method stub
-			
+			throw new Error('HTTPService Security Error #' + e.errorID  + ': ' + _request.url);	
 		}
 		
 		protected function onIOError(e:IOErrorEvent):void {
-			// TODO Auto-generated method stub
-			
+			throw new Error('HTTPService IO Error #' + e.errorID  + ': ' + _request.url);	
 		}
 		
 		protected function onComplete(e:Event):void {
@@ -48,6 +45,7 @@ package com.mpc.te.videotour.service {
 			_completed.removeAll();
 			_loader = null;
 			_completed = null;
+			_request = null;
 		}
 		
 		public function get completed():Signal {

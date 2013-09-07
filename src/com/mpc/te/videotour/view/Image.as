@@ -4,7 +4,6 @@ package com.mpc.te.videotour.view
 	import flash.events.Event;
 	import flash.events.IOErrorEvent;
 	import flash.events.SecurityErrorEvent;
-	import flash.geom.Rectangle;
 	import flash.net.URLRequest;
 	
 	import org.osflash.signals.Signal;
