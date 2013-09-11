@@ -8,17 +8,20 @@ package com.mpc.te.videotour.view {
 	
 	public final class Overlay extends Sprite {
 
-		private var _video:StageVideoPlayer;	
+		private var _video:VideoPlayer;	
 		private var _image:Image;
 		private var _closeButton:OverlayCloseButton;
 		private var _backdrop:Shape;
 		private var _text:OverlayTextView;
+		private var _loaderAnimation:LoaderAnimation
 		
 		private var _rectangle:Rectangle;
 		private var _videoRectangle:Rectangle;
 		
+		public var needsRendering:Boolean;
+		
 		public function Overlay() {
-			_video = new StageVideoPlayer(1);
+			_video = new VideoPlayer(1);
 			addChild(_video);
 			_video.visible = false;
 			
@@ -30,6 +33,7 @@ package com.mpc.te.videotour.view {
 			
 			_image = new Image();
 			_image.loaded.add(onImageLoaded);
+			_image.progressed.add(onImageLoaded);
 			addChild(_image);
 			_image.visible = false;	
 			
@@ -38,6 +42,9 @@ package com.mpc.te.videotour.view {
 			
 			_text = new OverlayTextView();
 			addChild(_text);
+			
+			_loaderAnimation = new LoaderAnimation();
+			addChild(_loaderAnimation);
 		}
 		
 		public function show(model:Object):void {
@@ -60,13 +67,14 @@ package com.mpc.te.videotour.view {
 					_backdrop.visible = true;
 					_text.visible = true;
 					
-					break;
-				
-				case "3" : // Floor Plan
-					_backdrop.visible = true;
-					_text.visible = false;
+					needsRendering = true;
+					
 					break;
 			}
+			
+			_loaderAnimation.progress = 0;
+			
+			
 			_closeButton.model = model;
 			resize(_rectangle, _videoRectangle);
 		}
@@ -111,9 +119,23 @@ package com.mpc.te.videotour.view {
 			_text.x = rectangle.width - _text.width - 60;
 			_text.y = rectangle.height - _text.height - 60;
 			
-			_rectangle = rectangle;
-			_videoRectangle = videoRectangle;
+			_loaderAnimation.x = rectangle.x - 100;
+			_loaderAnimation.y = rectangle.y - _loaderAnimation.height * .5;
 			
+			_rectangle = rectangle;
+			_videoRectangle = videoRectangle;	
+		}
+		
+		public function render(time:int):void {
+			if(_video.buffering) {
+				_video.render(time);
+			} else if(needsRendering) {
+				_loaderAnimation.draw(time)
+			}
+		}
+		
+		private function onProgress(percentage:Number):void {
+			_loaderAnimation.progress = percentage;
 		}
 		
 		private function onImageLoaded(image:Image):void {

@@ -4,19 +4,16 @@ package com.mpc.te.videotour.view {
 	import flash.events.Event;
 	import flash.events.NetStatusEvent;
 	import flash.events.SecurityErrorEvent;
-	import flash.events.StageVideoAvailabilityEvent;
 	import flash.events.StageVideoEvent;
 	import flash.geom.Rectangle;
 	import flash.media.StageVideo;
-	import flash.media.StageVideoAvailability;
 	import flash.media.Video;
 	import flash.net.NetConnection;
 	import flash.net.NetStream;
-	import flash.utils.setTimeout;
 	
 	import org.osflash.signals.Signal;
 	
-	public final class StageVideoPlayer extends Sprite {
+	public class StageVideoPlayer extends Sprite {
 		
 		
 		public function resize (rect:Rectangle):void {	
@@ -41,47 +38,116 @@ package com.mpc.te.videotour.view {
 			_paused = true;
 		}
 		
-		public function stop():void {
-			
-			
+		public function stop():void {			
 			_stream.dispose();
+		}
+		
+		
+		protected function onNetstreamPlayStart(e:NetStatusEvent):void {
 			
 		}
-	
 		
-		private function stageVideoStateChange(event:StageVideoEvent):void {          
-			var status:String = event.status;  
-			trace('STAGE VIDEO STATUS:', status);
+		protected function onNetstreamPlayStop(e:NetStatusEvent):void {
+			
 		}
 		
-		private function onNetStatus(event:NetStatusEvent):void {
-			switch (event.info.code) {
-				case "NetConnection.Connect.Success":
-					_stream = new NetStream(_connection);
-					_stream.client = _client;
-					_stream.addEventListener(NetStatusEvent.NET_STATUS, onNetStatus);
-					
-					if(_ready) {	
-						if(_stageVideo) _stageVideo.attachNetStream(_stream);
-						else _video.attachNetStream(_stream);
-						_readySignal.dispatch();
-					}
-					_ready = true;
+		protected function onNetstreamPlayStreamNotFound(e:NetStatusEvent):void {
+			
+		}
+		
+		protected function onNetstreamPlayFailed(e:NetStatusEvent):void {
+			
+		}
+		
+		protected function onNetstreamBufferEmpty(e:NetStatusEvent):void {
+			
+		}
+		
+		protected function onNetstreamBufferFull(e:NetStatusEvent):void {
+			
+		}
+		
+		protected function onNetstreamBufferFlush(e:NetStatusEvent):void {
+			
+		}
+		
+		
+		private function onNetStreamStatus(e:NetStatusEvent):void {
+			switch(e.info.code) {
+				
+				case 'NetStream.Play.Start' :
+					trace('PLAY') 
+					onNetstreamPlayStart(e);
 					break;
+				
+				case 'NetStream.Play.Stop' :
+					onNetstreamPlayStop(e);
+					break;
+				
 				case "NetStream.Play.StreamNotFound":
-					trace("Stream not found:");
+					onNetstreamPlayStreamNotFound(e);
 					break;
+				
+				case 'NetStream.Play.Failed' : 
+					onNetstreamPlayFailed(e);
+					break;
+				
+				case 'NetStream.Buffer.Empty' :
+					trace('BUFFER EMPTY') 
+					onNetstreamBufferEmpty(e);
+					break;
+				
+				case 'NetStream.Buffer.Full' :
+					trace('BUFFER FULL') 
+					onNetstreamBufferFull(e);
+					break;
+				
+				case 'NetStream.Buffer.Flush' :
+					trace('BUFFER FLUSH') 
+					onNetstreamBufferFlush(e);
+					break;
+				
 			}
 		}
-				
-		protected function onSecurityError(event:SecurityErrorEvent):void { }
-			
-		public function get ready():Signal {
-			return _readySignal;
+		
+		
+		
+		protected function onNetConnectionSuccess(event:NetStatusEvent):void {
+			_stream = new NetStream(_connection);
+			_stream.client = _client;
+			_stream.addEventListener(NetStatusEvent.NET_STATUS, onNetStreamStatus);		
+			if(_ready) {	
+				if(_stageVideo) _stageVideo.attachNetStream(_stream);
+				else _video.attachNetStream(_stream);
+				_readySignal.dispatch();
+			}
+			_ready = true;	
 		}
 		
-		public function get time():Number {
-			return _stream.time;
+		protected function onNetConnectionFail(e:NetStatusEvent):void {
+			throw new Error('NetConnection.Connect.Failed');	
+		}
+		
+		private function onNetConnectionStatus(e:NetStatusEvent):void {
+			switch (e.info.code) {
+				case 'NetConnection.Connect.Success':
+					onNetConnectionSuccess(e);
+					break;
+				
+				case 'NetConnection.Connect.Failed' : 
+					onNetConnectionFail(e);
+					break;
+				
+			}
+		}
+		
+		protected function onSecurityError(e:SecurityErrorEvent):void {
+			throw new Error('NetConnection Security Error: ' + e.errorID );
+		}
+		
+		protected function stageVideoStateChange(event:StageVideoEvent):void {          
+			var status:String = event.status;  
+			trace('STAGE VIDEO STATUS:', status);
 		}
 		
 		private function onAddedToStage(e:Event):void {
@@ -103,11 +169,31 @@ package com.mpc.te.videotour.view {
 			_ready = true;
 		}
 		
+		public function get ready():Signal {
+			return _readySignal;
+		}
+		
+		public function get time():Number {
+			return _stream.time;
+		}
+		
+		public function calculateBufferSize(flvLength:Number, flvBitrate:Number, bandwidth:Number):Number {
+			var bufferTime:Number;
+			if (flvBitrate > bandwidth) {
+				bufferTime = Math.ceil(flvLength - flvLength / (flvBitrate / bandwidth));
+			} else {
+				bufferTime = 0;
+			}
+			bufferTime += 3.0;
+			
+			return bufferTime;
+		}
+		
 		public function StageVideoPlayer(stageVideoIndex:int) {
 			_stageVideoIndex = stageVideoIndex;
 			_readySignal = new Signal();
 			_connection = new NetConnection();
-			_connection.addEventListener(NetStatusEvent.NET_STATUS, onNetStatus);
+			_connection.addEventListener(NetStatusEvent.NET_STATUS, onNetConnectionStatus);
 			_connection.addEventListener(SecurityErrorEvent.SECURITY_ERROR, onSecurityError);
 			_connection.connect(null);
 			this.addEventListener(Event.ADDED_TO_STAGE, onAddedToStage);
@@ -115,14 +201,14 @@ package com.mpc.te.videotour.view {
 		
 		
 		private var _stageVideoIndex:int;
-		private var _stream:NetStream;
+		protected var _stream:NetStream;
 		private var _connection:NetConnection;
 		private var _stageVideo:StageVideo;
 		private var	_video:Video;
 		private var _paused:Boolean;
 		private var _readySignal:Signal;
 		private var _ready:Boolean;
-		private var _client:Object = { 
+		protected var _client:Object = { 
 			
 			onMetaData : function(info:Object):void {
 				trace("metadata: duration=" + info.duration + " width=" + info.width + " height=" + info.height + " framerate=" + info.framerate);

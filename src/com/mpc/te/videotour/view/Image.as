@@ -3,6 +3,7 @@ package com.mpc.te.videotour.view
 	import flash.display.Loader;
 	import flash.events.Event;
 	import flash.events.IOErrorEvent;
+	import flash.events.ProgressEvent;
 	import flash.events.SecurityErrorEvent;
 	import flash.net.URLRequest;
 	
@@ -11,12 +12,15 @@ package com.mpc.te.videotour.view
 	public final class Image extends Loader {
 		
 		private var _loaded:Signal;
+		private var _progressed:Signal;
 		
 		public function Image() {
 			this.contentLoaderInfo.addEventListener(Event.COMPLETE, onComplete);
+			this.contentLoaderInfo.addEventListener(ProgressEvent.PROGRESS, onProgress);
 			this.contentLoaderInfo.addEventListener(IOErrorEvent.IO_ERROR, onIOError);
 			this.contentLoaderInfo.addEventListener(SecurityErrorEvent.SECURITY_ERROR, onSecurityError);
 			_loaded = new Signal(Image);
+			_progressed = new Signal(Number);
 		}
 			
 		public function destroy():void {
@@ -34,6 +38,14 @@ package com.mpc.te.videotour.view
 		
 		public function get loaded():Signal {
 			return _loaded;
+		}
+		
+		public function get progressed():Signal {
+			return _progressed;
+		}
+		
+		protected function onProgress(e:ProgressEvent):void {
+			_progressed.dispatch(e.bytesLoaded / e.bytesTotal);
 		}
 		
 		protected function onSecurityError(e:SecurityErrorEvent):void {

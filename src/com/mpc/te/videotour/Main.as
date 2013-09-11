@@ -4,12 +4,15 @@ package com.mpc.te.videotour
 	import com.flashdynamix.utils.SWFProfiler;
 	import com.mpc.te.videotour.model.Model;
 	import com.mpc.te.videotour.service.HTTPService;
+	import com.mpc.te.videotour.view.Debug;
 	import com.mpc.te.videotour.view.HotspotRenderer;
 	import com.mpc.te.videotour.view.HotspotView;
+	import com.mpc.te.videotour.view.LoaderAnimation;
 	import com.mpc.te.videotour.view.Overlay;
 	import com.mpc.te.videotour.view.Photo;
 	import com.mpc.te.videotour.view.PictureRenderer;
 	import com.mpc.te.videotour.view.StageVideoPlayer;
+	import com.mpc.te.videotour.view.VideoPlayer;
 	
 	import flash.display.Sprite;
 	import flash.display.StageAlign;
@@ -17,6 +20,7 @@ package com.mpc.te.videotour
 	import flash.events.Event;
 	import flash.geom.Rectangle;
 	import flash.net.URLRequest;
+	import flash.text.TextField;
 	import flash.utils.getTimer;
 	
 	import org.osflash.signals.Signal;
@@ -32,12 +36,17 @@ package com.mpc.te.videotour
 		///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		private function render(e:Event):void {
-			const newTime:int = getTimer();
-			const dt:int = newTime - _model.time;
-			_model.time = newTime;
+			
+			_model.updateDeltaTime();
 			
 			_hotpsotRenderer.render(_player.time);
 			_pictureRenderer.render(_player.time);
+			
+			if(_player.buffering) {
+				_player.render(_model.time);
+			}
+			
+			
 		}
 		
 		
@@ -69,6 +78,12 @@ package com.mpc.te.videotour
 			
 			// Overlay
 			_overlay.resize(stageRectangle, videoRectangle);
+			
+			// Loader Animation
+			_loaderAnimation.x = halfWidth - 100;
+			_loaderAnimation.y = halfHeight - 50;
+			
+			
 		}
 		
 		
@@ -125,8 +140,10 @@ package com.mpc.te.videotour
 			
 			for(i = 0; i < pictures.length; ++i) {
 				picture = pictures[i];
-				picture.view = new Photo()
-				picture.view.src = 'photos/tracking.png';
+				picture.view = new Photo();
+				picture.view.alpha = picture.opacity;
+				picture.view.blur = picture.blur;
+				picture.view.src = 'photos/gandhi.jpg';
 			}
 			
 			_player.play(shot.videoSource[0]);
@@ -160,16 +177,22 @@ package com.mpc.te.videotour
 		
 		private function start():void {
 			onResize(null);
-			_model.setShotByID('shot1');
+			removeChild(_loaderAnimation);
+			_model.setShotByID('shot11');
 			stage.addEventListener(Event.ENTER_FRAME, render);
 		}
 		
 		private function parseData(res:Object, service:HTTPService):void {
+			stage.removeEventListener(Event.ENTER_FRAME, renderLoader);
+			
+			_model.bandwidth = _player.bandwidth = service.bandwidth;
+			
+			Debug.instance.log('Bandwidth: ' + _model.bandwidth);
 			
 			service.destroy();
 			
 			var json:Object = JSON.parse(res as String);
-			_model = new Model(json);
+			_model.parse(json)
 			_model.shotChanged.add(onShotChanged);
 			_model.overlayChanged.add(onOverlayChanged);
 			
@@ -179,32 +202,53 @@ package com.mpc.te.videotour
 			start();
 		}
 		
-		private function initModel():void {
+		private function onDataProgress(percentage:Number):void {
+			_loaderAnimation.progress = percentage * .01;
+		}
+		
+		private function loadData():void {
 			var service:HTTPService = new HTTPService();
 			service.completed.add(parseData);
+			service.progressed.add(onDataProgress);
 			var request:URLRequest = new URLRequest('data.json');
 			service.send(request);
+			stage.addEventListener(Event.ENTER_FRAME, renderLoader);
+		}
+		
+		private function renderLoader(e:Event):void {			
+			_loaderAnimation.draw(_model.updateDeltaTime());
 		}
 		
 		private function onAddedToStage(e:Event):void {
 			
 			SWFProfiler.init(stage, this);
+			Debug.instance.init(stage);
 			
 			stage.align = StageAlign.TOP_LEFT;
 			stage.scaleMode = StageScaleMode.NO_SCALE;
 			
-			_player = new StageVideoPlayer(0);
-			_player.ready.add(initModel); ///////////////////// when player is ready then JSON data files starts being loaded
+			
+			_model = new Model();
+			
+			
+			_player = new VideoPlayer(0);
+			_player.ready.add(loadData); ///////////////////// when player is ready then JSON data files starts being loaded
 			addChild(_player);
 			
 			_hotpsotRenderer = new HotspotRenderer()
 			addChild(_hotpsotRenderer);
 			
 			_pictureRenderer = new PictureRenderer();
-			//addChild(_pictureRenderer);
+			addChild(_pictureRenderer);
 			
 			_overlay = new Overlay();
 			_overlay.closed.add(onOverlayClosed);
+			
+			_loaderAnimation = new LoaderAnimation();
+			addChild(_loaderAnimation);
+			
+			
+			onResize(null)
 			
 			stage.addEventListener(Event.RESIZE, onResize);	
 		}
@@ -215,11 +259,13 @@ package com.mpc.te.videotour
 		}
 		
 		
-		private var _player:StageVideoPlayer;
+		private var _player:VideoPlayer;
 		private var _overlay:Overlay;
 		private var _hotspotClicked:Signal;
 		private var _model:Model;
 		private var _hotpsotRenderer:HotspotRenderer;
 		private var _pictureRenderer:PictureRenderer;
+		private var _loaderAnimation:LoaderAnimation;
+		
 	}
 }

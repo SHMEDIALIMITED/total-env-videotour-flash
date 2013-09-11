@@ -6,6 +6,7 @@ package com.mpc.te.videotour.model {
 	public class Model {
 		
 		public var time:int;
+		public var bandwidth:int;
 		
 		private var _shots:Array;
 		private var _overlays:Array;
@@ -14,12 +15,34 @@ package com.mpc.te.videotour.model {
 		private var _shotChanged:Signal;
 		private var _overlayChanged:Signal;
 		
-		public function Model(data) {
-			_shots = data[0];
-			_overlays = data[1];
+		public function Model() {
 			_shotChanged = new Signal(Object);
 			_overlayChanged = new Signal(Object);
 			time = getTimer();
+		}
+		
+		public function parse(json:Object):void {
+			_shots = json[0] as Array;
+			_overlays = json[1] as Array;
+			
+			var i:int = 0, l:int = _shots.length;
+			var shot:Object, source:String
+			for(; i < l; ++i) {
+				shot = _shots[i];
+				source = shot.videoSource[0];
+				shot.videoSource[0] = source.substr(0, source.length-3) + 'f4v';
+				trace(shot.videoSource[0])
+			}
+			
+			i = 0, l = _overlays.length;
+			var overlay:Object;
+			for(; i < l; ++i) {
+				overlay = _overlays[i];
+				if(overlay.type == 1) {
+					source = overlay.videoSource[0];
+					overlay.videoSource[0] = source.substr(0, -3) + 'f4v';
+				}
+			}
 		}
 		
 		public function setShotByID(val:String):void {
@@ -57,6 +80,13 @@ package com.mpc.te.videotour.model {
 				}
 			}
 			throw new Error('Overlay ID not found: ', val);	
+		}
+		
+		public function updateDeltaTime():int {
+			const newTime:int = getTimer();
+			const dt:int = newTime - time;
+			time = newTime;
+			return time;
 		}
 		
 		public function get shots():Array {
