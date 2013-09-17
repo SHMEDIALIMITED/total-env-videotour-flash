@@ -60,6 +60,15 @@ package com.mpc.te.videotour.view {
 			var image:Image = new Image();
 			image.src = val;
 			image.loaded.addOnce(onImageLoaded);
-		}	
+		}
+		
+		public function destroy():void {
+			this.filters.length = 0;
+			_blur = null;
+			_bitmapData.dispose();
+			_bitmapData = null;
+			graphics.clear();
+			_distort = null;
+		}
 	}
 }

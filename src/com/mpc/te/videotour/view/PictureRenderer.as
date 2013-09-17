@@ -150,7 +150,7 @@ package com.mpc.te.videotour.view {
 //					pic.obj.style.clip = 'rect(' + top +s+ right +s+ bottom +s+ left +s+ ')';
 					
 				}else {
-					//vidtour.css.hide( pic.obj );
+					if(contains(pic)) removeChild(pic);
 				}
 //					
 					
