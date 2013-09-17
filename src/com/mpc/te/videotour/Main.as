@@ -199,7 +199,7 @@ package com.mpc.te.videotour
 		private function start():void {
 			onResize(null);
 			removeChild(_loaderAnimation);
-			_model.setShotByID('shot2');
+			_model.setShotByID('shot14');
 			stage.addEventListener(Event.ENTER_FRAME, render);
 		}
 		
