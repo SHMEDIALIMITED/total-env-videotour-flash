@@ -58,14 +58,9 @@ package com.mpc.te.videotour.view {
 				case "1" : // Video
 					_text.text = model.text;
 					_video.play(model.videoSource[0]);
-					trace('HERE')
 					_backdrop.visible = false;
 					_video.visible = true;
 					_text.visible = true;
-					
-					_remote.visible = true;
-					_remote.active = true;
-					_remote.load(_video, model);
 					
 					break;
 					
@@ -82,9 +77,18 @@ package com.mpc.te.videotour.view {
 					break;
 				
 				case "3" : // Video with Remote Control
+					_text.text = model.text;
+					_video.play(model.videoSource[0]);
+					_backdrop.visible = false;
+					_video.visible = true;
+					_text.visible = true;
 					
+					_remote.visible = true;
+					_remote.active = true;
+					_remote.load(_video, model);
 					
 					break;
+			
 				
 				
 			}
@@ -113,10 +117,16 @@ package com.mpc.te.videotour.view {
 					
 					break;
 				
-				case "3" : // Floor Plan
+				case "3" : // Video with Remote Control
 					
+					_video.stop();
+					_video.visible = false;
+					_remote.visible = false;
+					_remote.active = false;
 					
 					break;
+				
+			
 			}
 		}
 		

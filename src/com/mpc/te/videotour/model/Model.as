@@ -31,14 +31,13 @@ package com.mpc.te.videotour.model {
 				shot = _shots[i];
 				source = shot.videoSource[0];
 				shot.videoSource[0] = source.substr(0, source.length-3) + 'f4v';
-				trace(shot.videoSource[0])
 			}
 			
 			i = 0, l = _overlays.length;
 			var overlay:Object;
 			for(; i < l; ++i) {
 				overlay = _overlays[i];
-				if(overlay.type == 1) {
+				if(overlay.type != 2) {
 					source = overlay.videoSource[0];
 					overlay.videoSource[0] = source.substr(0, -3) + 'f4v';
 				}

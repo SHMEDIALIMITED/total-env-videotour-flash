@@ -13,7 +13,7 @@ package com.mpc.te.videotour.view {
 			super(stageVideoIndex);
 			_loaderAnimation = new LoaderAnimation();
 			
-			addChild(_loaderAnimation);
+			addChild(_loaderAnimation);			
 		}
 		
 		public function set bandwidth(val:int):void {

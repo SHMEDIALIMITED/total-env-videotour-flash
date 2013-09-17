@@ -84,6 +84,7 @@ package com.mpc.te.videotour.view {
 			_state = 0;
 			_receiver = receiver;
 			_receiver.pause();
+			
 			_btn1.label = (model.remoteLabel1 as String).toUpperCase();
 			_btn2.label = (model.remoteLabel2 as String).toUpperCase();
 			_btn2.x = 250 - _btn2.width;
