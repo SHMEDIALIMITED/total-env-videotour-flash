@@ -5,6 +5,7 @@ package com.mpc.te.videotour
 	import com.mpc.te.videotour.model.Model;
 	import com.mpc.te.videotour.service.HTTPService;
 	import com.mpc.te.videotour.view.Debug;
+	import com.mpc.te.videotour.view.FloorPlan;
 	import com.mpc.te.videotour.view.HotspotRenderer;
 	import com.mpc.te.videotour.view.HotspotView;
 	import com.mpc.te.videotour.view.LoaderAnimation;
@@ -25,7 +26,7 @@ package com.mpc.te.videotour
 	
 	import org.osflash.signals.Signal;
 	
-	[SWF(width="800", height="800", backgroundColor="#000000", frameRate="60")]
+	[SWF(width="1200", height="800", backgroundColor="#000000", frameRate="60")]
 	public class Main extends Sprite {
 		
 		
@@ -39,12 +40,15 @@ package com.mpc.te.videotour
 			
 			_model.updateDeltaTime();
 			
+			_floorPlan.update(_player.time);
 			_hotpsotRenderer.render(_player.time);
 			_pictureRenderer.render(_player.time);
 			
 			if(_player.buffering) {
 				_player.render(_model.time);
 			}
+			
+			
 			
 			
 		}
@@ -66,8 +70,18 @@ package com.mpc.te.videotour
 			var stageRectangle:Rectangle = new Rectangle(halfWidth, halfHeight, stageWidth, stageHeight);
 			
 			// Video Player Rectangle with fixed 16/9 apsect ratio
-			var videoRectangle:Rectangle = new Rectangle(0,halfHeight - halfWidth /16 * 9, stageWidth, stageWidth / 16 * 9);
+			
+			var videoRectangle:Rectangle
+			if(stageWidth / stageHeight < 16 / 9) {
+				videoRectangle = new Rectangle(0,halfHeight - halfWidth /16 * 9, stageWidth, stageWidth / 16 * 9);
+			}else {
+				videoRectangle = new Rectangle(halfWidth - halfHeight * 16 / 9, 0 , stageHeight * 16 / 9, stageHeight);
+			}
+			
+			
 			_player.resize(videoRectangle);
+			
+			_floorPlan.y = videoRectangle.y + 30;
 			
 			// Correct hotspot y position
 			_hotpsotRenderer.y = videoRectangle.y;
@@ -147,6 +161,8 @@ package com.mpc.te.videotour
 			}
 			
 			_player.play(shot.videoSource[0]);
+			
+			_floorPlan.load(shot.floorplan)
 		}
 		
 		private function onOverlayChanged(overlay:Object):void {
@@ -178,7 +194,7 @@ package com.mpc.te.videotour
 		private function start():void {
 			onResize(null);
 			removeChild(_loaderAnimation);
-			_model.setShotByID('shot11');
+			_model.setShotByID('shot1');
 			stage.addEventListener(Event.ENTER_FRAME, render);
 		}
 		
@@ -222,7 +238,7 @@ package com.mpc.te.videotour
 		private function onAddedToStage(e:Event):void {
 			
 			SWFProfiler.init(stage, this);
-			Debug.instance.init(stage);
+			//Debug.instance.init(stage);
 			
 			stage.align = StageAlign.TOP_LEFT;
 			stage.scaleMode = StageScaleMode.NO_SCALE;
@@ -235,11 +251,16 @@ package com.mpc.te.videotour
 			_player.ready.add(loadData); ///////////////////// when player is ready then JSON data files starts being loaded
 			addChild(_player);
 			
+			_floorPlan = new FloorPlan();
+			addChild(_floorPlan);
+			
 			_hotpsotRenderer = new HotspotRenderer()
 			addChild(_hotpsotRenderer);
 			
 			_pictureRenderer = new PictureRenderer();
 			addChild(_pictureRenderer);
+			
+			
 			
 			_overlay = new Overlay();
 			_overlay.closed.add(onOverlayClosed);
@@ -266,6 +287,7 @@ package com.mpc.te.videotour
 		private var _hotpsotRenderer:HotspotRenderer;
 		private var _pictureRenderer:PictureRenderer;
 		private var _loaderAnimation:LoaderAnimation;
+		private var _floorPlan:FloorPlan;
 		
 	}
 }
