@@ -82,13 +82,16 @@ package com.mpc.te.videotour
 			_player.resize(videoRectangle);
 			
 			_floorPlan.y = videoRectangle.y + 30;
+			_floorPlan.x = videoRectangle.x;
 			
-			// Correct hotspot y position
+			// Correct hotspot position
 			_hotpsotRenderer.y = videoRectangle.y;
+			_hotpsotRenderer.x = videoRectangle.x;
 			
 			// Picuture Renderer needs video and stage dimensions plus y correction
 			_pictureRenderer.resize(stageRectangle, videoRectangle);
 			_pictureRenderer.y = videoRectangle.y;
+			_pictureRenderer.x = videoRectangle.x;
 			
 			// Overlay
 			_overlay.resize(stageRectangle, videoRectangle);
