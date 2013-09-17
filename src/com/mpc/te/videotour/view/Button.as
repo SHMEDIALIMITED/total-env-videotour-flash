@@ -9,7 +9,7 @@ package com.mpc.te.videotour.view {
 		
 		
 		
-		private var _clicked:Signal;
+		protected var _clicked:Signal;
 		protected var _model:Object;
 		
 		public function Button() {
@@ -21,7 +21,7 @@ package com.mpc.te.videotour.view {
 			this.addEventListener(MouseEvent.MOUSE_OUT, onMouseOut);
 		}
 		
-		private function onMouseDown(e:MouseEvent):void {
+		protected function onMouseDown(e:MouseEvent):void {
 			_clicked.dispatch(_model);
 		}
 		

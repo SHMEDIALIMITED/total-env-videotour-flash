@@ -10,6 +10,7 @@ package com.mpc.te.videotour.view {
 
 		private var _video:VideoPlayer;	
 		private var _image:Image;
+		private var _remote:RemoteControl;
 		private var _closeButton:OverlayCloseButtonView;
 		private var _backdrop:Shape;
 		private var _text:OverlayTextView;
@@ -37,6 +38,10 @@ package com.mpc.te.videotour.view {
 			addChild(_image);
 			_image.visible = false;	
 			
+			_remote = new RemoteControl();
+			_remote.visible = false;
+			addChild(_remote);
+			
 			_closeButton = new OverlayCloseButtonView();
 			addChild(_closeButton);
 			
@@ -53,10 +58,15 @@ package com.mpc.te.videotour.view {
 				case "1" : // Video
 					_text.text = model.text;
 					_video.play(model.videoSource[0]);
-					
+					trace('HERE')
 					_backdrop.visible = false;
 					_video.visible = true;
 					_text.visible = true;
+					
+					_remote.visible = true;
+					_remote.active = true;
+					_remote.load(_video, model);
+					
 					break;
 					
 				case "2" : // Image
@@ -70,6 +80,13 @@ package com.mpc.te.videotour.view {
 					needsRendering = true;
 					
 					break;
+				
+				case "3" : // Video with Remote Control
+					
+					
+					break;
+				
+				
 			}
 			
 			_loaderAnimation.progress = 0;
@@ -113,6 +130,9 @@ package com.mpc.te.videotour.view {
 			_image.x = rectangle.x - _image.width * .5;
 			_image.y = rectangle.y - _image.height * .5;
 			
+			_remote.x = videoRectangle.x + 30;
+			_remote.y = videoRectangle.y + videoRectangle.height - _remote.height - 30;
+			
 			_closeButton.x = rectangle.width - _closeButton.width * .5 - 30;
 			_closeButton.y = _closeButton.height * .5 + 30;
 			
@@ -131,6 +151,8 @@ package com.mpc.te.videotour.view {
 				_video.render(time);
 			} else if(needsRendering) {
 				_loaderAnimation.draw(time)
+			} else if(_remote.active) {
+				_remote.update();
 			}
 		}
 		

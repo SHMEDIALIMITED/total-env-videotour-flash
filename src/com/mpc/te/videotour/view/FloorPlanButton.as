@@ -14,9 +14,6 @@ package com.mpc.te.videotour.view {
 		
 		public function FloorPlanButton() {
 			super();
-			
-			trace('LLLLLLHEHEHEHEHE')
-			
 			bg.stop();
 			TweenPlugin.activate([TintPlugin]);
 		}

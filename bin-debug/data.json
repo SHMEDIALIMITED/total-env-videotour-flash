@@ -19652,10 +19652,10 @@
      
      {
           "lightboxId": "curtains",
-          "type" : "3",
+          "type" : "1",
           "videoLength" : 45.07,
-          "remoteLabel1" : "Open",
-          "remoteLabel2" : "Close", 
+          "remoteLabel1" : "Close",
+          "remoteLabel2" : "Open", 
           "videoSource": ["videos/3.mp4", "videos/3.ogv"],
           "videoSourceLow": ["videos/3_low.mp4", "videos/3_low.ogv"],
           "imageSource": "",

@@ -42,6 +42,18 @@ package com.mpc.te.videotour.view {
 			_stream.dispose();
 		}
 		
+		public function seek(time:Number):void {
+			_stream.seek(time);
+			resume();
+		}
+		
+		public function resume():void {
+			if(_paused) {
+				_stream.resume();
+				_paused = false;
+			}
+		}
+		
 		
 		protected function onNetstreamPlayStart(e:NetStatusEvent):void {
 			
@@ -152,7 +164,7 @@ package com.mpc.te.videotour.view {
 		
 		private function onAddedToStage(e:Event):void {
 			this.removeEventListener(Event.ADDED_TO_STAGE, onAddedToStage);
-			if(stage.stageVideos.length > _stageVideoIndex) {
+			if(stage.stageVideos.length > _stageVideoIndex && _stageVideoIndex != -1) {
 				_stageVideo = stage.stageVideos[_stageVideoIndex];
 				_stageVideo.depth = _stageVideoIndex;
 				_stageVideo.addEventListener(StageVideoEvent.RENDER_STATE, stageVideoStateChange);  
@@ -200,7 +212,7 @@ package com.mpc.te.videotour.view {
 		}
 		
 		
-		private var _stageVideoIndex:int;
+		protected var _stageVideoIndex:int;
 		protected var _stream:NetStream;
 		private var _connection:NetConnection;
 		private var _stageVideo:StageVideo;

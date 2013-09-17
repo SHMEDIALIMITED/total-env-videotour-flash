@@ -12,6 +12,7 @@ package com.mpc.te.videotour
 	import com.mpc.te.videotour.view.Overlay;
 	import com.mpc.te.videotour.view.Photo;
 	import com.mpc.te.videotour.view.PictureRenderer;
+	import com.mpc.te.videotour.view.StageVideoPlayer;
 	import com.mpc.te.videotour.view.VideoPlayer;
 	
 	import flash.display.Sprite;
@@ -20,6 +21,8 @@ package com.mpc.te.videotour
 	import flash.events.Event;
 	import flash.geom.Rectangle;
 	import flash.net.URLRequest;
+	import flash.text.TextField;
+	import flash.utils.getTimer;
 	
 	import org.osflash.signals.Signal;
 	
@@ -37,14 +40,17 @@ package com.mpc.te.videotour
 			
 			_model.updateDeltaTime();
 			
+			_floorPlan.update(_player.time);
 			_hotpsotRenderer.render(_player.time);
 			_pictureRenderer.render(_player.time);
-			
-			_floorPlan.update(_player.time);
+			_overlay.render(_player.time);
 			
 			if(_player.buffering) {
 				_player.render(_model.time);
 			}
+			
+			
+			
 			
 		}
 		
@@ -101,25 +107,14 @@ package com.mpc.te.videotour
 		
 		
 		private function releaseShot():void {
+			var hotspots:Array = _model.shot.hotspotTracks;
+			var hotspot:Object;
 			
-			const hotspots:Array = _model.shot.hotspotTracks;
-			const pictures:Array = _model.shot.pictureTracks;
-			var hotspot:Object, picture:Object, i:int, l:int;
-			
-			i = 0, l = hotspots.length;
-			for(; i < l; ++i) {
+			for(var i:int = 0; i < hotspots.length; ++i) {
 				hotspot = hotspots[i];
 				(hotspot.view as HotspotView).destroy();
 				if(_hotpsotRenderer.contains((hotspot.view as HotspotView)))
 					_hotpsotRenderer.removeChild((hotspot.view as HotspotView));
-			}
-			
-			i = 0, l = pictures.length;
-			for(; i < l; ++i) {
-				picture = pictures[i];
-				(picture.view as Photo).destroy();
-				if(_pictureRenderer.contains((picture.view as Photo)))
-					_pictureRenderer.removeChild((picture.view as Photo));
 			}
 		}
 		
@@ -177,6 +172,7 @@ package com.mpc.te.videotour
 			_player.pause();
 			addChild(_overlay);
 			_hotpsotRenderer.visible = false;
+			_pictureRenderer.visible = false;
 			_overlay.show(overlay);
 		}
 		
@@ -185,6 +181,7 @@ package com.mpc.te.videotour
 				removeChild(_overlay);
 				_overlay.hide(overlay);
 				_hotpsotRenderer.visible = true;
+				_pictureRenderer.visible = true;
 				_player.play();
 			}
 		}
@@ -202,7 +199,7 @@ package com.mpc.te.videotour
 		private function start():void {
 			onResize(null);
 			removeChild(_loaderAnimation);
-			_model.setShotByID('shot1');
+			_model.setShotByID('shot2');
 			stage.addEventListener(Event.ENTER_FRAME, render);
 		}
 		

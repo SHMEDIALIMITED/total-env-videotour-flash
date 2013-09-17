@@ -23,8 +23,6 @@ package com.mpc.te.videotour.view {
 		public function render(time):void {
 			_loaderAnimation.progress = _stream.bufferLength / _stream.bufferTime;
 			_loaderAnimation.draw(time);
-			
-			
 		}
 		
 		public override function resize(rect:Rectangle):void {
