@@ -33,7 +33,7 @@ package com.mpc.te.videotour.view {
 			const videoWidth:Number = _videoRectangle.width;
 			const videoHeight:Number = _videoRectangle.height;
 			
-			var clippingA:Number, clippingB:Number;
+			var clippingA:Array, clippingB:Array;
 			
 			// update picture tracks
 			var i:int,j:int,k:int, size:int,mf:Number;
@@ -132,6 +132,7 @@ package com.mpc.te.videotour.view {
 								}
 								clippingA = vidpic.clipping[ j ];
 								clippingB = vidpic.clipping[ j + 1 ];
+								
 								mf = (time - clippingA[ 0 ]) / ( clippingB[ 0 ] - clippingA[ 0 ]);
 								
 								clipX0mf = clippingA[1] * (1 - mf) + clippingB[1] * mf;
