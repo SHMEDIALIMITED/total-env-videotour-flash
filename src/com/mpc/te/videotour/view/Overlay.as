@@ -34,7 +34,7 @@ package com.mpc.te.videotour.view {
 			
 			_image = new Image();
 			_image.loaded.add(onImageLoaded);
-			_image.progressed.add(onImageLoaded);
+			_image.progressed.add(onProgress);
 			addChild(_image);
 			_image.visible = false;	
 			

@@ -15085,7 +15085,7 @@
                 ]
                },
                {
-                    "hotspotType": 2,
+                    "hotspotType": 1,
                     "labelText": "Back",
                     "target": "shot6",
                     "keyframes":[

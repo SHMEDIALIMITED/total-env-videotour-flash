@@ -40,7 +40,7 @@ package com.mpc.te.videotour
 			_floorPlan.update(_player.time);
 			_hotpsotRenderer.render(_player.time);
 			_pictureRenderer.render(_player.time);
-			_overlay.render(_player.time);
+			_overlay.render(_model.time);
 			
 			if(_player.buffering) {
 				_player.render(_model.time);
@@ -203,7 +203,7 @@ package com.mpc.te.videotour
 		private function start():void {
 			onResize(null);
 			removeChild(_loaderAnimation);
-			_model.setShotByID('shot14');
+			_model.setShotByID('shot1');
 			stage.addEventListener(Event.ENTER_FRAME, render);
 		}
 		
