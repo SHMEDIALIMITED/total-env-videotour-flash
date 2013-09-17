@@ -4,6 +4,8 @@ package com.mpc.te.videotour.view {
 	
 	import flash.display.Bitmap;
 	import flash.display.BitmapData;
+	import flash.display.Graphics;
+	import flash.display.Shape;
 	import flash.display.Sprite;
 	import flash.filters.BlurFilter;
 	import flash.geom.Point;
@@ -17,10 +19,11 @@ package com.mpc.te.videotour.view {
 		private var _distort:DistortImage;
 		private var _bitmapData:BitmapData;
 		private var _blur:BlurFilter;
+		private var _mask:Shape;
 		
 		
 		public function Photo(){
-			_blur = new BlurFilter(2,2,3);
+			_blur = new BlurFilter(2,2,3);	
 		}
 		
 		public function render(quad:Quad):void {
@@ -34,9 +37,20 @@ package com.mpc.te.videotour.view {
 				new Point(quad.Bx, quad.By),
 				new Point(quad.Ax, quad.Ay),
 				new Point(quad.Cx, quad.Cy),
-				new Point(quad.Dx, quad.Dy))
-				
-			
+				new Point(quad.Dx, quad.Dy));
+					
+		}
+		
+		public function updateMask(quad:Quad):void {
+			if(!_mask) return;
+			const g:Graphics = _mask.graphics;
+			g.clear();
+			g.beginFill(0xff0000);
+			g.moveTo(quad.Ax, quad.Ay);
+			g.lineTo(quad.Bx, quad.By);
+			g.lineTo(quad.Dx, quad.Dy);
+			g.lineTo(quad.Cx, quad.Cy);
+			g.endFill();
 		}
 		
 		private function onImageLoaded(image:Image):void {
@@ -44,10 +58,13 @@ package com.mpc.te.videotour.view {
 			_bitmapData.draw(image);
 			
 			var b:Bitmap = new Bitmap(_bitmapData);
-			//addChild(b);
-			
 			
 			_distort = new DistortImage(image.width, image.height, precision, precision);
+			
+			_mask = new Shape();
+			addChild(_mask)
+			mask = _mask;
+			
 			image.destroy();
 		}
 		
@@ -62,6 +79,16 @@ package com.mpc.te.videotour.view {
 			image.loaded.addOnce(onImageLoaded);
 		}
 		
+		public function get imageWidth():Number {
+			if(!_bitmapData) return 0.0;
+			return _bitmapData.width;
+		}
+		
+		public function get imageHeight():Number {
+			if(!_bitmapData) return 0.0;
+			return _bitmapData.height;
+		}
+		
 		public function destroy():void {
 			this.filters.length = 0;
 			_blur = null;
@@ -69,6 +96,10 @@ package com.mpc.te.videotour.view {
 			_bitmapData = null;
 			graphics.clear();
 			_distort = null;
+			_mask.graphics.clear();
+			removeChild(_mask);
+			_mask = null;
+			mask = null;	
 		}
 	}
 }

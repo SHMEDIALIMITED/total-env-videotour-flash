@@ -12,6 +12,7 @@ package com.mpc.te.videotour.view {
 		private const quad:Quad = new Quad();
 		private const quadA:Quad = new Quad();
 		private const quadB:Quad = new Quad();
+		private const clipQuad:Quad = new Quad();
 
 		private var _videoRectangle:Rectangle;
 		private var _stageRectangle:Rectangle;
@@ -143,11 +144,30 @@ package com.mpc.te.videotour.view {
 							}
 					}
 //					var s = ' '; // delimiter. either space or comma depending on browser.
-//					var top = (clipY0mf * pic.currentHeight >>0) + 'px';
-//					var left = (clipX0mf * pic.currentWidth >>0) + 'px';
-//					var right = (clipX1mf * pic.currentWidth >>0) + 'px';
-//					var bottom = (clipY1mf * pic.currentHeight >>0) + 'px';
+					var top:Number = (clipY0mf * quad.height >>0);
+					var left:Number = (clipX0mf * quad.width >>0);
+					var right:Number = (clipX1mf * quad.width >>0);
+					var bottom:Number = (clipY1mf * quad.height >>0);
 //					pic.obj.style.clip = 'rect(' + top +s+ right +s+ bottom +s+ left +s+ ')';
+					
+					
+					
+					clipQuad.Ax = quad.Ax;
+					clipQuad.Ay = quad.Ay;
+					
+					clipQuad.Bx = quad.Bx - (quad.width - right);
+					clipQuad.By = quad.By - top;
+					
+					clipQuad.Cx = quad.Cx;
+					clipQuad.Cy = quad.Cy;
+					
+					clipQuad.Dx = quad.Dx - (quad.width - right);
+					clipQuad.Dy = quad.Dy;
+					
+					
+					
+					pic.updateMask(clipQuad);
+					
 					
 				}else {
 					if(contains(pic)) removeChild(pic);

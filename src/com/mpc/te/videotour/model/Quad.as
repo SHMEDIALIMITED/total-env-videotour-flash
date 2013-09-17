@@ -35,5 +35,13 @@ package com.mpc.te.videotour.model {
 			Cy *= scaleY;
 			Dy *= scaleY;
 		}
+		
+		public function get width():Number {
+			return Math.min(Bx, Dx) - Math.min(Ax, Cx);		
+		}
+		
+		public function get height():Number {
+			return Math.min(Cy, Dy) - Math.min(Ay, By);		
+		}
 	}
 }
