@@ -12,7 +12,6 @@ package com.mpc.te.videotour
 	import com.mpc.te.videotour.view.Overlay;
 	import com.mpc.te.videotour.view.Photo;
 	import com.mpc.te.videotour.view.PictureRenderer;
-	import com.mpc.te.videotour.view.StageVideoPlayer;
 	import com.mpc.te.videotour.view.VideoPlayer;
 	
 	import flash.display.Sprite;
@@ -21,8 +20,6 @@ package com.mpc.te.videotour
 	import flash.events.Event;
 	import flash.geom.Rectangle;
 	import flash.net.URLRequest;
-	import flash.text.TextField;
-	import flash.utils.getTimer;
 	
 	import org.osflash.signals.Signal;
 	
@@ -47,11 +44,7 @@ package com.mpc.te.videotour
 			
 			if(_player.buffering) {
 				_player.render(_model.time);
-			}
-			
-			
-			
-			
+			}	
 		}
 		
 		
@@ -107,14 +100,24 @@ package com.mpc.te.videotour
 		
 		
 		private function releaseShot():void {
-			var hotspots:Array = _model.shot.hotspotTracks;
-			var hotspot:Object;
+			const hotspots:Array = _model.shot.hotspotTracks;
+			const pictures:Array = _model.shot.pictureTracks;
+			var hotspot:HotspotView;
 			
 			for(var i:int = 0; i < hotspots.length; ++i) {
-				hotspot = hotspots[i];
-				(hotspot.view as HotspotView).destroy();
-				if(_hotpsotRenderer.contains((hotspot.view as HotspotView)))
-					_hotpsotRenderer.removeChild((hotspot.view as HotspotView));
+				hotspot = hotspots[i].view as HotspotView;
+				
+				hotspot.destroy();
+				if(_hotpsotRenderer.contains(hotspot))
+					_hotpsotRenderer.removeChild(hotspot);
+			}
+			
+			var photo:Photo;
+			for(i = 0; i < pictures.length; ++i) {
+				photo = pictures[i].view as Photo;
+				photo.destroy();
+				if(_pictureRenderer.contains(photo))
+					_pictureRenderer.removeChild(photo);
 			}
 		}
 		
@@ -173,6 +176,7 @@ package com.mpc.te.videotour
 			addChild(_overlay);
 			_hotpsotRenderer.visible = false;
 			_pictureRenderer.visible = false;
+			_floorPlan.visible = false;
 			_overlay.show(overlay);
 		}
 		
@@ -182,6 +186,7 @@ package com.mpc.te.videotour
 				_overlay.hide(overlay);
 				_hotpsotRenderer.visible = true;
 				_pictureRenderer.visible = true;
+				_floorPlan.visible = true;
 				_player.play();
 			}
 		}
@@ -195,7 +200,6 @@ package com.mpc.te.videotour
 		///////////////// INIT CODE ////////////////////////////////////////////////////////////////////////////////////
 		///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-		
 		private function start():void {
 			onResize(null);
 			removeChild(_loaderAnimation);
@@ -229,7 +233,7 @@ package com.mpc.te.videotour
 		
 		private function loadData():void {
 			var service:HTTPService = new HTTPService();
-			service.completed.add(parseData);
+			service.completed.add(parseData); ///////////////////// when data is loaded then Model parses JSON
 			service.progressed.add(onDataProgress);
 			var request:URLRequest = new URLRequest('data.json');
 			service.send(request);
