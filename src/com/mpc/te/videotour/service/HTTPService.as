@@ -55,7 +55,7 @@ package com.mpc.te.videotour.service {
 		}
 		
 		protected function onProgress(e:ProgressEvent):void {
-			_progressed.dispatch(e.bytesLoaded / e.bytesTotal * 100);
+			_progressed.dispatch(e.bytesLoaded / e.bytesTotal);
 		}
 		
 		public function destroy():void {

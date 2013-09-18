@@ -93,7 +93,7 @@ package com.mpc.te.videotour.view {
 				
 			}
 			
-			_loaderAnimation.progress = 0;
+			//_loaderAnimation.progress = 0;
 			
 			
 			_closeButton.model = model;
@@ -160,14 +160,14 @@ package com.mpc.te.videotour.view {
 			if(_video.buffering) {
 				_video.render(time);
 			} else if(needsRendering) {
-				_loaderAnimation.draw(time)
+				
 			} else if(_remote.active) {
 				_remote.update();
 			}
 		}
 		
 		private function onProgress(percentage:Number):void {
-			_loaderAnimation.progress = percentage;
+			//_loaderAnimation.progress = percentage;
 		}
 		
 		private function onImageLoaded(image:Image):void {

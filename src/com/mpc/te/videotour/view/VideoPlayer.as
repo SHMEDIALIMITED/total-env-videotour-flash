@@ -1,7 +1,8 @@
 package com.mpc.te.videotour.view {
 	
 	import flash.events.NetStatusEvent;
-	import flash.geom.Rectangle;
+	
+	import org.osflash.signals.Signal;
 
 	public final class VideoPlayer extends StageVideoPlayer {
 		
@@ -9,11 +10,16 @@ package com.mpc.te.videotour.view {
 		private var _buffering:Boolean;
 		private var _bandwidth:int;
 		
+		public var bufferingStarted:Signal;
+		public var bufferingEnded:Signal;
+		public var bufferProgressed:Signal;
+		
 		public function VideoPlayer(stageVideoIndex:int) {
 			super(stageVideoIndex);
-			_loaderAnimation = new LoaderAnimation();
 			
-			addChild(_loaderAnimation);			
+			bufferingStarted = new Signal();
+			bufferingEnded = new Signal();
+			bufferProgressed = new Signal(Number);			
 		}
 		
 		public function set bandwidth(val:int):void {
@@ -21,25 +27,22 @@ package com.mpc.te.videotour.view {
 		}
 		
 		public function render(time):void {
-			_loaderAnimation.progress = _stream.bufferLength / _stream.bufferTime;
-			_loaderAnimation.draw(time);
-		}
-		
-		public override function resize(rect:Rectangle):void {
-			super.resize(rect);
-			_loaderAnimation.x = rect.width * .5 - 100;
-			_loaderAnimation.y = rect.height * .5 - 50 + rect.y;
+			bufferProgressed.dispatch(_stream.bufferLength / _stream.bufferTime);
 		}
 		
 		private function showLoaderAnimation():void {
 			_buffering = true;
-			_loaderAnimation.graphics.clear();
-			_stream.bufferTime = _bandwidth / 100;
-			
+			bufferingStarted.dispatch();
+		}
+		
+		private function hideLoaderAnimation():void {
+			_buffering = false;
+			bufferingEnded.dispatch();
 		}
 		
 		protected override function onNetstreamBufferEmpty(e:NetStatusEvent):void {
 			showLoaderAnimation();
+			_stream.bufferTime = 4 / (_bandwidth * 0.001);
 		}
 		
 		protected override function onNetstreamPlayStart(e:NetStatusEvent):void {
@@ -47,13 +50,12 @@ package com.mpc.te.videotour.view {
 		}	
 		
 		protected override function onNetstreamBufferFull(e:NetStatusEvent):void {
-			_buffering = false;
-			_loaderAnimation.graphics.clear();
+			hideLoaderAnimation();
+			
 		}
 		
 		protected override function onNetstreamBufferFlush(e:NetStatusEvent):void {
-			_buffering = false;
-			_loaderAnimation.graphics.clear();
+			hideLoaderAnimation();
 		}
 		
 		public function get buffering():Boolean {

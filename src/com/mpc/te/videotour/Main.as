@@ -91,8 +91,8 @@ package com.mpc.te.videotour
 			_overlay.resize(stageRectangle, videoRectangle);
 			
 			// Loader Animation
-			_loaderAnimation.x = halfWidth - 100;
-			_loaderAnimation.y = halfHeight - 50;
+			_loaderAnimation.x = halfWidth;
+			_loaderAnimation.y = halfHeight;
 			
 			
 		}
@@ -190,9 +190,7 @@ package com.mpc.te.videotour
 				_player.play();
 			}
 		}
-	
-		
-		
+				
 		
 		
 		///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -201,18 +199,18 @@ package com.mpc.te.videotour
 		///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		private function start():void {
+			_loaderAnimation.stop();
 			onResize(null);
-			removeChild(_loaderAnimation);
 			_model.setShotByID('shot1');
 			stage.addEventListener(Event.ENTER_FRAME, render);
+			
 		}
 		
 		private function parseData(res:Object, service:HTTPService):void {
-			stage.removeEventListener(Event.ENTER_FRAME, renderLoader);
+			
 			
 			_model.bandwidth = _player.bandwidth = service.bandwidth;
-			
-			Debug.instance.log('Bandwidth: ' + _model.bandwidth);
+		
 			
 			service.destroy();
 			
@@ -227,21 +225,13 @@ package com.mpc.te.videotour
 			start();
 		}
 		
-		private function onDataProgress(percentage:Number):void {
-			_loaderAnimation.progress = percentage * .01;
-		}
-		
 		private function loadData():void {
 			var service:HTTPService = new HTTPService();
 			service.completed.add(parseData); ///////////////////// when data is loaded then Model parses JSON
-			service.progressed.add(onDataProgress);
+			service.progressed.add(_loaderAnimation.setProgress);
 			var request:URLRequest = new URLRequest('data.json');
 			service.send(request);
-			stage.addEventListener(Event.ENTER_FRAME, renderLoader);
-		}
-		
-		private function renderLoader(e:Event):void {			
-			_loaderAnimation.draw(_model.updateDeltaTime());
+			
 		}
 		
 		private function onAddedToStage(e:Event):void {
@@ -254,6 +244,9 @@ package com.mpc.te.videotour
 			
 			
 			_model = new Model();
+			
+			_loaderAnimation = new LoaderAnimation();
+			_loaderAnimation.start();
 			
 			
 			_player = new VideoPlayer(0);
@@ -274,8 +267,13 @@ package com.mpc.te.videotour
 			_overlay = new Overlay();
 			_overlay.closed.add(onOverlayClosed);
 			
-			_loaderAnimation = new LoaderAnimation();
+			
 			addChild(_loaderAnimation);
+			
+			
+			_player.bufferingStarted.add(_loaderAnimation.start);
+			_player.bufferingEnded.add(_loaderAnimation.stop);
+			_player.bufferProgressed.add(_loaderAnimation.setProgress);
 			
 			
 			onResize(null)
