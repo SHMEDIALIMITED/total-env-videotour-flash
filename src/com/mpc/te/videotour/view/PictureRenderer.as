@@ -1,13 +1,13 @@
 package com.mpc.te.videotour.view {
-	import com.mpc.te.videotour.model.Model;
 	import com.mpc.te.videotour.model.Quad;
 	
+	import flash.display.Shape;
 	import flash.display.Sprite;
 	import flash.geom.Rectangle;
 	
 	public final class PictureRenderer extends Sprite {
 		
-		private var _model:Model;
+		private var _model:Array;
 		
 		private const quad:Quad = new Quad();
 		private const quadA:Quad = new Quad();
@@ -17,19 +17,53 @@ package com.mpc.te.videotour.view {
 		private var _videoRectangle:Rectangle;
 		private var _stageRectangle:Rectangle;
 		
-		public function set model(val:Model):void {
+		private var _mask:Shape;
+		
+		public function PictureRenderer() {
+			_mask = new Shape();
+			addChild(_mask);
+			mask = _mask;
+			_model = [];
+		}
+		
+		public function set model(val:Array):void {
+			
+			
+			
+			var photo:Photo;
+			for(var i:int = 0; i < _model.length; ++i) {
+				photo = _model[i].view as Photo;
+				photo.destroy();
+				if(contains(photo))
+					removeChild(photo);
+			}
+			
+			
+			var picture:Object;
+			for(i = 0; i < val.length; ++i) {
+				picture = val[i];
+				picture.view = new Photo();
+				picture.view.alpha = picture.opacity;
+				picture.view.blur = picture.blur;
+				picture.view.src = 'photos/gandhi.jpg';
+			}
+			
 			_model = val;
 		}
 		
 		public function resize(stageRectangle:Rectangle, videoRectangle:Rectangle):void {
 			_stageRectangle = stageRectangle;
 			_videoRectangle = videoRectangle;
+			_mask.graphics.clear();
+			_mask.graphics.beginFill(0x0000ff);
+			_mask.graphics.drawRect(0,0,videoRectangle.width, videoRectangle.height);
+			_mask.graphics.endFill();
 		}
 		
 		public function render(time:Number):void {
 			
 			
-			const pictureTracks:Array = _model.shot.pictureTracks;
+			const pictureTracks:Array = _model;
 			
 			const videoWidth:Number = _videoRectangle.width;
 			const videoHeight:Number = _videoRectangle.height;

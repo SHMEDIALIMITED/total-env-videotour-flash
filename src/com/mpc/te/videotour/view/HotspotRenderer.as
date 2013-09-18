@@ -4,19 +4,69 @@ package com.mpc.te.videotour.view {
 	import com.mpc.te.videotour.model.Model;
 	
 	import flash.display.DisplayObject;
+	import flash.display.Shape;
 	import flash.display.Sprite;
+	import flash.geom.Rectangle;
+	
+	import org.osflash.signals.Signal;
 	
 	public final class HotspotRenderer extends Sprite {
 		
-		private var _model:Model;
+		private var _model:Array;
+		private var _videoRectangle:Rectangle;
+		private var _stageRectangle:Rectangle;
+		private var _mask:Shape;
+		private var _hotspotClicked:Signal;
 		
-		public function set model(val:Model):void {
+		public function HotspotRenderer() {
+			_mask = new Shape();
+			addChild(_mask);
+			mask = _mask;
+			_hotspotClicked = new Signal();
+			_model = [];
+		}
+		
+		public function set model(val:Array):void {
+			
+			
+			var hotspotView:HotspotView;
+			
+			for(var i:int = 0; i < _model.length; ++i) {
+				hotspotView = _model[i].view as HotspotView;
+				hotspotView.destroy();
+				if(contains(hotspotView))
+					removeChild(hotspotView);
+			}
+			
+			
+			var hotspot:Object;
+			for(i = 0; i < val.length; ++i) {
+				hotspot = val[i];
+				hotspot.view = new HotspotView()
+				hotspot.view.label = (hotspot.labelText as String).toUpperCase();
+				hotspot.view.model = hotspot;
+				(hotspot.view as HotspotView).clicked.add(onHotpsotClicked);
+			}
+			
 			_model = val;
+		}
+		
+		private function onHotpsotClicked(hotspot:Object):void {
+			_hotspotClicked.dispatch(hotspot);
+		}
+		
+		public function resize(stageRectangle:Rectangle, videoRectangle:Rectangle):void {
+			_stageRectangle = stageRectangle;
+			_videoRectangle = videoRectangle;
+			_mask.graphics.clear();
+			_mask.graphics.beginFill(0xff0000);
+			_mask.graphics.drawRect(0,0,videoRectangle.width, videoRectangle.height);
+			_mask.graphics.endFill();
 		}
 		
 		public function render(playerTime:Number):void {
 			
-			const hotspots:Array = _model.shot.hotspotTracks;
+			const hotspots:Array = _model;
 			
 			var hotspot:Object, vidhotspot:Object;
 			
@@ -50,8 +100,8 @@ package com.mpc.te.videotour.view {
 					var Px:Number = Ax * (1 - mf) + Bx * mf;
 					var Py:Number = Ay * (1 - mf) + By * mf;
 					
-					var xPos:Number = Px * stage.stageWidth;
-					var yPos:Number = Py * (stage.stageWidth / 16 * 9);
+					var xPos:Number = Px * _videoRectangle.width;
+					var yPos:Number = Py * _videoRectangle.height;
 					
 					if(playerTime < 0.5) {
 						addChild(hotspot as DisplayObject) ;
@@ -77,6 +127,10 @@ package com.mpc.te.videotour.view {
 					}			
 				}
 			}
+		}
+		
+		public function get hotspotClicked():Signal {
+			return _hotspotClicked;
 		}
 	}
 }

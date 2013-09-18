@@ -164,6 +164,9 @@ package com.mpc.te.videotour.view {
 		
 		private function onAddedToStage(e:Event):void {
 			this.removeEventListener(Event.ADDED_TO_STAGE, onAddedToStage);
+			
+			trace('STAGE VIDEOS:' , stage.stageVideos)
+			
 			if(stage.stageVideos.length > _stageVideoIndex && _stageVideoIndex != -1) {
 				_stageVideo = stage.stageVideos[_stageVideoIndex];
 				_stageVideo.depth = _stageVideoIndex;
@@ -214,15 +217,18 @@ package com.mpc.te.videotour.view {
 		
 		protected var _stageVideoIndex:int;
 		protected var _stream:NetStream;
+		protected var _length:Number;
 		private var _connection:NetConnection;
 		private var _stageVideo:StageVideo;
 		private var	_video:Video;
 		private var _paused:Boolean;
 		private var _readySignal:Signal;
 		private var _ready:Boolean;
+		
 		protected var _client:Object = { 
 			
 			onMetaData : function(info:Object):void {
+				_length = info.duration;
 				trace("metadata: duration=" + info.duration + " width=" + info.width + " height=" + info.height + " framerate=" + info.framerate);
 			},
 			

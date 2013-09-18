@@ -40,8 +40,10 @@ package com.mpc.te.videotour.view {
 		}
 		
 		protected override function onNetstreamBufferEmpty(e:NetStatusEvent):void {
-			showLoaderAnimation();
-			//_stream.bufferTime = 4 / (_bandwidth * 0.001);
+			if(_stream.time < _length) showLoaderAnimation();
+			_stream.bufferTime = 4 / (_bandwidth * 0.001);
+			Debug.instance.log('BUFFER TIME: ' + _stream.bufferTime)
+			
 		}
 		
 		protected override function onNetstreamPlayStart(e:NetStatusEvent):void {

@@ -2,6 +2,8 @@ package com.mpc.te.videotour
 {
 	
 	import com.flashdynamix.utils.SWFProfiler;
+	import com.greensock.TweenMax;
+	import com.greensock.easing.Linear;
 	import com.mpc.te.videotour.model.Model;
 	import com.mpc.te.videotour.service.HTTPService;
 	import com.mpc.te.videotour.view.Debug;
@@ -14,6 +16,7 @@ package com.mpc.te.videotour
 	import com.mpc.te.videotour.view.PictureRenderer;
 	import com.mpc.te.videotour.view.VideoPlayer;
 	
+	import flash.display.Shape;
 	import flash.display.Sprite;
 	import flash.display.StageAlign;
 	import flash.display.StageScaleMode;
@@ -80,8 +83,10 @@ package com.mpc.te.videotour
 			_floorPlan.x = videoRectangle.x;
 			
 			// Correct hotspot position
-			_hotpsotRenderer.y = videoRectangle.y;
+			_hotpsotRenderer.resize(stageRectangle, videoRectangle);
 			_hotpsotRenderer.x = videoRectangle.x;
+			_hotpsotRenderer.y = videoRectangle.y;
+			
 			
 			// Picuture Renderer needs video and stage dimensions plus y correction
 			_pictureRenderer.resize(stageRectangle, videoRectangle);
@@ -96,30 +101,9 @@ package com.mpc.te.videotour
 			_loaderAnimation.y = halfHeight;
 			_loaderAnimation.resize(stageRectangle);
 			
-		}
-		
-		
-		
-		private function releaseShot():void {
-			const hotspots:Array = _model.shot.hotspotTracks;
-			const pictures:Array = _model.shot.pictureTracks;
-			var hotspot:HotspotView;
+			_black.width = stageRectangle.width;
+			_black.height = stageRectangle.height;
 			
-			for(var i:int = 0; i < hotspots.length; ++i) {
-				hotspot = hotspots[i].view as HotspotView;
-				
-				hotspot.destroy();
-				if(_hotpsotRenderer.contains(hotspot))
-					_hotpsotRenderer.removeChild(hotspot);
-			}
-			
-			var photo:Photo;
-			for(i = 0; i < pictures.length; ++i) {
-				photo = pictures[i].view as Photo;
-				photo.destroy();
-				if(_pictureRenderer.contains(photo))
-					_pictureRenderer.removeChild(photo);
-			}
 		}
 		
 		
@@ -133,7 +117,6 @@ package com.mpc.te.videotour
 		///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		private function onHotpsotClicked(hotspot:Object):void {
 			if(hotspot.hotspotType == 1) {			
-				releaseShot();
 				_model.setShotByID(hotspot.target);
 			}else {	
 				_model.setOverlayByID(hotspot.target);
@@ -141,53 +124,81 @@ package com.mpc.te.videotour
 		}
 		
 		private function onShotChanged(shot:Object):void {
+			_black.visible = true;
+			_black.alpha = 0;
 			
-			const hotspots:Array = shot.hotspotTracks;
-			const pictures:Array = shot.pictureTracks;
-			
-			var hotspot:Object;
-			var picture:Object;
-			
-			
-			var i:int;
-			for(i = 0; i < hotspots.length; ++i) {
-				hotspot = hotspots[i];
-				hotspot.view = new HotspotView()
-				hotspot.view.label = (hotspot.labelText as String).toUpperCase();
-				hotspot.view.model = hotspot;
-				(hotspot.view as HotspotView).clicked.add(onHotpsotClicked);
+			if(_model.previousShot) {
+				TweenMax.to(_black, 1.0, {alpha:1, onComplete:function(shot:Object):void {
+					
+					_hotpsotRenderer.model = shot.hotspotTracks;;
+					_pictureRenderer.model = shot.pictureTracks;;
+					_player.play(shot.videoSource[0]);
+					_floorPlan.load(shot.floorplan);
+					
+					TweenMax.to(_black, 1.0, {alpha:0, onComplete:function():void {
+						_black.visible = false;
+					}, ease:Linear.easeNone});
+					
+					
+				}, onCompleteParams:[shot]});
+			}else {
+				_black.visible = true;
+				_black.alpha = 1;
+				TweenMax.to(_black, 1.0, {alpha:0, onComplete:function():void {
+					_black.visible = false;
+				}, ease:Linear.easeNone});
+				
+				_hotpsotRenderer.model = shot.hotspotTracks;;
+				_pictureRenderer.model = shot.pictureTracks;;
+				_player.play(shot.videoSource[0]);
+				_floorPlan.load(shot.floorplan);
+				
 			}
-			
-			
-			for(i = 0; i < pictures.length; ++i) {
-				picture = pictures[i];
-				picture.view = new Photo();
-				picture.view.alpha = picture.opacity;
-				picture.view.blur = picture.blur;
-				picture.view.src = 'photos/gandhi.jpg';
-			}
-			
-			_player.play(shot.videoSource[0]);
-			
-			_floorPlan.load(shot.floorplan)
 		}
 		
 		private function onOverlayChanged(overlay:Object):void {
-			_player.pause();
-			addChild(_overlay);
-			addChild(_loaderAnimation);
-			_loaderAnimation.stop();
-			_hotpsotRenderer.visible = false;
-			_pictureRenderer.visible = false;
-			_floorPlan.visible = false;
-			_overlay.show(overlay);
+			addChild(_black);
+			_black.alpha = 0;
+			_black.visible = true;
+			TweenMax.to(_black, 1.0, {alpha:1, onCompleteParams:[overlay], onComplete:function(overlay:Object):void {
+				
+				TweenMax.to(_black, 1.0, {alpha:0, onComplete:function():void {
+					_black.visible = false;
+				}, ease:Linear.easeNone});
+				
+				_player.pause();
+				addChild(_overlay);
+				addChild(_loaderAnimation);
+				addChild(_black);
+				_loaderAnimation.stop();
+				_hotpsotRenderer.visible = false;
+				_pictureRenderer.visible = false;
+				_floorPlan.visible = false;
+				_overlay.show(overlay);
+			}, ease:Linear.easeNone});	
 		}
 		
 		private function onOverlayClosed(overlay:Object):void {
+			_loaderAnimation.stop();
+			_overlay.hide(overlay);
+			addChild(_black);
+			_black.alpha = 0;
+			_black.visible = true;
+			TweenMax.to(_black, 1.0, {alpha:1, ease:Linear.easeNone});
+		}
+		
+		private function onOverlayHidden():void {
 			if(contains(_overlay)) {
+				addChild(_black);
+				_black.alpha = 1;
+				_black.visible = true;
+				
+				TweenMax.to(_black, 1.0, {alpha:0, onComplete:function():void {
+					_black.visible = false;
+				}, ease:Linear.easeNone});
+				
 				removeChild(_overlay);
 				_loaderAnimation.stop();
-				_overlay.hide(overlay);
 				_hotpsotRenderer.visible = true;
 				_pictureRenderer.visible = true;
 				_floorPlan.visible = true;
@@ -213,7 +224,7 @@ package com.mpc.te.videotour
 		private function parseData(res:Object, service:HTTPService):void {
 			
 			
-			_model.bandwidth = _player.bandwidth = service.bandwidth;
+			_model.bandwidth = _player.bandwidth = _overlay.player.bandwidth = service.bandwidth;
 		
 			
 			service.destroy();
@@ -222,9 +233,6 @@ package com.mpc.te.videotour
 			_model.parse(json)
 			_model.shotChanged.add(onShotChanged);
 			_model.overlayChanged.add(onOverlayChanged);
-			
-			_hotpsotRenderer.model = _model;
-			_pictureRenderer.model = _model;
 			
 			start();
 		}
@@ -241,7 +249,7 @@ package com.mpc.te.videotour
 		private function onAddedToStage(e:Event):void {
 			
 			SWFProfiler.init(stage, this);
-			//Debug.instance.init(stage);
+			Debug.instance.init(stage);
 			
 			stage.align = StageAlign.TOP_LEFT;
 			stage.scaleMode = StageScaleMode.NO_SCALE;
@@ -260,7 +268,8 @@ package com.mpc.te.videotour
 			_floorPlan = new FloorPlan();
 			addChild(_floorPlan);
 			
-			_hotpsotRenderer = new HotspotRenderer()
+			_hotpsotRenderer = new HotspotRenderer();
+			_hotpsotRenderer.hotspotClicked.add(onHotpsotClicked);
 			addChild(_hotpsotRenderer);
 			
 			_pictureRenderer = new PictureRenderer();
@@ -270,10 +279,18 @@ package com.mpc.te.videotour
 			
 			_overlay = new Overlay();
 			_overlay.closed.add(onOverlayClosed);
+			_overlay.hidden.add(onOverlayHidden);
 			
 			
 			addChild(_loaderAnimation);
 			
+			
+			_black = new Shape();
+			_black.visible = false;
+			_black.graphics.beginFill(0);
+			_black.graphics.drawRect(0,0,10,10);
+			_black.graphics.endFill();
+			addChild(_black);
 			
 			_player.bufferingStarted.add(_loaderAnimation.start);
 			_player.bufferingEnded.add(_loaderAnimation.stop);
@@ -282,10 +299,10 @@ package com.mpc.te.videotour
 			_overlay.imageLoadingStarted.add(_loaderAnimation.start);
 			_overlay.imageLoadingEnded.add(_loaderAnimation.stop);
 			_overlay.imageLoadProgressed.add(_loaderAnimation.setProgress);
-			
 			_overlay.videoBufferingStarted.add(_loaderAnimation.start);
 			_overlay.videoBufferingEnded.add(_loaderAnimation.stop);
 			_overlay.videoBufferProgressed.add(_loaderAnimation.setProgress);
+			
 			
 			
 			onResize(null)
@@ -293,8 +310,11 @@ package com.mpc.te.videotour
 			stage.addEventListener(Event.RESIZE, onResize);	
 		}
 		
-		public function Main(loaderAnimation:LoaderAnimation=null) {
-			_loaderAnimation = loaderAnimation;
+		public function set loaderAnimation(val:LoaderAnimation):void {
+			_loaderAnimation = val;
+		}
+		
+		public function Main() {
 			if(!stage) this.addEventListener(Event.ADDED_TO_STAGE, onAddedToStage);
 			else onAddedToStage(null);
 		}
@@ -308,6 +328,7 @@ package com.mpc.te.videotour
 		private var _pictureRenderer:PictureRenderer;
 		private var _loaderAnimation:LoaderAnimation;
 		private var _floorPlan:FloorPlan;
+		private var _black:Shape;
 		
 	}
 }

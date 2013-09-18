@@ -2,6 +2,7 @@ package com.mpc.te.videotour {
 	
 	import com.mpc.te.videotour.view.LoaderAnimation;
 	
+	import flash.display.DisplayObject;
 	import flash.display.Loader;
 	import flash.display.MovieClip;
 	import flash.display.Sprite;
@@ -28,30 +29,24 @@ package com.mpc.te.videotour {
 		
 		private function onLoadComplete(e:Event):void {
 			
+			_animation.stop()
+			
 			_stage.removeEventListener(Event.ENTER_FRAME, render);
-			
-			_loader.unload();
 			_loader.removeEventListener(Event.COMPLETE, onLoadComplete);
-			_loader = null;
 			
-			_animation.stop()	
-			stage.removeChild(this);
 			
-			var App:Class = getDefinitionByName('com.mpc.te.videotour.Main') as Class;
-			var main:Main = new App(_animation) as Main;
-			
+			var main:DisplayObject = _loader.content; 
+			(main as Object).loaderAnimation = _animation;
 			_stage.addChildAt(main, 0);
-			
-			_animation = null;
-			
+				
+			_stage.removeChild(this);
+			_animation = null;	
 		}
 		
 		
 		private function render(event:Event):void {
 			_animation.x = stage.stageWidth * .5;
 			_animation.y = stage.stageHeight * .5;
-			
-			trace(_loader.contentLoaderInfo.bytesLoaded)
 			_animation.setProgress(_loader.contentLoaderInfo.bytesLoaded / _loader.contentLoaderInfo.bytesTotal);
 		}
 		

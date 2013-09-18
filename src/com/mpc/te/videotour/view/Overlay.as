@@ -1,4 +1,7 @@
 package com.mpc.te.videotour.view {
+	import com.greensock.TweenMax;
+	import com.greensock.easing.Linear;
+	
 	import flash.display.Graphics;
 	import flash.display.Shape;
 	import flash.display.Sprite;
@@ -18,17 +21,28 @@ package com.mpc.te.videotour.view {
 		
 		private var _imageLoadStarted:Signal;
 		private var _imageLoadEnded:Signal;
+		private var _hidded:Signal;
 		
 		private var _rectangle:Rectangle;
 		private var _videoRectangle:Rectangle;
 		
 		public var needsRendering:Boolean;
 		
+		private const TRANSITION_TIME:Number = 1.0;
+		
+		// Fake Fade effect if StageVideo available
+		private var _videoShape:Shape;
+		
 		public function Overlay() {
 			_video = new VideoPlayer(1);
 			_video.bufferingEnded.add(onVideoBufferingEnded);
 			addChild(_video);
 			_video.visible = false;
+			
+			_videoShape = new Shape();
+			_videoShape.graphics.beginFill(0);
+			_videoShape.graphics.drawRect(0,0,10,10);
+			addChild(_videoShape);
 			
 			_backdrop = new Shape();
 			var g:Graphics = _backdrop.graphics;
@@ -56,27 +70,42 @@ package com.mpc.te.videotour.view {
 			
 			_imageLoadStarted = new Signal();
 			_imageLoadEnded = new Signal();
+			_hidded = new Signal();
 		}
 		
 		public function show(model:Object):void {
+			
+			_backdrop.visible = true;
+			_backdrop.alpha = 0;
+			TweenMax.to(_backdrop, TRANSITION_TIME, {alpha:1});
+			
+			
 			switch(String(model.type)) {
 				
 				case "1" : // Video
+					_videoShape.visible = true;
+					_videoShape.alpha = 1;
+					_video.alpha = 0;
+					
 					_text.text = model.text;
 					_video.play(model.videoSource[0]);
-					_backdrop.visible = true;
+					
 					_video.visible = true;
 					_text.visible = true;
 					
 					break;
 					
 				case "2" : // Image
+					_videoShape.visible = false;
+					
 					_image.src = model.imageSource;
 					_imageLoadStarted.dispatch();
 					_text.text = model.text;
 					
+					_image.alpha = 0;
+					
 					_image.visible = true;	
-					_backdrop.visible = true;
+					
 					_text.visible = true;
 					
 					needsRendering = true;
@@ -84,9 +113,14 @@ package com.mpc.te.videotour.view {
 					break;
 				
 				case "3" : // Video with Remote Control
+					
+					_videoShape.visible = true;
+					_videoShape.alpha = 1;
+					_video.alpha = 0;
+					
 					_text.text = model.text;
 					_video.play(model.videoSource[0]);
-					_backdrop.visible = true;
+					
 					_video.visible = true;
 					_text.visible = true;
 					
@@ -108,7 +142,40 @@ package com.mpc.te.videotour.view {
 		}
 		
 		public function hide(model:Object):void {
+			
+			TweenMax.to(_backdrop, TRANSITION_TIME, {alpha:0});
+			
 			switch(String(model.type)) {
+				
+				case "1" : // Video
+					
+					TweenMax.to(_videoShape, TRANSITION_TIME, {alpha:1, ease:Linear.easeNone, onComplete: onHidden, onCompleteParams:[model.type]});
+					
+					break;
+				
+				case "2" : // Image
+					
+					TweenMax.to(_image, TRANSITION_TIME, {alpha:0, ease:Linear.easeNone, onComplete: onHidden, onCompleteParams:[model.type]});
+					
+					break;
+				
+				case "3" : // Video with Remote Control
+					
+					TweenMax.to(_videoShape, TRANSITION_TIME, {alpha:1, ease:Linear.easeNone, onComplete: onHidden, onCompleteParams:[model.type]});
+					
+					break;
+				
+				
+			}
+			
+			
+			
+			
+		}
+		
+		private function onHidden(type:String):void {
+				
+			switch(String(type)) {
 				
 				case "1" : // Video
 					
@@ -133,11 +200,13 @@ package com.mpc.te.videotour.view {
 					
 					break;
 				
-			
+				
 			}
+			
+			_hidded.dispatch();	
 		}
 		
-		public function resize(rectangle:Rectangle, videoRectangle):void {
+		public function resize(rectangle:Rectangle, videoRectangle:Rectangle):void {
 			
 			_backdrop.width = rectangle.width;
 			_backdrop.height = rectangle.height;
@@ -160,7 +229,12 @@ package com.mpc.te.videotour.view {
 			_loaderAnimation.y = rectangle.y - _loaderAnimation.height * .5;
 			
 			_rectangle = rectangle;
-			_videoRectangle = videoRectangle;	
+			_videoRectangle = videoRectangle;
+			
+			_videoShape.width = videoRectangle.width;
+			_videoShape.height = videoRectangle.height + 4;
+			_videoShape.x = videoRectangle.x;
+			_videoShape.y = videoRectangle.y - 2;
 		}
 		
 		public function render(time:int):void {
@@ -175,9 +249,12 @@ package com.mpc.te.videotour.view {
 		
 		private function onVideoBufferingEnded():void {
 			_backdrop.visible = false;
+			TweenMax.to(_videoShape, TRANSITION_TIME, {alpha:0, ease:Linear.easeNone});
+			TweenMax.to(_video, TRANSITION_TIME, {alpha:1, ease:Linear.easeNone});
 		}
 		
 		private function onImageLoaded(image:Image):void {
+			TweenMax.to(_image, TRANSITION_TIME, {alpha:1, ease:Linear.easeNone});
 			resize(_rectangle, _videoRectangle);
 			_imageLoadEnded.dispatch();
 		}
@@ -208,6 +285,14 @@ package com.mpc.te.videotour.view {
 		
 		public function get imageLoadProgressed():Signal {
 			return _image.progressed;
+		}
+		
+		public function get hidden():Signal {
+			return _hidded;
+		}
+		
+		public function get player():VideoPlayer {
+			return _video;
 		}
  
 	}

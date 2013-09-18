@@ -11,6 +11,7 @@ package com.mpc.te.videotour.model {
 		private var _shots:Array;
 		private var _overlays:Array;
 		private var _currentShot:Object;
+		private var _oldShot:Object;
 		private var _currentOverlay:Object;
 		private var _shotChanged:Signal;
 		private var _overlayChanged:Signal;
@@ -54,6 +55,7 @@ package com.mpc.te.videotour.model {
 			while( --i > -1 ) {
 				shot = shots[i];
 				if(shot.videoId == val) {
+					_oldShot = _currentShot;
 					_currentShot = shot;
 					_shotChanged.dispatch(shot);
 					return;
@@ -94,6 +96,10 @@ package com.mpc.te.videotour.model {
 		
 		public function get shot():Object {
 			return _currentShot;
+		}
+		
+		public function get previousShot():Object {
+			return _oldShot;
 		}
 		
 		public function get shotChanged():Signal {
