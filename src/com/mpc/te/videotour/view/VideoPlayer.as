@@ -6,7 +6,6 @@ package com.mpc.te.videotour.view {
 
 	public final class VideoPlayer extends StageVideoPlayer {
 		
-		private var _loaderAnimation:LoaderAnimation;
 		private var _buffering:Boolean;
 		private var _bandwidth:int;
 		
@@ -42,7 +41,7 @@ package com.mpc.te.videotour.view {
 		
 		protected override function onNetstreamBufferEmpty(e:NetStatusEvent):void {
 			showLoaderAnimation();
-			_stream.bufferTime = 4 / (_bandwidth * 0.001);
+			//_stream.bufferTime = 4 / (_bandwidth * 0.001);
 		}
 		
 		protected override function onNetstreamPlayStart(e:NetStatusEvent):void {

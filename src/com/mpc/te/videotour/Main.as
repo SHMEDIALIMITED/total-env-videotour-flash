@@ -23,6 +23,7 @@ package com.mpc.te.videotour
 	
 	import org.osflash.signals.Signal;
 	
+	
 	[SWF(width="1200", height="800", backgroundColor="#000000", frameRate="60")]
 	public class Main extends Sprite {
 		
@@ -93,7 +94,7 @@ package com.mpc.te.videotour
 			// Loader Animation
 			_loaderAnimation.x = halfWidth;
 			_loaderAnimation.y = halfHeight;
-			
+			_loaderAnimation.resize(stageRectangle);
 			
 		}
 		
@@ -174,6 +175,8 @@ package com.mpc.te.videotour
 		private function onOverlayChanged(overlay:Object):void {
 			_player.pause();
 			addChild(_overlay);
+			addChild(_loaderAnimation);
+			_loaderAnimation.stop();
 			_hotpsotRenderer.visible = false;
 			_pictureRenderer.visible = false;
 			_floorPlan.visible = false;
@@ -183,6 +186,7 @@ package com.mpc.te.videotour
 		private function onOverlayClosed(overlay:Object):void {
 			if(contains(_overlay)) {
 				removeChild(_overlay);
+				_loaderAnimation.stop();
 				_overlay.hide(overlay);
 				_hotpsotRenderer.visible = true;
 				_pictureRenderer.visible = true;
@@ -245,7 +249,7 @@ package com.mpc.te.videotour
 			
 			_model = new Model();
 			
-			_loaderAnimation = new LoaderAnimation();
+			if(!_loaderAnimation) _loaderAnimation = new LoaderAnimation();
 			_loaderAnimation.start();
 			
 			
@@ -275,13 +279,22 @@ package com.mpc.te.videotour
 			_player.bufferingEnded.add(_loaderAnimation.stop);
 			_player.bufferProgressed.add(_loaderAnimation.setProgress);
 			
+			_overlay.imageLoadingStarted.add(_loaderAnimation.start);
+			_overlay.imageLoadingEnded.add(_loaderAnimation.stop);
+			_overlay.imageLoadProgressed.add(_loaderAnimation.setProgress);
+			
+			_overlay.videoBufferingStarted.add(_loaderAnimation.start);
+			_overlay.videoBufferingEnded.add(_loaderAnimation.stop);
+			_overlay.videoBufferProgressed.add(_loaderAnimation.setProgress);
+			
 			
 			onResize(null)
 			
 			stage.addEventListener(Event.RESIZE, onResize);	
 		}
 		
-		public function Main() {
+		public function Main(loaderAnimation:LoaderAnimation=null) {
+			_loaderAnimation = loaderAnimation;
 			if(!stage) this.addEventListener(Event.ADDED_TO_STAGE, onAddedToStage);
 			else onAddedToStage(null);
 		}

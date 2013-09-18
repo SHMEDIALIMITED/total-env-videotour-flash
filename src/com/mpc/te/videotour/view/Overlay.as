@@ -14,7 +14,10 @@ package com.mpc.te.videotour.view {
 		private var _closeButton:OverlayCloseButtonView;
 		private var _backdrop:Shape;
 		private var _text:OverlayTextView;
-		private var _loaderAnimation:LoaderAnimation
+		private var _loaderAnimation:LoaderAnimation;
+		
+		private var _imageLoadStarted:Signal;
+		private var _imageLoadEnded:Signal;
 		
 		private var _rectangle:Rectangle;
 		private var _videoRectangle:Rectangle;
@@ -23,6 +26,7 @@ package com.mpc.te.videotour.view {
 		
 		public function Overlay() {
 			_video = new VideoPlayer(1);
+			_video.bufferingEnded.add(onVideoBufferingEnded);
 			addChild(_video);
 			_video.visible = false;
 			
@@ -34,7 +38,6 @@ package com.mpc.te.videotour.view {
 			
 			_image = new Image();
 			_image.loaded.add(onImageLoaded);
-			_image.progressed.add(onProgress);
 			addChild(_image);
 			_image.visible = false;	
 			
@@ -50,6 +53,9 @@ package com.mpc.te.videotour.view {
 			
 			_loaderAnimation = new LoaderAnimation();
 			addChild(_loaderAnimation);
+			
+			_imageLoadStarted = new Signal();
+			_imageLoadEnded = new Signal();
 		}
 		
 		public function show(model:Object):void {
@@ -58,7 +64,7 @@ package com.mpc.te.videotour.view {
 				case "1" : // Video
 					_text.text = model.text;
 					_video.play(model.videoSource[0]);
-					_backdrop.visible = false;
+					_backdrop.visible = true;
 					_video.visible = true;
 					_text.visible = true;
 					
@@ -66,6 +72,7 @@ package com.mpc.te.videotour.view {
 					
 				case "2" : // Image
 					_image.src = model.imageSource;
+					_imageLoadStarted.dispatch();
 					_text.text = model.text;
 					
 					_image.visible = true;	
@@ -79,7 +86,7 @@ package com.mpc.te.videotour.view {
 				case "3" : // Video with Remote Control
 					_text.text = model.text;
 					_video.play(model.videoSource[0]);
-					_backdrop.visible = false;
+					_backdrop.visible = true;
 					_video.visible = true;
 					_text.visible = true;
 					
@@ -166,16 +173,41 @@ package com.mpc.te.videotour.view {
 			}
 		}
 		
-		private function onProgress(percentage:Number):void {
-			//_loaderAnimation.progress = percentage;
+		private function onVideoBufferingEnded():void {
+			_backdrop.visible = false;
 		}
 		
 		private function onImageLoaded(image:Image):void {
 			resize(_rectangle, _videoRectangle);
+			_imageLoadEnded.dispatch();
 		}
 		
 		public function get closed():Signal {
 			return _closeButton.clicked;
+		}
+		
+		public function get videoBufferingStarted():Signal {
+			return _video.bufferingStarted
+		}
+		
+		public function get videoBufferingEnded():Signal {
+			return _video.bufferingEnded;
+		}
+		
+		public function get videoBufferProgressed():Signal {
+			return _video.bufferProgressed;
+		}
+		
+		public function get imageLoadingStarted():Signal {
+			return _imageLoadStarted;
+		}
+		
+		public function get imageLoadingEnded():Signal {
+			return _imageLoadEnded;
+		}
+		
+		public function get imageLoadProgressed():Signal {
+			return _image.progressed;
 		}
  
 	}
