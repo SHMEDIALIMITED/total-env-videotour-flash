@@ -9,10 +9,8 @@ package com.mpc.te.videotour
 	import com.mpc.te.videotour.view.Debug;
 	import com.mpc.te.videotour.view.FloorPlan;
 	import com.mpc.te.videotour.view.HotspotRenderer;
-	import com.mpc.te.videotour.view.HotspotView;
 	import com.mpc.te.videotour.view.LoaderAnimation;
 	import com.mpc.te.videotour.view.Overlay;
-	import com.mpc.te.videotour.view.Photo;
 	import com.mpc.te.videotour.view.PictureRenderer;
 	import com.mpc.te.videotour.view.VideoPlayer;
 	
@@ -217,8 +215,7 @@ package com.mpc.te.videotour
 			_loaderAnimation.stop();
 			onResize(null);
 			_model.setShotByID('shot1');
-			stage.addEventListener(Event.ENTER_FRAME, render);
-			
+			stage.addEventListener(Event.ENTER_FRAME, render);		
 		}
 		
 		private function parseData(res:Object, service:HTTPService):void {
@@ -234,12 +231,12 @@ package com.mpc.te.videotour
 			_model.shotChanged.add(onShotChanged);
 			_model.overlayChanged.add(onOverlayChanged);
 			
-			start();
+			start();							///////////////////// when Model has parsed JSON app starts rendering
 		}
 		
 		private function loadData():void {
 			var service:HTTPService = new HTTPService();
-			service.completed.add(parseData); ///////////////////// when data is loaded then Model parses JSON
+			service.completed.add(parseData); 	///////////////////// when data is loaded then Model parses JSON
 			service.progressed.add(_loaderAnimation.setProgress);
 			var request:URLRequest = new URLRequest('data.json');
 			service.send(request);
@@ -249,7 +246,7 @@ package com.mpc.te.videotour
 		private function onAddedToStage(e:Event):void {
 			
 			SWFProfiler.init(stage, this);
-			Debug.instance.init(stage);
+			//Debug.instance.init(stage);
 			
 			stage.align = StageAlign.TOP_LEFT;
 			stage.scaleMode = StageScaleMode.NO_SCALE;
@@ -262,7 +259,7 @@ package com.mpc.te.videotour
 			
 			
 			_player = new VideoPlayer(0);
-			_player.ready.add(loadData); ///////////////////// when player is ready then JSON data files starts being loaded
+			_player.ready.add(loadData); 		///////////////////// when player is ready then JSON data files starts being loaded
 			addChild(_player);
 			
 			_floorPlan = new FloorPlan();

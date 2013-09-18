@@ -242,7 +242,9 @@ package com.mpc.te.videotour.view {
 				_video.render(time);
 			} else if(needsRendering) {
 				
-			} else if(_remote.active) {
+			}
+			
+			if(_remote.active) {
 				_remote.update();
 			}
 		}

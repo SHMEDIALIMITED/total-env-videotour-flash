@@ -55,6 +55,7 @@ package com.mpc.te.videotour.view {
 		}
 		
 		public function update():void {
+			
 			if(_state == 1 && _receiver.time >= _model.videoLength*.5) {			
 				_receiver.pause();
 			}
