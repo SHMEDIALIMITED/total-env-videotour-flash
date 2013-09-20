@@ -7,6 +7,10 @@ package com.mpc.te.videotour.view {
 	import flash.events.MouseEvent;
 	import flash.text.TextField;
 	
+	/**
+	 *	FloorPlanButton base class for Flash IDE library export
+	 * 	@author patrickwolleb 
+	 */	
 	public class FloorPlanButton extends Button {
 		
 		public var bg:MovieClip;

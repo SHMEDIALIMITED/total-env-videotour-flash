@@ -3,7 +3,12 @@ package com.mpc.te.videotour.view {
 	import flash.events.NetStatusEvent;
 	
 	import org.osflash.signals.Signal;
-
+	
+	
+	/**
+	 *	Concrete final VideoPlayer class for app. Handling signal dispatches buffering for start, end and progress.  
+	 * 	@author patrickwolleb 
+	 */
 	public final class VideoPlayer extends StageVideoPlayer {
 		
 		private var _buffering:Boolean;

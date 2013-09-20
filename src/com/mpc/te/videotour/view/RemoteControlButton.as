@@ -6,6 +6,11 @@ package com.mpc.te.videotour.view {
 	import flash.text.TextField;
 	import flash.text.TextFieldAutoSize;
 	
+	
+	/**
+	 *	RemoteControlButton base class for Flash IDE library export
+	 * 	@author patrickwolleb 
+	 */	
 	public class RemoteControlButton extends Button {
 		
 		public var bg:MovieClip;

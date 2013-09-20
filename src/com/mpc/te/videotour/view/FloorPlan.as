@@ -6,7 +6,11 @@ package com.mpc.te.videotour.view {
 	import flash.display.Sprite;
 	
 	
-	
+	/**
+	 *	FloorPlan view presents top down view of house blueprint showing current camera position.
+	 * 	@author patrickwolleb
+	 * 
+	 */	
 	public final class FloorPlan extends Sprite {
 		
 		private var _plan:Sprite;
@@ -46,6 +50,11 @@ package com.mpc.te.videotour.view {
 			visible = false;
 		}	
 		
+		
+		/**
+		 *  Updates the floorplan's camera position based on video's playhead time.
+		 *	@param time Current shot's video player time
+		 */		
 		public function update(time:Number):void {
 			
 			
@@ -67,11 +76,23 @@ package com.mpc.te.videotour.view {
 			}
 		}
 		
+		/**
+		 *	Called when new keyframe has been found. Calculates the delta time between tow keyframes and runs the positional and rotaional tween.
+		 * 	@param keyframe Keyframe Vector of fixed length 4 conttains time, x, y, rotation.
+		 * 
+		 */		
 		private function render(keyframe:Vector.<Number>):void {
 			var transitionTime:Number = keyframe[0] - _currentKeyFrame[0];
 			TweenMax.to(_camera, transitionTime, {x: keyframe[1], y: keyframe[2], rotation:keyframe[3], ease:Linear.easeNone});
 		}
 		
+		
+		/**
+		 *	Called when new shot video is loaded.
+		 * 	Updates plan image and creates fast Vector from data array of keyframes. 
+		 * 	@param data
+		 * 
+		 */		
 		public function load(data:Object):void {
 			
 			_image.src = 'photos/floor-plan' + data.image + '.png';	
@@ -97,6 +118,11 @@ package com.mpc.te.videotour.view {
 			TweenMax.to(this, 1, {alpha:1});
 		}
 		
+		/**
+		 *  Handles showing and hiding from button click.
+		 * 	@param buttonVO
+		 * 
+		 */		
 		private function onStateChanged(buttonVO:Object):void {
 			if(!_plan.visible) {
 				_plan.visible = true;

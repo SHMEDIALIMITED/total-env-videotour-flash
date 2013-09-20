@@ -4,6 +4,11 @@ package com.mpc.te.videotour.view {
 	import flash.text.TextField;
 	import flash.text.TextFieldAutoSize;
 	
+	
+	/**
+	 *	OverlayText base class for Flash IDE library export
+	 * 	@author patrickwolleb 
+	 */
 	public class OverlayText extends Sprite {
 		
 		public var txt:TextField;

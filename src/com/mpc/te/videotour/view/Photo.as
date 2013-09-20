@@ -12,6 +12,13 @@ package com.mpc.te.videotour.view {
 	
 	import org.flashsandy.display.DistortImage;
 	
+	
+	/**
+	 * 	Photo view for picture renderer
+	 * 	Draws BitmapData into graphics using triangle distortion
+	 * 	@author patrickwolleb
+	 * 
+	 */	
 	public class Photo extends Sprite {
 		
 		private const precision:int = 2;
@@ -26,6 +33,11 @@ package com.mpc.te.videotour.view {
 			_blur = new BlurFilter(2,2,3);	
 		}
 		
+		
+		/**
+		 * 	Renders the photo accroding to passed Quad. It is callbed by Picture renderer
+		 * 	@param quad
+		 */		
 		public function render(quad:Quad):void {
 			
 			this.graphics.clear();
@@ -41,6 +53,11 @@ package com.mpc.te.videotour.view {
 					
 		}
 		
+		
+		/**
+		 * 	Renders clipping mask
+		 * 	@param quad 
+		 */		
 		public function updateMask(quad:Quad):void {
 			if(!_mask) return;
 			const g:Graphics = _mask.graphics;
@@ -56,15 +73,11 @@ package com.mpc.te.videotour.view {
 		private function onImageLoaded(image:Image):void {
 			_bitmapData = new BitmapData(image.width, image.height, false);
 			_bitmapData.draw(image);
-			
 			var b:Bitmap = new Bitmap(_bitmapData);
-			
 			_distort = new DistortImage(image.width, image.height, precision, precision);
-			
 			_mask = new Shape();
 			addChild(_mask)
 			mask = _mask;
-			
 			image.destroy();
 		}
 		

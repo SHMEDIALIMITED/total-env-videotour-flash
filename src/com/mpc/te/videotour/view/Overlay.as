@@ -10,7 +10,12 @@ package com.mpc.te.videotour.view {
 	import org.osflash.signals.Signal;
 	
 	
+
 	
+	/**
+	 * 	Overlay view handles video image and video with remote control display.
+	 * 	@author patrickwolleb
+	 */	
 	public final class Overlay extends Sprite {
 
 		private var _video:VideoPlayer;	
@@ -35,6 +40,10 @@ package com.mpc.te.videotour.view {
 		// Fake Fade effect if StageVideo available
 		private var _videoShape:Shape;
 		
+		
+		/**
+		 *	Constructor
+		 */		
 		public function Overlay() {
 			_video = new VideoPlayer(1);
 			_video.bufferingEnded.add(onVideoBufferingEnded);
@@ -75,6 +84,14 @@ package com.mpc.te.videotour.view {
 			_hidded = new Signal();
 		}
 		
+		
+		/**
+		 *	Shows overaly content based on model.type. Supported types are:
+		 * 	1 - Video
+		 * 	2 - Image	
+		 * 	3 - Video with remote control
+		 * 	@param model
+		 */		
 		public function show(model:Object):void {
 			
 			_backdrop.visible = true;
@@ -143,6 +160,14 @@ package com.mpc.te.videotour.view {
 			resize(_rectangle, _videoRectangle);
 		}
 		
+		
+		/**
+		 *	Hides overaly content based on model.type. Supported types are:
+		 * 	1 - Video
+		 * 	2 - Image	
+		 * 	3 - Video with remote control
+		 * 	@param model
+		 */	
 		public function hide(model:Object):void {
 			
 			TweenMax.to(_backdrop, TRANSITION_TIME, {alpha:0});
@@ -208,6 +233,12 @@ package com.mpc.te.videotour.view {
 			_hidded.dispatch();	
 		}
 		
+		
+		/**
+		 * 	Layout UI elements within.
+		 * 	@param rectangle
+		 * 	@param videoRectangle
+		 */		
 		public function resize(rectangle:Rectangle, videoRectangle:Rectangle):void {
 			
 			_backdrop.width = rectangle.width;
@@ -239,13 +270,15 @@ package com.mpc.te.videotour.view {
 			_videoShape.y = videoRectangle.y - 2;
 		}
 		
+		
+		/**
+		 * 	Called on ENTER_FRAME
+		 * 	@param time
+		 */		
 		public function render(time:int):void {
 			if(_video.buffering) {
 				_video.render(time);
-			} else if(needsRendering) {
-				
 			}
-			
 			if(_remote.active) {
 				_remote.update();
 			}
@@ -263,38 +296,83 @@ package com.mpc.te.videotour.view {
 			_imageLoadEnded.dispatch();
 		}
 		
+		
+		/**
+		 * 	CloseButtonClickedSignal
+		 * 	@return 
+		 */		
 		public function get closed():Signal {
 			return _closeButton.clicked;
 		}
 		
+		
+		/**
+		 * 	VideoBufferingStartedSignal
+		 * 	@return  
+		 */		
 		public function get videoBufferingStarted():Signal {
 			return _video.bufferingStarted;
 		}
 		
+		
+		/**
+		 * 	VideoBufferingEndedSignal
+		 * 	@return  
+		 */	
 		public function get videoBufferingEnded():Signal {
 			return _video.bufferingEnded;
 		}
 		
+		
+		/**
+		 * 	VideoBufferProgressedSignal
+		 * 	@return  
+		 */	
 		public function get videoBufferProgressed():Signal {
 			return _video.bufferProgressed;
 		}
 		
+		
+		/**
+		 * 	ImageLoadingStartedSignal
+		 * 	@return  
+		 */			
 		public function get imageLoadingStarted():Signal {
 			return _imageLoadStarted;
 		}
 		
+
+		/**
+		 * 	ImageLoadingEndedSignal
+		 * 	@return  
+		 */	
 		public function get imageLoadingEnded():Signal {
 			return _imageLoadEnded;
 		}
 		
+		
+		/**
+		 * 	ImageLoadProgressedSignal
+		 * 	@return  
+		 */	
 		public function get imageLoadProgressed():Signal {
 			return _image.progressed;
 		}
 		
+		
+		/**
+		 * 	HiddenSignal
+		 * 	@return  
+		 */			
 		public function get hidden():Signal {
 			return _hidded;
 		}
 		
+		
+		/**
+		 * 	Overlay Video player instance. Overlay has it's own VideoPlayer
+		 * 	@return  
+		 */	
 		public function get player():VideoPlayer {
 			return _video;
 		}

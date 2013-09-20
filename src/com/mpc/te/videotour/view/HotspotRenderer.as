@@ -1,7 +1,6 @@
 package com.mpc.te.videotour.view {
 	
 	import com.greensock.TweenMax;
-	import com.mpc.te.videotour.model.Model;
 	
 	import flash.display.DisplayObject;
 	import flash.display.Shape;
@@ -10,6 +9,13 @@ package com.mpc.te.videotour.view {
 	
 	import org.osflash.signals.Signal;
 	
+	
+	/**
+	 * 	HotspotRenderer taking care of rendering positions of hotpsots overlaying the current video.
+	 * 	The code in the render method has been ported from the JS version written by dean dean@neuroid.co.uk 
+	 * 	@author patrickwolleb
+	 * 
+	 */	
 	public final class HotspotRenderer extends Sprite {
 		
 		private var _model:Array;
@@ -26,9 +32,13 @@ package com.mpc.te.videotour.view {
 			_model = [];
 		}
 		
+		
+		/**
+		 * 	Update current shot hotspots array. It removes and destroys current hotpsots and creates new hotspots
+		 *	@param val
+		 */			
 		public function set model(val:Array):void {
-			
-			
+	
 			var hotspotView:HotspotView;
 			
 			for(var i:int = 0; i < _model.length; ++i) {
@@ -64,6 +74,12 @@ package com.mpc.te.videotour.view {
 			_mask.graphics.endFill();
 		}
 		
+		
+		/**
+		 * 	Updates hotpsot positions
+		 * 	@param playerTime
+		 * 
+		 */		
 		public function render(playerTime:Number):void {
 			
 			const hotspots:Array = _model;
@@ -129,6 +145,10 @@ package com.mpc.te.videotour.view {
 			}
 		}
 		
+		/**
+		 * 	HotpsotClickedSignal
+		 * 	@return 
+		 */		
 		public function get hotspotClicked():Signal {
 			return _hotspotClicked;
 		}

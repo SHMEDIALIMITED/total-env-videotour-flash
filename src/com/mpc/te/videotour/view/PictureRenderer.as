@@ -5,6 +5,14 @@ package com.mpc.te.videotour.view {
 	import flash.display.Sprite;
 	import flash.geom.Rectangle;
 	
+	
+	
+	/**
+	 * 	PictureRenderer taking care of rendering positions of hotpsots overlaying the current video.
+	 * 	The code in the render method has been ported from the JS version written by dean dean@neuroid.co.uk 
+	 * 	@author patrickwolleb
+	 * 
+	 */	
 	public final class PictureRenderer extends Sprite {
 		
 		private var _model:Array;
@@ -26,20 +34,20 @@ package com.mpc.te.videotour.view {
 			_model = [];
 		}
 		
+		
+		/**
+		 * 	Update current shot pictures array. It removes and destroys current photos.
+		 *	@param val
+		 */	
 		public function set model(val:Array):void {
-			
-			
-			
 			var photo:Photo;
+			var picture:Object;
 			for(var i:int = 0; i < _model.length; ++i) {
 				photo = _model[i].view as Photo;
 				photo.destroy();
 				if(contains(photo))
 					removeChild(photo);
 			}
-			
-			
-			var picture:Object;
 			for(i = 0; i < val.length; ++i) {
 				picture = val[i];
 				picture.view = new Photo();
@@ -47,7 +55,6 @@ package com.mpc.te.videotour.view {
 				picture.view.blur = picture.blur;
 				picture.view.src = 'photos/gandhi.jpg';
 			}
-			
 			_model = val;
 		}
 		
@@ -60,11 +67,13 @@ package com.mpc.te.videotour.view {
 			_mask.graphics.endFill();
 		}
 		
+		/**
+		 * 	Updates pictures 
+		 * 	@param time current video player time.
+		 */
 		public function render(time:Number):void {
-			
-			
+		
 			const pictureTracks:Array = _model;
-			
 			const videoWidth:Number = _videoRectangle.width;
 			const videoHeight:Number = _videoRectangle.height;
 			
@@ -177,12 +186,12 @@ package com.mpc.te.videotour.view {
 								
 							}
 					}
-//					var s = ' '; // delimiter. either space or comma depending on browser.
+					
+					
 					var top:Number = (clipY0mf * quad.height >>0);
 					var left:Number = (clipX0mf * quad.width >>0);
 					var right:Number = (clipX1mf * quad.width >>0);
 					var bottom:Number = (clipY1mf * quad.height >>0);
-//					pic.obj.style.clip = 'rect(' + top +s+ right +s+ bottom +s+ left +s+ ')';
 					
 					
 					

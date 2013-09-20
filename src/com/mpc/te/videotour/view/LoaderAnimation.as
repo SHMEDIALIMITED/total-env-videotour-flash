@@ -9,13 +9,20 @@ package com.mpc.te.videotour.view {
 	import flash.geom.Point;
 	import flash.geom.Rectangle;
 	
+	
+	/**
+	 * 	LoaderAnimation aka Preloader
+	 * 	@author patrickwolleb
+	 */	
 	public class LoaderAnimation extends Sprite { 
 		
 		private var _progress:Number;
 		private var _asset:MovieClip;
 		private const _origin:Point = new Point();
 		
-		
+		/**
+		 * 	Constructor 
+		 */		
 		public function LoaderAnimation() {
 			_asset = new LoaderAnimationView() as MovieClip;
 			addChild(_asset);
@@ -27,6 +34,10 @@ package com.mpc.te.videotour.view {
 			_origin.y = _asset.circle2.x;
 		}
 		
+		
+		/**
+		 * 	Fades itself in and starts animation 
+		 */		
 		public function start():void {
 			TweenMax.killTweensOf(this)
 			TweenMax.to(this, 0.5, {alpha:1, ease:Linear.easeNone});
@@ -38,6 +49,10 @@ package com.mpc.te.videotour.view {
 			TweenMax.to(_asset.circle2, 0.5, {x:-12, yoyo:true, repeat:-1, ease:Quad.easeInOut, overwrite:1});
 		}
 		
+		
+		/**
+		 * 	Fades itself out and stops animation
+		 */		
 		public function stop():void {
 			this.mouseEnabled = false;
 			TweenMax.to(this, 0.5, {alpha:0, ease:Linear.easeNone, overwrite:1, onComplete:function():void {
@@ -46,12 +61,22 @@ package com.mpc.te.videotour.view {
 			}});
 		}
 		
+		
+		/**
+		 * 	Progress (0...1)
+		 * 	@param val 
+		 */		
 		public function setProgress(val:Number):void {
 			_progress = Math.min(val, 1);
 			TweenMax.to(_asset.circle1.fill, 0.1, {scaleX: _progress, scaleY:_progress, overwrite:1});
 			TweenMax.to(_asset.circle2.fill, 0.1, {scaleX: _progress, scaleY:_progress, overwrite:1});	
 		}
 		
+		
+		/**
+		 * 	Draws background rectangle
+		 * 	@param rectangle
+		 */		
 		public function resize(rectangle:Rectangle):void {
 			graphics.clear();
 			graphics.beginFill(0, .8);

@@ -13,9 +13,18 @@ package com.mpc.te.videotour.view {
 	
 	import org.osflash.signals.Signal;
 	
+	
+	/**
+	 * 	Base Class for hardware accelerated video.
+	 * 	It will fallback to the convertional Video object if StageVideo is unavailable.
+	 * 	@author patrickwolleb
+	 */	
 	public class StageVideoPlayer extends Sprite {
 		
-		
+		/**
+		 * 	Pass a rectangle to define where and what dimensions the video hsould be displayed.
+		 * 	@param rect
+		 */		
 		public function resize (rect:Rectangle):void {	
 			if ( _stageVideo ) {
 				_stageVideo.viewPort = rect;
@@ -26,27 +35,51 @@ package com.mpc.te.videotour.view {
 				_video.y = rect.y;
 			}
 		}
-	
+		
+		
+		/**
+		 * 	Play a new video by passing a url. 
+		 * 	It internally calls NetStream::play 	
+		 * 	@param url 
+		 */		
 		public function play(url:String=null):void {
 			if(_paused) _stream.resume();
 			else _stream.play(url);
 			_paused = false;
 		}
 		
+		
+		/**
+		 *	Pauses netstream
+		 */		
 		public function pause():void {
 			_stream.pause();
 			_paused = true;
 		}
 		
+		
+		/**
+		 * 	Disposes netstream 
+		 */		
 		public function stop():void {			
 			_stream.dispose();
 		}
 		
+		
+		/**
+		 * 	Seeks and resumes
+		 * 	@param time
+		 */		
 		public function seek(time:Number):void {
 			_stream.seek(time);
 			resume();
 		}
 		
+		
+		/**
+		 *	Resumses netstream 
+		 * 
+		 */		
 		public function resume():void {
 			if(_paused) {
 				_stream.resume();
@@ -184,24 +217,22 @@ package com.mpc.te.videotour.view {
 			_ready = true;
 		}
 		
+		
+		/**
+		 * 	ReadySignal is dispatched when  the player has been added to stage and either StageVideo or Video is ready. 
+		 * 	@return 
+		 */		
 		public function get ready():Signal {
 			return _readySignal;
 		}
 		
+		
+		/**
+		 * 	Playhead time in seconds
+		 * 	@return 
+		 */		
 		public function get time():Number {
 			return _stream.time;
-		}
-		
-		public function calculateBufferSize(flvLength:Number, flvBitrate:Number, bandwidth:Number):Number {
-			var bufferTime:Number;
-			if (flvBitrate > bandwidth) {
-				bufferTime = Math.ceil(flvLength - flvLength / (flvBitrate / bandwidth));
-			} else {
-				bufferTime = 0;
-			}
-			bufferTime += 3.0;
-			
-			return bufferTime;
 		}
 		
 		public function StageVideoPlayer(stageVideoIndex:int) {

@@ -9,11 +9,19 @@ package com.mpc.te.videotour.view
 	
 	import org.osflash.signals.Signal;
 	
+	/**
+	 *	Image class encapsualtes Loader event listener callback handlers.
+	 * 	It exposes loaded and progressed signals. 
+	 * 	@author patrickwolleb
+	 */	
 	public final class Image extends Loader {
 		
 		private var _loaded:Signal;
 		private var _progressed:Signal;
 		
+		/**
+		 *	Constructor 
+		 */		
 		public function Image() {
 			this.contentLoaderInfo.addEventListener(Event.COMPLETE, onComplete);
 			this.contentLoaderInfo.addEventListener(ProgressEvent.PROGRESS, onProgress);
@@ -22,7 +30,11 @@ package com.mpc.te.videotour.view
 			_loaded = new Signal(Image);
 			_progressed = new Signal(Number);
 		}
-			
+		
+		
+		/**
+		 * 	Removes all signal listeners and internal refernces to get object ready for garbage collection
+		 */		
 		public function destroy():void {
 			this.contentLoaderInfo.removeEventListener(Event.COMPLETE, onComplete);
 			this.contentLoaderInfo.removeEventListener(IOErrorEvent.IO_ERROR, onIOError);
@@ -30,32 +42,66 @@ package com.mpc.te.videotour.view
 			this.unload();
 			_loaded.removeAll();
 			_loaded = null;
+			_progressed.removeAll();
+			_progressed = null;
 		}
 		
+		
+		/**
+		 * 	Start image load when set
+		 * 	@param val 
+		 */		
 		public function set src(val:String):void {
 			this.load(new URLRequest(val));
 		}
 		
+		
+		/**
+		 * 	LoadedSignal carries a reference to this Image instance as payload
+		 * 	@return  
+		 */		
 		public function get loaded():Signal {
 			return _loaded;
 		}
 		
+		
+		/**
+		 * 	ProgressedSignal carries the progress Number ranging from 0 to 1
+		 * 	@return 
+		 */		
 		public function get progressed():Signal {
 			return _progressed;
 		}
 		
-		protected function onProgress(e:ProgressEvent):void {
+		
+		
+		private function onProgress(e:ProgressEvent):void {
 			_progressed.dispatch(e.bytesLoaded / e.bytesTotal);
 		}
 		
-		protected function onSecurityError(e:SecurityErrorEvent):void {
-			trace('Image Security Error:', e.errorID);
+		
+		/**
+		 * 	Throws security error
+		 * 	@param e 
+		 */		
+		private function onSecurityError(e:SecurityErrorEvent):void {
+			throw new Error('Image Security Error: ' + e.errorID);
 		}
 		
-		protected function onIOError(e:IOErrorEvent):void {
-			trace('Image IO Error:', e.errorID);
+		
+		/**
+		 *	Throws IOError 
+		 * 	@param e
+		 */		
+		private function onIOError(e:IOErrorEvent):void {
+			throw new Error('Image IO Error: ' + e.errorID);
 		}
 		
+		
+		/**
+		 * 	LoadCompleteEvent dispatches signal with this Image payload
+		 * 	@param e 
+		 */				
 		private function onComplete(e:Event):void {
 			_loaded.dispatch(this);
 		}

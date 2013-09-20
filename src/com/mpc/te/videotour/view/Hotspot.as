@@ -9,8 +9,12 @@ package com.mpc.te.videotour.view {
 	import flash.events.MouseEvent;
 	import flash.text.TextField;
 	import flash.text.TextFieldAutoSize;
-	import flash.text.TextFormat;
 	
+	
+	/**
+	 *	Hotspot base class for Flash IDE library export
+	 * 	@author patrickwolleb 
+	 */
 	public class Hotspot extends Button {
 		
 		public var txt:TextField;

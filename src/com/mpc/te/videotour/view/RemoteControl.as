@@ -3,6 +3,12 @@ package com.mpc.te.videotour.view {
 	import flash.display.Sprite;
 	import flash.utils.setTimeout;
 	
+	
+	/**
+	 * 	Remote Control for overlay type 3.
+	 * 	It controls the video by seeking to the opositie position. Examine videos 3.f4v and 28_loop.f4v to understand.
+	 * 	@author patrickwolleb
+	 */	
 	public class RemoteControl extends Sprite {
 		
 		private var _btn1:RemoteControlButtonView;
@@ -54,6 +60,10 @@ package com.mpc.te.videotour.view {
 			}
 		}
 		
+		
+		/**
+		 * 	Must get called on ENTER_FRAME while playing to observe and pause when the video.time is halfway.
+		 */		
 		public function update():void {
 			
 			if(_state == 1 && _receiver.time >= _model.videoLength*.5) {			
@@ -61,6 +71,12 @@ package com.mpc.te.videotour.view {
 			}
 		}
 		
+		
+		/**	
+		 *	Load a new set of labels passing the JSON overlay object and the refernce to the receiving video 
+		 * 	@param receiver
+		 * 	@param model 
+		 */		
 		public function load(receiver:VideoPlayer, model:Object):void {
 			_model = model;
 			_state = 0;
