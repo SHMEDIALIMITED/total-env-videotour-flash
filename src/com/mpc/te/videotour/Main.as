@@ -388,7 +388,7 @@ package com.mpc.te.videotour
 		private var _hotpsotRenderer:HotspotRenderer;
 		
 		/**
-		 * 	Container for pictures mapped onto the video
+		 * 	Container for pictures mapped onto video
 		 */		
 		private var _pictureRenderer:PictureRenderer;
 		

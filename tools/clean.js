@@ -20,24 +20,24 @@ function run() {
 
 
 
-		for(var j = 0; j < shot.pictureTracks.length; ++j) {
+		// for(var j = 0; j < shot.pictureTracks.length; ++j) {
 
-			picTrack = shot.pictureTracks[j];
+		// 	picTrack = shot.pictureTracks[j];
 
 
-			for(var k = 0; k < picTrack.keyframes.length; ++k) {
+		// 	for(var k = 0; k < picTrack.keyframes.length; ++k) {
 
-				keyframe = picTrack.keyframes[k];
+		// 		keyframe = picTrack.keyframes[k];
 
-				for(var q = 1; q < keyframe.length; q++) {
+		// 		for(var q = 1; q < keyframe.length; q++) {
 
-					keyframe[q] = keyframe[q].toFixed(3);
+		// 			keyframe[q] = keyframe[q].toFixed(3);
 
-				}
+		// 		}
 
-			}
+		// 	}
 
-		}
+		// }
 
 
 		for(var j = 0; j < shot.hotspotTracks.length; ++j) {

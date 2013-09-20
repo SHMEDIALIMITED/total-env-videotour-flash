@@ -98,6 +98,7 @@ package com.mpc.te.videotour.view {
 		}
 		
 		public function destroy():void {
+			if(parent) parent.removeChild(this);
 			this.filters.length = 0;
 			_blur = null;
 			_bitmapData.dispose();

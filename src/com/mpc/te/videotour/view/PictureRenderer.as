@@ -17,6 +17,8 @@ package com.mpc.te.videotour.view {
 		
 		private var _model:Array;
 		
+		private const _pictures:Vector.<RenderModel> = new Vector.<RenderModel>();
+		
 		private const quad:Quad = new Quad();
 		private const quadA:Quad = new Quad();
 		private const quadB:Quad = new Quad();
@@ -40,20 +42,13 @@ package com.mpc.te.videotour.view {
 		 *	@param val
 		 */	
 		public function set model(val:Array):void {
-			var photo:Photo;
-			var picture:Object;
-			for(var i:int = 0; i < _model.length; ++i) {
-				photo = _model[i].view as Photo;
-				photo.destroy();
-				if(contains(photo))
-					removeChild(photo);
+			
+			for(var i:int = 0; i < _pictures.length; ++i) {
+				_pictures.pop().destroy();
 			}
+			
 			for(i = 0; i < val.length; ++i) {
-				picture = val[i];
-				picture.view = new Photo();
-				picture.view.alpha = picture.opacity;
-				picture.view.blur = picture.blur;
-				picture.view.src = 'photos/gandhi.jpg';
+				_pictures.push(new RenderModel(val[i]));
 			}
 			_model = val;
 		}
@@ -77,30 +72,34 @@ package com.mpc.te.videotour.view {
 			const videoWidth:Number = _videoRectangle.width;
 			const videoHeight:Number = _videoRectangle.height;
 			
-			var clippingA:Array, clippingB:Array;
+			var clippingA:Vector.<Number>, clippingB:Vector.<Number>;
 			
 			// update picture tracks
 			var i:int,j:int,k:int, size:int,mf:Number;
 			var pic:Photo, vidpic:Object;
-			for( i = 0; i < pictureTracks.length; i++ ){
+			
+			var renderModel:RenderModel;
+			for( i = 0; i < _pictures.length; i++ ){
 				
 				vidpic = pictureTracks[i];
 				pic = vidpic.view as Photo;
 				
-				if( time >= vidpic.keyframes[0][0] && time <= vidpic.keyframes[ vidpic.keyframes.length - 1 ][0] ){
+				renderModel = _pictures[i];
+				
+				if( time >= renderModel.keyframes[0][0] && time <= renderModel.keyframes[ renderModel.keyframes.length - 1 ][0] ){
 					
 					// interpolate keyframes
 					
 					// get nearest keyframe (binary search) - takes int( log2(N) + 1 ) steps for dataset size N.
 					j = 0;
-					size = vidpic.keyframes.length + 1 >> 1;
+					size = renderModel.keyframes.length + 1 >> 1;
 					while( size > 0 ){
 						k = j + size;
-						if( vidpic.keyframes[ k ][0] < time ) j = k;
+						if( renderModel.keyframes[ k ][0] < time ) j = k;
 						size >>= 1; // half the step size
 					}
-					var keyframeA:Array = vidpic.keyframes[ j ];
-					var keyframeB:Array = vidpic.keyframes[ j + 1 ];
+					var keyframeA:Vector.<Number> = renderModel.keyframes[ j ];
+					var keyframeB:Vector.<Number> = renderModel.keyframes[ j + 1 ];
 					
 					if( !keyframeA || !keyframeB ) continue; // might not be defined if things are loading in weird orders.?
 					mf = (time - keyframeA[ 0 ]) / ( keyframeB[ 0 ] - keyframeA[ 0 ]);
@@ -135,8 +134,8 @@ package com.mpc.te.videotour.view {
 					
 					
 					quad.scale(videoWidth, videoHeight);
-					pic.render(quad);
-					addChild(pic);
+					renderModel.view.render(quad);
+					addChild(renderModel.view);
 					
 					
 					// apply clipping (if used)
@@ -144,38 +143,38 @@ package com.mpc.te.videotour.view {
 					var clipX1mf:Number = 1;
 					var clipY0mf:Number = 0;
 					var clipY1mf:Number = 1;
-					if( vidpic.clipping && vidpic.clipping.length ){
-						if( time < vidpic.clipping[0][0] ){
+					if( renderModel.clippings ){
+						if( time < renderModel.clippings[0][0] ){
 							
 							// use clipping position of first data
 							j = 0;
-							clipX0mf = vidpic.clipping[ j ][1];
-							clipX1mf = vidpic.clipping[ j ][2];
-							clipY0mf = vidpic.clipping[ j ][3];
-							clipY1mf = vidpic.clipping[ j ][4];
+							clipX0mf = renderModel.clippings[ j ][1];
+							clipX1mf = renderModel.clippings[ j ][2];
+							clipY0mf = renderModel.clippings[ j ][3];
+							clipY1mf = renderModel.clippings[ j ][4];
 							
 						}else
-							if( time > vidpic.clipping[ vidpic.clipping.length - 1 ][0] ){
+							if( time > renderModel.clippings[ renderModel.clippings.length - 1 ][0] ){
 								
 								// use clipping position of last data
-								j = vidpic.clipping.length - 1;
-								clipX0mf = vidpic.clipping[ j ][1];
-								clipX1mf = vidpic.clipping[ j ][2];
-								clipY0mf = vidpic.clipping[ j ][3];
-								clipY1mf = vidpic.clipping[ j ][4];
+								j = renderModel.clippings.length - 1;
+								clipX0mf = renderModel.clippings[ j ][1];
+								clipX1mf = renderModel.clippings[ j ][2];
+								clipY0mf = renderModel.clippings[ j ][3];
+								clipY1mf = renderModel.clippings[ j ][4];
 								
 							}else{
 								
 								// get interpolated clipping position
 								j = 0;
-								size = vidpic.clipping.length + 1 >> 1;
+								size = renderModel.clippings.length + 1 >> 1;
 								while( size > 0 ){
 									k = j + size;
-									if( vidpic.clipping[ k ][0] < time ) j = k;
+									if( renderModel.clippings[ k ][0] < time ) j = k;
 									size >>= 1; // half the step size
 								}
-								clippingA = vidpic.clipping[ j ];
-								clippingB = vidpic.clipping[ j + 1 ];
+								clippingA = renderModel.clippings[ j ];
+								clippingB = renderModel.clippings[ j + 1 ];
 								
 								mf = (time - clippingA[ 0 ]) / ( clippingB[ 0 ] - clippingA[ 0 ]);
 								
@@ -209,11 +208,11 @@ package com.mpc.te.videotour.view {
 					
 					
 					
-					pic.updateMask(clipQuad);
+					renderModel.view.updateMask(clipQuad);
 					
 					
 				}else {
-					if(contains(pic)) removeChild(pic);
+					if(contains(renderModel.view)) removeChild(renderModel.view);
 				}
 //					
 					
@@ -223,4 +222,65 @@ package com.mpc.te.videotour.view {
 		
 		
 	}
+}
+import com.mpc.te.videotour.view.Photo;
+
+class RenderModel {
+	
+	public var keyframes:Vector.<Vector.<Number>>;
+	public var clippings:Vector.<Vector.<Number>>;
+	public var view:Photo;
+	
+	public function RenderModel(data:Object) {
+		
+		view = new Photo();
+		view.alpha = data.opacity;
+		view.blur = data.blur;
+		view.src = 'photos/gandhi.jpg';
+		
+		var i:int = 0, 
+			l:int = data.keyframes.length,
+			keyframe:Vector.<Number>,
+			clipping:Vector.<Number>,
+			j:int,
+			keyframesArray:Array = data.keyframes,	
+			keyframeArray:Array,
+			clippingsArray:Array,
+			clippingArray:Array;
+			
+		keyframes = new Vector.<Vector.<Number>>(l, true);
+		for(; i < l; ++i) {
+			keyframe = keyframes[i] = new Vector.<Number>( 9, true);
+			keyframeArray = keyframesArray[i];
+			for(j = 0; j < 9; ++j) {
+				keyframe[j] = keyframeArray[j]; 
+			}
+		}
+		
+			
+		
+		if(data.clipping) {
+			i = 0;
+			l = data.clipping.length;
+			clippingsArray = data.clipping;
+			clippings  = new Vector.<Vector.<Number>>( l, true);	
+			for(; i < l; ++i) {
+				clipping = clippings[i] = new Vector.<Number>(5, true);
+				clippingArray = clippingsArray[i];
+				for(j = 0; j < 5; ++j) {
+					clipping[j] = clippingArray[j];
+				}	
+			}
+		}
+	}
+	
+	public function destroy():void {
+		view.destroy();
+		keyframes.length = 0;
+		clippings.length = 0;
+		view = null;
+		clippings = null;
+		view = null;
+	}
+	
 }
