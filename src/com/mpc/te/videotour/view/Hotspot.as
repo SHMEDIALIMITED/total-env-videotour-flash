@@ -82,6 +82,7 @@ package com.mpc.te.videotour.view {
 		
 		public override function destroy():void {
 			super.destroy();
+			if(parent) parent.removeChild(this);
 			TweenMax.killTweensOf(innerRing);
 			TweenMax.killTweensOf(outerRing);
 			_underline.graphics.clear();

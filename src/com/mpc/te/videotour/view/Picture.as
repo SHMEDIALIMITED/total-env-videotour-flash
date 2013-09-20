@@ -13,12 +13,12 @@ package com.mpc.te.videotour.view {
 	
 	
 	/**
-	 * 	Photo view for picture renderer
+	 * 	Picture view for picture renderer
 	 * 	Draws BitmapData into graphics using triangle distortion
 	 * 	@author patrickwolleb
 	 * 
 	 */	
-	public class Photo extends Sprite {
+	public class Picture extends Sprite {
 		
 		private const precision:int = 2;
 		
@@ -28,7 +28,7 @@ package com.mpc.te.videotour.view {
 		private var _mask:Shape;
 		
 		
-		public function Photo(){
+		public function Picture(){
 			_blur = new BlurFilter(2,2,3);	
 		}
 		

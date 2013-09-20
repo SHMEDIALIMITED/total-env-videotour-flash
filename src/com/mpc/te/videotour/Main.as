@@ -254,7 +254,7 @@ package com.mpc.te.videotour
 		private function start():void {
 			_loaderAnimation.stop();
 			onResize(null);
-			_model.setShotByID('shot11');
+			_model.setShotByID('shot1');
 			stage.addEventListener(Event.ENTER_FRAME, render);		
 		}
 		

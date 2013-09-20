@@ -1,6 +1,7 @@
 package com.mpc.te.videotour.view {
 	
 	import com.greensock.TweenMax;
+	import com.mpc.te.videotour.model.HotspotRenderModel;
 	
 	import flash.display.DisplayObject;
 	import flash.display.Shape;
@@ -19,6 +20,9 @@ package com.mpc.te.videotour.view {
 	public final class HotspotRenderer extends Sprite {
 		
 		private var _model:Array;
+		
+		private const _hotspots:Vector.<HotspotRenderModel> = new Vector.<HotspotRenderModel>();
+		
 		private var _videoRectangle:Rectangle;
 		private var _stageRectangle:Rectangle;
 		private var _mask:Shape;
@@ -39,23 +43,17 @@ package com.mpc.te.videotour.view {
 		 */			
 		public function set model(val:Array):void {
 	
-			var hotspotView:HotspotView;
-			
-			for(var i:int = 0; i < _model.length; ++i) {
-				hotspotView = _model[i].view as HotspotView;
-				hotspotView.destroy();
-				if(contains(hotspotView))
-					removeChild(hotspotView);
+			for(var i:int = 0; i < _hotspots.length; ++i) {
+				_hotspots[i].destroy();
 			}
 			
+			_hotspots.length = 0;
 			
-			var hotspot:Object;
+			var renderModel:HotspotRenderModel;
 			for(i = 0; i < val.length; ++i) {
-				hotspot = val[i];
-				hotspot.view = new HotspotView()
-				hotspot.view.label = (hotspot.labelText as String).toUpperCase();
-				hotspot.view.model = hotspot;
-				(hotspot.view as HotspotView).clicked.add(onHotpsotClicked);
+				renderModel = new HotspotRenderModel(val[i]);
+				renderModel.view.clicked.add(onHotpsotClicked);
+				_hotspots.push(renderModel);
 			}
 			
 			_model = val;
@@ -82,28 +80,40 @@ package com.mpc.te.videotour.view {
 		 */		
 		public function render(playerTime:Number):void {
 			
-			const hotspots:Array = _model;
 			
-			var hotspot:Object, vidhotspot:Object;
+			const videoWidth:Number = _videoRectangle.width;
+			const videoHeight:Number = _videoRectangle.height;
 			
-			for( var i:int = 0; i < hotspots.length; i++ ){
+			var renderModel:HotspotRenderModel;
+			var hotspot:HotspotView;
+			
+			
+			var i:int = 0;
+			const l:int = _hotspots.length;
+			var keyframes:Vector.<Vector.<Number>>;
+			var keyframeA:Vector.<Number>;
+			var keyframeB:Vector.<Number>;
+			
+			while(i < l) {
 				
-				vidhotspot = hotspots[i];
-				hotspot = vidhotspot.view;
+				renderModel = _hotspots[i];
+				hotspot = renderModel.view;
+				keyframes = renderModel.keyframes;
 				
-				if( playerTime >= vidhotspot.keyframes[0][0] && playerTime <= vidhotspot.keyframes[ vidhotspot.keyframes.length - 1 ][0] ){
-					
+				
+				if( playerTime >= keyframes[0][0] && playerTime <= keyframes[ keyframes.length - 1 ][0] ){
+				
 					// get nearest keyframe (binary search) - takes int( log2(N) + 1 ) steps for dataset size N.
 					var j:int = 0;
-					var size:int = vidhotspot.keyframes.length + 1 >> 1;
+					var size:int = keyframes.length + 1 >> 1;
 					while( size > 0 ){
 						var k:int = j + size;
-						if( vidhotspot.keyframes[ k ][0] < playerTime ) j = k;
+						if( keyframes[ k ][0] < playerTime ) j = k;
 						size >>= 1; // half the step size
 					}
 					
-					var keyframeA:Array = vidhotspot.keyframes[ j ];
-					var keyframeB:Array = vidhotspot.keyframes[ j + 1 ];
+					keyframeA = keyframes[ j ];
+					keyframeB = keyframes[ j + 1 ];
 					
 					if( !keyframeA || !keyframeB ) continue; // might not be defined if things are loading in weird orders.?
 					var mf:Number = (playerTime - keyframeA[ 0 ]) / ( keyframeB[ 0 ] - keyframeA[ 0 ]);
@@ -116,32 +126,29 @@ package com.mpc.te.videotour.view {
 					var Px:Number = Ax * (1 - mf) + Bx * mf;
 					var Py:Number = Ay * (1 - mf) + By * mf;
 					
-					var xPos:Number = Px * _videoRectangle.width;
-					var yPos:Number = Py * _videoRectangle.height;
+					var xPos:Number = Px * videoWidth
+					var yPos:Number = Py * videoHeight;
 					
 					if(playerTime < 0.5) {
-						addChild(hotspot as DisplayObject) ;
+						addChild(hotspot) ;
 					}else {
-						addChild(hotspot as DisplayObject) ;
+						addChild(hotspot) ;
 						TweenMax.to(hotspot, 0.5, {alpha:1});
 					}
 					
 					hotspot.x = xPos;
 					hotspot.y = yPos;
-					
-					//TweenMax.to(hotspot, .4, {x:xPos, ease:Linear.easeNone});
-					//TweenMax.to(hotspot, 0.4, {y:yPos, ease:Linear.easeNone});
 				
 				}else{
 					if(playerTime < 1) {
-						if(contains(hotspot as DisplayObject)) removeChild(hotspot as DisplayObject );	
-					}else if(contains(hotspot as DisplayObject)) {
-						
+						if(contains(hotspot)) removeChild(hotspot);	
+					}else if(contains(hotspot)) {
 						TweenMax.to(hotspot, .5, {alpha:0, onComplete:function(hotspot:DisplayObject):void {
-							if(contains(hotspot as DisplayObject)) removeChild(hotspot as DisplayObject );		
+							if(contains(hotspot)) removeChild(hotspot);		
 						}, onCompleteParams:[hotspot]});
 					}			
 				}
+				++i;
 			}
 		}
 		

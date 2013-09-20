@@ -64,7 +64,7 @@ function run() {
 
 	function pbcopy(data) { var proc = require('child_process').spawn('pbcopy'); proc.stdin.write(data); proc.stdin.end(); }
 
-	console.log(JSON.stringify(data));
+	console.log(util.inspect(data, false, null));
 	pbcopy(JSON.stringify(data));
 }
 
