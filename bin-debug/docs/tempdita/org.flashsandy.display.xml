@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?><apiPackage id="org.flashsandy.display"><apiName>org.flashsandy.display</apiName><apiDetail/><apiClassifier id="org.flashsandy.display:DistortImage"><apiName>DistortImage</apiName><shortdesc>
+	 Tesselates an area into several triangles to allow free transform distortion on BitmapData objects.</shortdesc><prolog><author>Thomas Pfeiffer (aka kiroukou)
+	 				kiroukou</author><asMetadata/><asCustoms><version>1.1.0
+	 
+	 
+	 edit 2
+	 
+	 The original Actionscript2.0 version of the class was written by Thomas Pfeiffer (aka kiroukou),
+	   inspired by Andre Michelle (andre-michelle.com).
+	   Ruben Swieringa rewrote Thomas Pfeiffer's class in Actionscript3.0, making some minor changes/additions.
+	 
+	 
+	 Copyright (c) 2005 Thomas PFEIFFER. All rights reserved.
+	 
+	 Licensed under the CREATIVE COMMONS Attribution-NonCommercial-ShareAlike 2.0 you may not use this
+	   file except in compliance with the License. You may obtain a copy of the License at:
+	   http://creativecommons.org/licenses/by-nc-sa/2.0/fr/deed.en_GB
+	 
+	 </version></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+	 Tesselates an area into several triangles to allow free transform distortion on BitmapData objects.
+	 
+	 </apiDesc></apiClassifierDetail><apiConstructor id="org.flashsandy.display:DistortImage:DistortImage"><apiName>DistortImage</apiName><shortdesc>
+		 Constructor.</shortdesc><prolog/><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>w</apiItemName><apiType value="Number"/><apiDesc>	Width of the image to be processed
+		 </apiDesc></apiParam><apiParam><apiItemName>h</apiItemName><apiType value="Number"/><apiDesc>	Height of image to be processed
+		 </apiDesc></apiParam><apiParam><apiItemName>hseg</apiItemName><apiType value="uint"/><apiData>2</apiData><apiDesc>Horizontal precision
+		 </apiDesc></apiParam><apiParam><apiItemName>vseg</apiItemName><apiType value="uint"/><apiData>2</apiData><apiDesc>Vertical precision
+		 
+		 </apiDesc></apiParam></apiConstructorDef><apiDesc>
+		 Constructor.
+		 
+		 </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="org.flashsandy.display:DistortImage:setPrecision"><apiName>setPrecision</apiName><shortdesc>
+		 Sets the precision of this DistortImage instance and re-initializes the triangular grid.</shortdesc><prolog/><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>horizontal</apiItemName><apiType value="Number"/><apiDesc>New horizontal precision.
+		 </apiDesc></apiParam><apiParam><apiItemName>vertical</apiItemName><apiType value="Number"/><apiDesc>New vertical precision.
+		 
+		 </apiDesc></apiParam></apiOperationDef><apiDesc>
+		 Sets the precision of this DistortImage instance and re-initializes the triangular grid.
+		 
+		 </apiDesc></apiOperationDetail><related-links><link href="org.flashsandy.display.xml#DistortImage/hPrecision"><linktext>DistortImage.hPrecision</linktext></link><link href="org.flashsandy.display.xml#DistortImage/vPrecision"><linktext>DistortImage.vPrecision</linktext></link></related-links></apiOperation><apiOperation id="org.flashsandy.display:DistortImage:setSize"><apiName>setSize</apiName><shortdesc>
+		 Sets the size of this DistortImage instance and re-initializes the triangular grid.</shortdesc><prolog/><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>width</apiItemName><apiType value="Number"/><apiDesc>New width.
+		 </apiDesc></apiParam><apiParam><apiItemName>height</apiItemName><apiType value="Number"/><apiDesc>New height.
+		 
+		 </apiDesc></apiParam></apiOperationDef><apiDesc>
+		 Sets the size of this DistortImage instance and re-initializes the triangular grid.
+		 
+		 </apiDesc></apiOperationDetail><related-links><link href="org.flashsandy.display.xml#DistortImage/width"><linktext>DistortImage.width</linktext></link><link href="org.flashsandy.display.xml#DistortImage/height"><linktext>DistortImage.height</linktext></link></related-links></apiOperation><apiOperation id="org.flashsandy.display:DistortImage:setTransform"><apiName>setTransform</apiName><shortdesc>
+		 Distorts the provided BitmapData according to the provided Point instances and draws it onto the provided Graphics.</shortdesc><prolog/><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>graphics</apiItemName><apiType value="flash.display:Graphics"/><apiDesc>Graphics on which to draw the distorted BitmapData
+		 </apiDesc></apiParam><apiParam><apiItemName>bmd</apiItemName><apiType value="flash.display:BitmapData"/><apiDesc>		The undistorted BitmapData
+		 </apiDesc></apiParam><apiParam><apiItemName>tl</apiItemName><apiType value="flash.geom:Point"/><apiDesc>		Point specifying the coordinates of the top-left corner of the distortion
+		 </apiDesc></apiParam><apiParam><apiItemName>tr</apiItemName><apiType value="flash.geom:Point"/><apiDesc>		Point specifying the coordinates of the top-right corner of the distortion
+		 </apiDesc></apiParam><apiParam><apiItemName>br</apiItemName><apiType value="flash.geom:Point"/><apiDesc>		Point specifying the coordinates of the bottom-right corner of the distortion
+		 </apiDesc></apiParam><apiParam><apiItemName>bl</apiItemName><apiType value="flash.geom:Point"/><apiDesc>		Point specifying the coordinates of the bottom-left corner of the distortion
+		 
+		 </apiDesc></apiParam></apiOperationDef><apiDesc>
+		 Distorts the provided BitmapData according to the provided Point instances and draws it onto the provided Graphics.
+		 
+		 </apiDesc></apiOperationDetail></apiOperation><apiValue id="org.flashsandy.display:DistortImage:smoothing"><apiName>smoothing</apiName><shortdesc>
+		 Indicates whether or not use pixelsmoothing in the beginBitmapFill method of the Graphics class.</shortdesc><prolog/><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>true</apiData><apiType value="Boolean"/><apiDefaultValue>true
+		 </apiDefaultValue></apiValueDef><apiDesc>
+		 Indicates whether or not use pixelsmoothing in the beginBitmapFill method of the Graphics class.
+		 </apiDesc></apiValueDetail></apiValue><apiValue id="org.flashsandy.display:DistortImage:hPrecision:get"><apiName>hPrecision</apiName><shortdesc>
+		 Horizontal precision of this DistortImage instance.</shortdesc><prolog/><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="uint"/></apiValueDef><apiDesc>
+		 Horizontal precision of this DistortImage instance. Property can only be set through the class constructor.
+		 </apiDesc></apiValueDetail><related-links><link href="org.flashsandy.display.xml#DistortImage/setPrecision()"><linktext>DistortImage.setPrecision()</linktext></link></related-links></apiValue><apiValue id="org.flashsandy.display:DistortImage:height:get"><apiName>height</apiName><shortdesc>
+		 Height of this DistortImage instance.</shortdesc><prolog/><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Number"/></apiValueDef><apiDesc>
+		 Height of this DistortImage instance. Property can only be set through the class constructor.
+		 </apiDesc></apiValueDetail><related-links><link href="org.flashsandy.display.xml#DistortImage/setSize()"><linktext>DistortImage.setSize()</linktext></link></related-links></apiValue><apiValue id="org.flashsandy.display:DistortImage:vPrecision:get"><apiName>vPrecision</apiName><shortdesc>
+		 Vertical precision of this DistortImage instance.</shortdesc><prolog/><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="uint"/></apiValueDef><apiDesc>
+		 Vertical precision of this DistortImage instance. Property can only be set through the class constructor.
+		 </apiDesc></apiValueDetail><related-links><link href="org.flashsandy.display.xml#DistortImage/setPrecision()"><linktext>DistortImage.setPrecision()</linktext></link></related-links></apiValue><apiValue id="org.flashsandy.display:DistortImage:width:get"><apiName>width</apiName><shortdesc>
+		 Width of this DistortImage instance.</shortdesc><prolog/><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Number"/></apiValueDef><apiDesc>
+		 Width of this DistortImage instance. Property can only be set through the class constructor.
+		 </apiDesc></apiValueDetail><related-links><link href="org.flashsandy.display.xml#DistortImage/setSize()"><linktext>DistortImage.setSize()</linktext></link></related-links></apiValue></apiClassifier></apiPackage>

@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?><apiPackage id="com.mpc.te.videotour.model"><apiName>com.mpc.te.videotour.model</apiName><apiDetail/><apiClassifier id="com.mpc.te.videotour.model:Quad"><apiName>Quad</apiName><shortdesc>
+	 Quad Model 
+	 	</shortdesc><prolog><author>patrickwolleb
+	 </author><asMetadata/></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+	 Quad Model 
+	 	</apiDesc></apiClassifierDetail><apiOperation id="com.mpc.te.videotour.model:Quad:scale"><apiName>scale</apiName><shortdesc>
+		 	Scale position by scalar
+		 	</shortdesc><prolog/><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>scaleX</apiItemName><apiType value="Number"/><apiDesc>	 	</apiDesc></apiParam><apiParam><apiItemName>scaleY</apiItemName><apiType value="Number"/><apiDesc>	 </apiDesc></apiParam></apiOperationDef><apiDesc>
+		 	Scale position by scalar
+		 	</apiDesc></apiOperationDetail></apiOperation><apiOperation id="com.mpc.te.videotour.model:Quad:toString"><apiName>toString</apiName><shortdesc>
+		 Returns string represantation for debugging
+		 	</shortdesc><prolog/><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc></apiDesc><apiType value="String"/></apiReturn></apiOperationDef><apiDesc>
+		 Returns string represantation for debugging
+		 	</apiDesc></apiOperationDetail></apiOperation><apiValue id="com.mpc.te.videotour.model:Quad:Ax"><apiName>Ax</apiName><shortdesc>
+		  Ax as used in JS app
+		 </shortdesc><prolog/><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>0.0</apiData><apiType value="Number"/></apiValueDef><apiDesc>
+		  Ax as used in JS app
+		 </apiDesc></apiValueDetail></apiValue><apiValue id="com.mpc.te.videotour.model:Quad:Ay"><apiName>Ay</apiName><shortdesc>
+		  Ay as used in JS app
+		 </shortdesc><prolog/><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>0.0</apiData><apiType value="Number"/></apiValueDef><apiDesc>
+		  Ay as used in JS app
+		 </apiDesc></apiValueDetail></apiValue><apiValue id="com.mpc.te.videotour.model:Quad:Bx"><apiName>Bx</apiName><shortdesc>
+		  Bx as used in JS app
+		 </shortdesc><prolog/><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>0.0</apiData><apiType value="Number"/></apiValueDef><apiDesc>
+		  Bx as used in JS app
+		 </apiDesc></apiValueDetail></apiValue><apiValue id="com.mpc.te.videotour.model:Quad:By"><apiName>By</apiName><shortdesc>
+		  By as used in JS app
+		 </shortdesc><prolog/><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>0.0</apiData><apiType value="Number"/></apiValueDef><apiDesc>
+		  By as used in JS app
+		 </apiDesc></apiValueDetail></apiValue><apiValue id="com.mpc.te.videotour.model:Quad:Cx"><apiName>Cx</apiName><shortdesc>
+		  Cx as used in JS app
+		 </shortdesc><prolog/><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>0.0</apiData><apiType value="Number"/></apiValueDef><apiDesc>
+		  Cx as used in JS app
+		 </apiDesc></apiValueDetail></apiValue><apiValue id="com.mpc.te.videotour.model:Quad:Cy"><apiName>Cy</apiName><shortdesc>
+		  Cy as used in JS app
+		 </shortdesc><prolog/><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>0.0</apiData><apiType value="Number"/></apiValueDef><apiDesc>
+		  Cy as used in JS app
+		 </apiDesc></apiValueDetail></apiValue><apiValue id="com.mpc.te.videotour.model:Quad:Dx"><apiName>Dx</apiName><shortdesc>
+		  Dx as used in JS app
+		 </shortdesc><prolog/><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>0.0</apiData><apiType value="Number"/></apiValueDef><apiDesc>
+		  Dx as used in JS app
+		 </apiDesc></apiValueDetail></apiValue><apiValue id="com.mpc.te.videotour.model:Quad:Dy"><apiName>Dy</apiName><shortdesc>
+		  Dy as used in JS app
+		 </shortdesc><prolog/><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>0.0</apiData><apiType value="Number"/></apiValueDef><apiDesc>
+		  Dy as used in JS app
+		 </apiDesc></apiValueDetail></apiValue><apiValue id="com.mpc.te.videotour.model:Quad:height:get"><apiName>height</apiName><shortdesc>
+		 	Returns maximum height
+		 	</shortdesc><prolog/><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Number"/></apiValueDef><apiDesc>
+		 	Returns maximum height
+		 	</apiDesc></apiValueDetail></apiValue><apiValue id="com.mpc.te.videotour.model:Quad:width:get"><apiName>width</apiName><shortdesc>
+		 	Returns maximum width
+		 	</shortdesc><prolog/><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Number"/></apiValueDef><apiDesc>
+		 	Returns maximum width
+		 	</apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="com.mpc.te.videotour.model:Model"><apiName>Model</apiName><shortdesc>
+	 App Model containing JSON data, state logic and common properties.</shortdesc><prolog><author>patrickwolleb
+	 </author><asMetadata/></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+	 App Model containing JSON data, state logic and common properties. 
+	 </apiDesc></apiClassifierDetail><apiConstructor id="com.mpc.te.videotour.model:Model:Model"><apiName>Model</apiName><shortdesc>
+		 Constructor
+		 Creates instances of Signals and get current Time.</shortdesc><prolog/><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+		 Constructor
+		 Creates instances of Signals and get current Time. 
+		 </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="com.mpc.te.videotour.model:Model:parse"><apiName>parse</apiName><shortdesc>
+		 Parse changes the video file extensions to .f4v for use in Flash.</shortdesc><prolog/><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>json</apiItemName><apiType value="Object"/><apiDesc>	 
+		 </apiDesc></apiParam></apiOperationDef><apiDesc>
+		 Parse changes the video file extensions to .f4v for use in Flash. This is due to the JSON data being shared between the JS and Flash apps.  
+		 </apiDesc></apiOperationDetail></apiOperation><apiOperation id="com.mpc.te.videotour.model:Model:setOverlayByID"><apiName>setOverlayByID</apiName><shortdesc>
+		 	Validates overlay ID.</shortdesc><prolog/><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>val</apiItemName><apiType value="String"/><apiDesc>	 </apiDesc></apiParam></apiOperationDef><apiDesc>
+		 	Validates overlay ID.
+		 	Dispatches overlayChanged signal on success or throws a OverlayID error
+		 	</apiDesc></apiOperationDetail></apiOperation><apiOperation id="com.mpc.te.videotour.model:Model:setShotByID"><apiName>setShotByID</apiName><shortdesc>
+		 	Validates shot ID.</shortdesc><prolog/><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>val</apiItemName><apiType value="String"/><apiDesc>	 </apiDesc></apiParam></apiOperationDef><apiDesc>
+		 	Validates shot ID.
+		 	Dispatches shotChanged signal on success or throws a VideoID error
+		 	</apiDesc></apiOperationDetail></apiOperation><apiOperation id="com.mpc.te.videotour.model:Model:updateDeltaTime"><apiName>updateDeltaTime</apiName><shortdesc>
+		 Updates time and returns delta;
+		 	</shortdesc><prolog/><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>time in milliseconds
+		 </apiDesc><apiType value="int"/></apiReturn></apiOperationDef><apiDesc>
+		 Updates time and returns delta;
+		 	</apiDesc></apiOperationDetail></apiOperation><apiValue id="com.mpc.te.videotour.model:Model:bandwidth"><apiName>bandwidth</apiName><shortdesc>
+		 	Bandwidth calculated from JSON data response time 
+		 </shortdesc><prolog/><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="int"/></apiValueDef><apiDesc>
+		 	Bandwidth calculated from JSON data response time 
+		 </apiDesc></apiValueDetail></apiValue><apiValue id="com.mpc.te.videotour.model:Model:time"><apiName>time</apiName><shortdesc>
+		 	Time since app start 
+		 </shortdesc><prolog/><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="int"/></apiValueDef><apiDesc>
+		 	Time since app start 
+		 </apiDesc></apiValueDetail></apiValue><apiValue id="com.mpc.te.videotour.model:Model:overlayChanged:get"><apiName>overlayChanged</apiName><shortdesc>
+		 	OverlayChangedSignal containing Overlay object payload
+		 	</shortdesc><prolog/><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="org.osflash.signals:Signal"/></apiValueDef><apiDesc>
+		 	OverlayChangedSignal containing Overlay object payload
+		 	</apiDesc></apiValueDetail></apiValue><apiValue id="com.mpc.te.videotour.model:Model:previousShot:get"><apiName>previousShot</apiName><shortdesc>
+		 	Previous shot
+		 	Returns null when staring up  
+		 	</shortdesc><prolog/><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Object"/></apiValueDef><apiDesc>
+		 	Previous shot
+		 	Returns null when staring up  
+		 	</apiDesc></apiValueDetail></apiValue><apiValue id="com.mpc.te.videotour.model:Model:shotChanged:get"><apiName>shotChanged</apiName><shortdesc>
+		 	ShotChanedSignal containing Shot object payload
+		 	</shortdesc><prolog/><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="org.osflash.signals:Signal"/></apiValueDef><apiDesc>
+		 	ShotChanedSignal containing Shot object payload
+		 	</apiDesc></apiValueDetail></apiValue><apiValue id="com.mpc.te.videotour.model:Model:shot:get"><apiName>shot</apiName><shortdesc>
+		 Current active shot model
+		 </shortdesc><prolog/><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Object"/></apiValueDef><apiDesc>
+		 Current active shot model
+		 </apiDesc></apiValueDetail></apiValue></apiClassifier></apiPackage>

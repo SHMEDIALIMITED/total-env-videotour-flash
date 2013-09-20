@@ -1,0 +1,780 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<allClasses>
+   <apiPackage id="com.flashdynamix.utils">
+      <apiName>com.flashdynamix.utils</apiName>
+      <apiDetail/>
+      <apiClassifier id="com.flashdynamix.utils:SWFProfiler">
+         <apiName>SWFProfiler</apiName>
+         <shortdesc>
+	 </shortdesc>
+         <prolog>
+            <author>shanem
+	 </author>
+            <asMetadata/>
+         </prolog>
+            <meta name="keywords"
+               content="SWFProfiler,com.flashdynamix.utils.SWFProfiler,averageFps,currentFps,currentMem,fpsList,history,maxFps,maxMem,memList,minFps,minMem,gc,init,start,stop"/>
+         <apiClassifierDetail>
+            <apiClassifierDef>
+               <apiAccess value="public"/>
+               <apiStatic/>
+               <apiBaseClassifier>Object</apiBaseClassifier>
+            </apiClassifierDef>
+            <apiDesc>
+	 </apiDesc>
+            <Inheritancelist>
+               <BaseInterface/>
+               <Inheritance>
+                  <Inherit id="Object"/>
+               </Inheritance>
+               <Implements/>
+               <Subclasses/>
+               <Implementors/>
+               <Excludes/>
+            </Inheritancelist>
+         </apiClassifierDetail>
+      </apiClassifier>
+   </apiPackage>
+   <apiPackage id="com.mpc.te.videotour.model">
+      <apiName>com.mpc.te.videotour.model</apiName>
+      <apiDetail/>
+      <apiClassifier id="com.mpc.te.videotour.model:Quad">
+         <apiName>Quad</apiName>
+         <shortdesc>
+	 Quad Model 
+	 	</shortdesc>
+         <prolog>
+            <author>patrickwolleb
+	 </author>
+            <asMetadata/>
+         </prolog>
+            <meta name="keywords"
+               content="Quad,com.mpc.te.videotour.model.Quad,Ax,Ay,Bx,By,Cx,Cy,Dx,Dy,bandwidth,height,overlayChanged,previousShot,shot,shotChanged,time,width,parse,scale,setOverlayByID,setShotByID,toString,updateDeltaTime"/>
+         <apiClassifierDetail>
+            <apiClassifierDef>
+               <apiAccess value="public"/>
+               <apiStatic/>
+               <apiBaseClassifier>Object</apiBaseClassifier>
+            </apiClassifierDef>
+            <apiDesc>
+	 Quad Model 
+	 	</apiDesc>
+            <Inheritancelist>
+               <BaseInterface/>
+               <Inheritance>
+                  <Inherit id="Object"/>
+               </Inheritance>
+               <Implements/>
+               <Subclasses/>
+               <Implementors/>
+               <Excludes/>
+            </Inheritancelist>
+         </apiClassifierDetail>
+      </apiClassifier>
+      <apiClassifier id="com.mpc.te.videotour.model:Model">
+         <apiName>Model</apiName>
+         <shortdesc>
+	 App Model containing JSON data, state logic and common properties.</shortdesc>
+         <prolog>
+            <author>patrickwolleb
+	 </author>
+            <asMetadata/>
+         </prolog>
+            <meta name="keywords"
+               content="Model,com.mpc.te.videotour.model.Model,Ax,Ay,Bx,By,Cx,Cy,Dx,Dy,bandwidth,height,overlayChanged,previousShot,shot,shotChanged,time,width,parse,scale,setOverlayByID,setShotByID,toString,updateDeltaTime"/>
+         <apiClassifierDetail>
+            <apiClassifierDef>
+               <apiAccess value="public"/>
+               <apiStatic/>
+               <apiBaseClassifier>Object</apiBaseClassifier>
+            </apiClassifierDef>
+            <apiDesc>
+	 App Model containing JSON data, state logic and common properties. 
+	 </apiDesc>
+            <Inheritancelist>
+               <BaseInterface/>
+               <Inheritance>
+                  <Inherit id="Object"/>
+               </Inheritance>
+               <Implements/>
+               <Subclasses/>
+               <Implementors/>
+               <Excludes/>
+            </Inheritancelist>
+         </apiClassifierDetail>
+      </apiClassifier>
+   </apiPackage>
+   <apiPackage id="com.mpc.te.videotour.service">
+      <apiName>com.mpc.te.videotour.service</apiName>
+      <apiDetail/>
+      <apiClassifier id="com.mpc.te.videotour.service:HTTPService">
+         <apiName>HTTPService</apiName>
+         <shortdesc>
+	 HTTPService 
+	 	Encapsulates URLLoader providing signals for callbacks.</shortdesc>
+         <prolog>
+            <author>patrickwolleb
+	 </author>
+            <asMetadata/>
+         </prolog>
+            <meta name="keywords"
+               content="HTTPService,com.mpc.te.videotour.service.HTTPService,bandwidth,completed,progressed,destroy,onComplete,onIOError,onProgress,onSecurityError,send"/>
+         <apiClassifierDetail>
+            <apiClassifierDef>
+               <apiAccess value="public"/>
+               <apiStatic/>
+               <apiBaseClassifier>Object</apiBaseClassifier>
+            </apiClassifierDef>
+            <apiDesc>
+	 HTTPService 
+	 	Encapsulates URLLoader providing signals for callbacks.
+	 	</apiDesc>
+            <Inheritancelist>
+               <BaseInterface/>
+               <Inheritance>
+                  <Inherit id="Object"/>
+               </Inheritance>
+               <Implements/>
+               <Subclasses/>
+               <Implementors/>
+               <Excludes/>
+            </Inheritancelist>
+         </apiClassifierDetail>
+      </apiClassifier>
+   </apiPackage>
+   <apiPackage id="com.mpc.te.videotour.view">
+      <apiName>com.mpc.te.videotour.view</apiName>
+      <apiDetail/>
+      <apiClassifier id="com.mpc.te.videotour.view:OverlayText">
+         <apiName>OverlayText</apiName>
+         <shortdesc/>
+         <prolog>
+            <asMetadata/>
+         </prolog>
+            <meta name="keywords"
+               content="OverlayText,com.mpc.te.videotour.view.OverlayText,_clicked,_client,_length,_model,_stageVideoIndex,_stream,active,background,bandwidth,bg,bg,bg,blur,bufferProgressed,buffering,bufferingEnded,bufferingStarted,clicked,closed,hidden,hotspotClicked,id,imageHeight,imageLoadProgressed,imageLoadingEnded,imageLoadingStarted,imageWidth,innerRing,instance,label,label,label,loaded,model,model,model,model,needsRendering,outerRing,player,progressed,ready,src,src,text,time,txt,txt,txt,txt,videoBufferProgressed,videoBufferingEnded,videoBufferingStarted"/>
+         <apiClassifierDetail>
+            <apiClassifierDef>
+               <apiAccess value="public"/>
+               <apiStatic/>
+               <apiBaseClassifier>flash.display:Sprite</apiBaseClassifier>
+            </apiClassifierDef>
+            <Inheritancelist>
+               <BaseInterface/>
+               <Inheritance>
+                  <Inherit id="flash.display:Sprite"/>
+               </Inheritance>
+               <Implements/>
+               <Subclasses/>
+               <Implementors/>
+               <Excludes/>
+            </Inheritancelist>
+         </apiClassifierDetail>
+      </apiClassifier>
+      <apiClassifier id="com.mpc.te.videotour.view:HotspotPool">
+         <apiName>HotspotPool</apiName>
+         <shortdesc/>
+         <prolog>
+            <asMetadata/>
+         </prolog>
+            <meta name="keywords"
+               content="HotspotPool,com.mpc.te.videotour.view.HotspotPool,calculateBufferSize,destroy,destroy,destroy,destroy,getItem,hide,init,load,load,log,onIOError,onMouseDown,onMouseDown,onMouseOut,onMouseOut,onMouseOut,onMouseOut,onMouseOut,onMouseOver,onMouseOver,onMouseOver,onMouseOver,onMouseOver,onNetConnectionFail,onNetConnectionSuccess,onNetstreamBufferEmpty,onNetstreamBufferEmpty,onNetstreamBufferFlush,onNetstreamBufferFlush,onNetstreamBufferFull,onNetstreamBufferFull,onNetstreamPlayFailed,onNetstreamPlayStart,onNetstreamPlayStart,onNetstreamPlayStop,onNetstreamPlayStreamNotFound,onProgress,onSecurityError,onSecurityError,pause,play,render,render,render,render,render,resize,resize,resize,resize,resize,resume,returnItem,seek,setProgress,show,stageVideoStateChange,start,stop,stop,update,updateMask,update"/>
+         <apiClassifierDetail>
+            <apiClassifierDef>
+               <apiAccess value="public"/>
+               <apiStatic/>
+               <apiBaseClassifier>Object</apiBaseClassifier>
+            </apiClassifierDef>
+            <Inheritancelist>
+               <BaseInterface/>
+               <Inheritance>
+                  <Inherit id="Object"/>
+               </Inheritance>
+               <Implements/>
+               <Subclasses/>
+               <Implementors/>
+               <Excludes/>
+            </Inheritancelist>
+         </apiClassifierDetail>
+      </apiClassifier>
+      <apiClassifier id="com.mpc.te.videotour.view:StageVideoPlayer">
+         <apiName>StageVideoPlayer</apiName>
+         <shortdesc/>
+         <prolog>
+            <asMetadata/>
+         </prolog>
+            <meta name="keywords"
+               content="StageVideoPlayer,com.mpc.te.videotour.view.StageVideoPlayer,_clicked,_client,_length,_model,_stageVideoIndex,_stream,active,background,bandwidth,bg,bg,bg,blur,bufferProgressed,buffering,bufferingEnded,bufferingStarted,clicked,closed,hidden,hotspotClicked,id,imageHeight,imageLoadProgressed,imageLoadingEnded,imageLoadingStarted,imageWidth,innerRing,instance,label,label,label,loaded,model,model,model,model,needsRendering,outerRing,player,progressed,ready,src,src,text,time,txt,txt,txt,txt,videoBufferProgressed,videoBufferingEnded,videoBufferingStarted,calculateBufferSize,destroy,destroy,destroy,destroy,getItem,hide,init,load,load,log,onIOError,onMouseDown,onMouseDown,onMouseOut,onMouseOut,onMouseOut,onMouseOut,onMouseOut,onMouseOver,onMouseOver,onMouseOver,onMouseOver,onMouseOver,onNetConnectionFail,onNetConnectionSuccess,onNetstreamBufferEmpty,onNetstreamBufferEmpty,onNetstreamBufferFlush,onNetstreamBufferFlush,onNetstreamBufferFull,onNetstreamBufferFull,onNetstreamPlayFailed,onNetstreamPlayStart,onNetstreamPlayStart,onNetstreamPlayStop,onNetstreamPlayStreamNotFound,onProgress,onSecurityError,onSecurityError,pause,play,render,render,render,render,render,resize,resize,resize,resize,resize,resume,returnItem,seek,setProgress,show,stageVideoStateChange,start,stop,stop,update,updateMask,update"/>
+         <apiClassifierDetail>
+            <apiClassifierDef>
+               <apiAccess value="public"/>
+               <apiStatic/>
+               <apiBaseClassifier>flash.display:Sprite</apiBaseClassifier>
+            </apiClassifierDef>
+            <Inheritancelist>
+               <BaseInterface/>
+               <Inheritance>
+                  <Inherit id="flash.display:Sprite"/>
+               </Inheritance>
+               <Implements/>
+               <Subclasses>
+                  <class id="com.mpc.te.videotour.view:VideoPlayer"/>
+               </Subclasses>
+               <Implementors/>
+               <Excludes/>
+            </Inheritancelist>
+         </apiClassifierDetail>
+      </apiClassifier>
+      <apiClassifier id="com.mpc.te.videotour.view:VideoPlayer">
+         <apiName>VideoPlayer</apiName>
+         <shortdesc/>
+         <prolog>
+            <asMetadata/>
+         </prolog>
+            <meta name="keywords"
+               content="VideoPlayer,com.mpc.te.videotour.view.VideoPlayer,_clicked,_client,_length,_model,_stageVideoIndex,_stream,active,background,bandwidth,bg,bg,bg,blur,bufferProgressed,buffering,bufferingEnded,bufferingStarted,clicked,closed,hidden,hotspotClicked,id,imageHeight,imageLoadProgressed,imageLoadingEnded,imageLoadingStarted,imageWidth,innerRing,instance,label,label,label,loaded,model,model,model,model,needsRendering,outerRing,player,progressed,ready,src,src,text,time,txt,txt,txt,txt,videoBufferProgressed,videoBufferingEnded,videoBufferingStarted,calculateBufferSize,destroy,destroy,destroy,destroy,getItem,hide,init,load,load,log,onIOError,onMouseDown,onMouseDown,onMouseOut,onMouseOut,onMouseOut,onMouseOut,onMouseOut,onMouseOver,onMouseOver,onMouseOver,onMouseOver,onMouseOver,onNetConnectionFail,onNetConnectionSuccess,onNetstreamBufferEmpty,onNetstreamBufferEmpty,onNetstreamBufferFlush,onNetstreamBufferFlush,onNetstreamBufferFull,onNetstreamBufferFull,onNetstreamPlayFailed,onNetstreamPlayStart,onNetstreamPlayStart,onNetstreamPlayStop,onNetstreamPlayStreamNotFound,onProgress,onSecurityError,onSecurityError,pause,play,render,render,render,render,render,resize,resize,resize,resize,resize,resume,returnItem,seek,setProgress,show,stageVideoStateChange,start,stop,stop,update,updateMask,update"/>
+         <apiClassifierDetail>
+            <apiClassifierDef>
+               <apiAccess value="public"/>
+               <apiStatic/>
+               <apiFinal/>
+               <apiBaseClassifier>com.mpc.te.videotour.view:StageVideoPlayer</apiBaseClassifier>
+            </apiClassifierDef>
+            <Inheritancelist>
+               <BaseInterface/>
+               <Inheritance>
+                  <Inherit id="com.mpc.te.videotour.view:StageVideoPlayer"/>
+                  <Inherit id="flash.display:Sprite"/>
+               </Inheritance>
+               <Implements/>
+               <Subclasses/>
+               <Implementors/>
+               <Excludes/>
+            </Inheritancelist>
+         </apiClassifierDetail>
+      </apiClassifier>
+      <apiClassifier id="com.mpc.te.videotour.view:HotspotRenderer">
+         <apiName>HotspotRenderer</apiName>
+         <shortdesc/>
+         <prolog>
+            <asMetadata/>
+         </prolog>
+            <meta name="keywords"
+               content="HotspotRenderer,com.mpc.te.videotour.view.HotspotRenderer,_clicked,_client,_length,_model,_stageVideoIndex,_stream,active,background,bandwidth,bg,bg,bg,blur,bufferProgressed,buffering,bufferingEnded,bufferingStarted,clicked,closed,hidden,hotspotClicked,id,imageHeight,imageLoadProgressed,imageLoadingEnded,imageLoadingStarted,imageWidth,innerRing,instance,label,label,label,loaded,model,model,model,model,needsRendering,outerRing,player,progressed,ready,src,src,text,time,txt,txt,txt,txt,videoBufferProgressed,videoBufferingEnded,videoBufferingStarted,calculateBufferSize,destroy,destroy,destroy,destroy,getItem,hide,init,load,load,log,onIOError,onMouseDown,onMouseDown,onMouseOut,onMouseOut,onMouseOut,onMouseOut,onMouseOut,onMouseOver,onMouseOver,onMouseOver,onMouseOver,onMouseOver,onNetConnectionFail,onNetConnectionSuccess,onNetstreamBufferEmpty,onNetstreamBufferEmpty,onNetstreamBufferFlush,onNetstreamBufferFlush,onNetstreamBufferFull,onNetstreamBufferFull,onNetstreamPlayFailed,onNetstreamPlayStart,onNetstreamPlayStart,onNetstreamPlayStop,onNetstreamPlayStreamNotFound,onProgress,onSecurityError,onSecurityError,pause,play,render,render,render,render,render,resize,resize,resize,resize,resize,resume,returnItem,seek,setProgress,show,stageVideoStateChange,start,stop,stop,update,updateMask,update"/>
+         <apiClassifierDetail>
+            <apiClassifierDef>
+               <apiAccess value="public"/>
+               <apiStatic/>
+               <apiFinal/>
+               <apiBaseClassifier>flash.display:Sprite</apiBaseClassifier>
+            </apiClassifierDef>
+            <Inheritancelist>
+               <BaseInterface/>
+               <Inheritance>
+                  <Inherit id="flash.display:Sprite"/>
+               </Inheritance>
+               <Implements/>
+               <Subclasses/>
+               <Implementors/>
+               <Excludes/>
+            </Inheritancelist>
+         </apiClassifierDetail>
+      </apiClassifier>
+      <apiClassifier id="com.mpc.te.videotour.view:RemoteControlButton">
+         <apiName>RemoteControlButton</apiName>
+         <shortdesc/>
+         <prolog>
+            <asMetadata/>
+         </prolog>
+            <meta name="keywords"
+               content="RemoteControlButton,com.mpc.te.videotour.view.RemoteControlButton,_clicked,_client,_length,_model,_stageVideoIndex,_stream,active,background,bandwidth,bg,bg,bg,blur,bufferProgressed,buffering,bufferingEnded,bufferingStarted,clicked,closed,hidden,hotspotClicked,id,imageHeight,imageLoadProgressed,imageLoadingEnded,imageLoadingStarted,imageWidth,innerRing,instance,label,label,label,loaded,model,model,model,model,needsRendering,outerRing,player,progressed,ready,src,src,text,time,txt,txt,txt,txt,videoBufferProgressed,videoBufferingEnded,videoBufferingStarted,calculateBufferSize,destroy,destroy,destroy,destroy,getItem,hide,init,load,load,log,onIOError,onMouseDown,onMouseDown,onMouseOut,onMouseOut,onMouseOut,onMouseOut,onMouseOut,onMouseOver,onMouseOver,onMouseOver,onMouseOver,onMouseOver,onNetConnectionFail,onNetConnectionSuccess,onNetstreamBufferEmpty,onNetstreamBufferEmpty,onNetstreamBufferFlush,onNetstreamBufferFlush,onNetstreamBufferFull,onNetstreamBufferFull,onNetstreamPlayFailed,onNetstreamPlayStart,onNetstreamPlayStart,onNetstreamPlayStop,onNetstreamPlayStreamNotFound,onProgress,onSecurityError,onSecurityError,pause,play,render,render,render,render,render,resize,resize,resize,resize,resize,resume,returnItem,seek,setProgress,show,stageVideoStateChange,start,stop,stop,update,updateMask,update"/>
+         <apiClassifierDetail>
+            <apiClassifierDef>
+               <apiAccess value="public"/>
+               <apiStatic/>
+               <apiBaseClassifier>com.mpc.te.videotour.view:Button</apiBaseClassifier>
+            </apiClassifierDef>
+            <Inheritancelist>
+               <BaseInterface/>
+               <Inheritance>
+                  <Inherit id="com.mpc.te.videotour.view:Button"/>
+                  <Inherit id="flash.display:MovieClip"/>
+               </Inheritance>
+               <Implements/>
+               <Subclasses/>
+               <Implementors/>
+               <Excludes/>
+            </Inheritancelist>
+         </apiClassifierDetail>
+      </apiClassifier>
+      <apiClassifier id="com.mpc.te.videotour.view:Overlay">
+         <apiName>Overlay</apiName>
+         <shortdesc/>
+         <prolog>
+            <asMetadata/>
+         </prolog>
+            <meta name="keywords"
+               content="Overlay,com.mpc.te.videotour.view.Overlay,_clicked,_client,_length,_model,_stageVideoIndex,_stream,active,background,bandwidth,bg,bg,bg,blur,bufferProgressed,buffering,bufferingEnded,bufferingStarted,clicked,closed,hidden,hotspotClicked,id,imageHeight,imageLoadProgressed,imageLoadingEnded,imageLoadingStarted,imageWidth,innerRing,instance,label,label,label,loaded,model,model,model,model,needsRendering,outerRing,player,progressed,ready,src,src,text,time,txt,txt,txt,txt,videoBufferProgressed,videoBufferingEnded,videoBufferingStarted,calculateBufferSize,destroy,destroy,destroy,destroy,getItem,hide,init,load,load,log,onIOError,onMouseDown,onMouseDown,onMouseOut,onMouseOut,onMouseOut,onMouseOut,onMouseOut,onMouseOver,onMouseOver,onMouseOver,onMouseOver,onMouseOver,onNetConnectionFail,onNetConnectionSuccess,onNetstreamBufferEmpty,onNetstreamBufferEmpty,onNetstreamBufferFlush,onNetstreamBufferFlush,onNetstreamBufferFull,onNetstreamBufferFull,onNetstreamPlayFailed,onNetstreamPlayStart,onNetstreamPlayStart,onNetstreamPlayStop,onNetstreamPlayStreamNotFound,onProgress,onSecurityError,onSecurityError,pause,play,render,render,render,render,render,resize,resize,resize,resize,resize,resume,returnItem,seek,setProgress,show,stageVideoStateChange,start,stop,stop,update,updateMask,update"/>
+         <apiClassifierDetail>
+            <apiClassifierDef>
+               <apiAccess value="public"/>
+               <apiStatic/>
+               <apiFinal/>
+               <apiBaseClassifier>flash.display:Sprite</apiBaseClassifier>
+            </apiClassifierDef>
+            <Inheritancelist>
+               <BaseInterface/>
+               <Inheritance>
+                  <Inherit id="flash.display:Sprite"/>
+               </Inheritance>
+               <Implements/>
+               <Subclasses/>
+               <Implementors/>
+               <Excludes/>
+            </Inheritancelist>
+         </apiClassifierDetail>
+      </apiClassifier>
+      <apiClassifier id="com.mpc.te.videotour.view:Debug">
+         <apiName>Debug</apiName>
+         <shortdesc>
+	 Debug Textfield 
+	 	Singleton
+	 	</shortdesc>
+         <prolog>
+            <author>patrickwolleb
+	 </author>
+            <asMetadata/>
+         </prolog>
+            <meta name="keywords"
+               content="Debug,com.mpc.te.videotour.view.Debug,_clicked,_client,_length,_model,_stageVideoIndex,_stream,active,background,bandwidth,bg,bg,bg,blur,bufferProgressed,buffering,bufferingEnded,bufferingStarted,clicked,closed,hidden,hotspotClicked,id,imageHeight,imageLoadProgressed,imageLoadingEnded,imageLoadingStarted,imageWidth,innerRing,instance,label,label,label,loaded,model,model,model,model,needsRendering,outerRing,player,progressed,ready,src,src,text,time,txt,txt,txt,txt,videoBufferProgressed,videoBufferingEnded,videoBufferingStarted,calculateBufferSize,destroy,destroy,destroy,destroy,getItem,hide,init,load,load,log,onIOError,onMouseDown,onMouseDown,onMouseOut,onMouseOut,onMouseOut,onMouseOut,onMouseOut,onMouseOver,onMouseOver,onMouseOver,onMouseOver,onMouseOver,onNetConnectionFail,onNetConnectionSuccess,onNetstreamBufferEmpty,onNetstreamBufferEmpty,onNetstreamBufferFlush,onNetstreamBufferFlush,onNetstreamBufferFull,onNetstreamBufferFull,onNetstreamPlayFailed,onNetstreamPlayStart,onNetstreamPlayStart,onNetstreamPlayStop,onNetstreamPlayStreamNotFound,onProgress,onSecurityError,onSecurityError,pause,play,render,render,render,render,render,resize,resize,resize,resize,resize,resume,returnItem,seek,setProgress,show,stageVideoStateChange,start,stop,stop,update,updateMask,update"/>
+         <apiClassifierDetail>
+            <apiClassifierDef>
+               <apiAccess value="public"/>
+               <apiStatic/>
+               <apiBaseClassifier>flash.display:Sprite</apiBaseClassifier>
+            </apiClassifierDef>
+            <apiDesc>
+	 Debug Textfield 
+	 	Singleton
+	 	</apiDesc>
+            <Inheritancelist>
+               <BaseInterface/>
+               <Inheritance>
+                  <Inherit id="flash.display:Sprite"/>
+               </Inheritance>
+               <Implements/>
+               <Subclasses/>
+               <Implementors/>
+               <Excludes/>
+            </Inheritancelist>
+         </apiClassifierDetail>
+      </apiClassifier>
+      <apiClassifier id="com.mpc.te.videotour.view:Photo">
+         <apiName>Photo</apiName>
+         <shortdesc/>
+         <prolog>
+            <asMetadata/>
+         </prolog>
+            <meta name="keywords"
+               content="Photo,com.mpc.te.videotour.view.Photo,_clicked,_client,_length,_model,_stageVideoIndex,_stream,active,background,bandwidth,bg,bg,bg,blur,bufferProgressed,buffering,bufferingEnded,bufferingStarted,clicked,closed,hidden,hotspotClicked,id,imageHeight,imageLoadProgressed,imageLoadingEnded,imageLoadingStarted,imageWidth,innerRing,instance,label,label,label,loaded,model,model,model,model,needsRendering,outerRing,player,progressed,ready,src,src,text,time,txt,txt,txt,txt,videoBufferProgressed,videoBufferingEnded,videoBufferingStarted,calculateBufferSize,destroy,destroy,destroy,destroy,getItem,hide,init,load,load,log,onIOError,onMouseDown,onMouseDown,onMouseOut,onMouseOut,onMouseOut,onMouseOut,onMouseOut,onMouseOver,onMouseOver,onMouseOver,onMouseOver,onMouseOver,onNetConnectionFail,onNetConnectionSuccess,onNetstreamBufferEmpty,onNetstreamBufferEmpty,onNetstreamBufferFlush,onNetstreamBufferFlush,onNetstreamBufferFull,onNetstreamBufferFull,onNetstreamPlayFailed,onNetstreamPlayStart,onNetstreamPlayStart,onNetstreamPlayStop,onNetstreamPlayStreamNotFound,onProgress,onSecurityError,onSecurityError,pause,play,render,render,render,render,render,resize,resize,resize,resize,resize,resume,returnItem,seek,setProgress,show,stageVideoStateChange,start,stop,stop,update,updateMask,update"/>
+         <apiClassifierDetail>
+            <apiClassifierDef>
+               <apiAccess value="public"/>
+               <apiStatic/>
+               <apiBaseClassifier>flash.display:Sprite</apiBaseClassifier>
+            </apiClassifierDef>
+            <Inheritancelist>
+               <BaseInterface/>
+               <Inheritance>
+                  <Inherit id="flash.display:Sprite"/>
+               </Inheritance>
+               <Implements/>
+               <Subclasses/>
+               <Implementors/>
+               <Excludes/>
+            </Inheritancelist>
+         </apiClassifierDetail>
+      </apiClassifier>
+      <apiClassifier id="com.mpc.te.videotour.view:Button">
+         <apiName>Button</apiName>
+         <shortdesc>
+	 Abstract Button Class 
+	 	Shoud be used within FLash IDE as base classes of library items
+	 	</shortdesc>
+         <prolog>
+            <author>patrickwolleb
+	 </author>
+            <asMetadata/>
+         </prolog>
+            <meta name="keywords"
+               content="Button,com.mpc.te.videotour.view.Button,_clicked,_client,_length,_model,_stageVideoIndex,_stream,active,background,bandwidth,bg,bg,bg,blur,bufferProgressed,buffering,bufferingEnded,bufferingStarted,clicked,closed,hidden,hotspotClicked,id,imageHeight,imageLoadProgressed,imageLoadingEnded,imageLoadingStarted,imageWidth,innerRing,instance,label,label,label,loaded,model,model,model,model,needsRendering,outerRing,player,progressed,ready,src,src,text,time,txt,txt,txt,txt,videoBufferProgressed,videoBufferingEnded,videoBufferingStarted,calculateBufferSize,destroy,destroy,destroy,destroy,getItem,hide,init,load,load,log,onIOError,onMouseDown,onMouseDown,onMouseOut,onMouseOut,onMouseOut,onMouseOut,onMouseOut,onMouseOver,onMouseOver,onMouseOver,onMouseOver,onMouseOver,onNetConnectionFail,onNetConnectionSuccess,onNetstreamBufferEmpty,onNetstreamBufferEmpty,onNetstreamBufferFlush,onNetstreamBufferFlush,onNetstreamBufferFull,onNetstreamBufferFull,onNetstreamPlayFailed,onNetstreamPlayStart,onNetstreamPlayStart,onNetstreamPlayStop,onNetstreamPlayStreamNotFound,onProgress,onSecurityError,onSecurityError,pause,play,render,render,render,render,render,resize,resize,resize,resize,resize,resume,returnItem,seek,setProgress,show,stageVideoStateChange,start,stop,stop,update,updateMask,update"/>
+         <apiClassifierDetail>
+            <apiClassifierDef>
+               <apiAccess value="public"/>
+               <apiStatic/>
+               <apiBaseClassifier>flash.display:MovieClip</apiBaseClassifier>
+            </apiClassifierDef>
+            <apiDesc>
+	 Abstract Button Class 
+	 	Shoud be used within FLash IDE as base classes of library items
+	 	</apiDesc>
+            <Inheritancelist>
+               <BaseInterface/>
+               <Inheritance>
+                  <Inherit id="flash.display:MovieClip"/>
+               </Inheritance>
+               <Implements/>
+               <Subclasses>
+                  <class id="com.mpc.te.videotour.view:RemoteControlButton"/>
+                  <class id="com.mpc.te.videotour.view:OverlayCloseButton"/>
+                  <class id="com.mpc.te.videotour.view:FloorPlanButton"/>
+                  <class id="com.mpc.te.videotour.view:Hotspot"/>
+               </Subclasses>
+               <Implementors/>
+               <Excludes/>
+            </Inheritancelist>
+         </apiClassifierDetail>
+      </apiClassifier>
+      <apiClassifier id="com.mpc.te.videotour.view:OverlayCloseButton">
+         <apiName>OverlayCloseButton</apiName>
+         <shortdesc/>
+         <prolog>
+            <asMetadata/>
+         </prolog>
+            <meta name="keywords"
+               content="OverlayCloseButton,com.mpc.te.videotour.view.OverlayCloseButton,_clicked,_client,_length,_model,_stageVideoIndex,_stream,active,background,bandwidth,bg,bg,bg,blur,bufferProgressed,buffering,bufferingEnded,bufferingStarted,clicked,closed,hidden,hotspotClicked,id,imageHeight,imageLoadProgressed,imageLoadingEnded,imageLoadingStarted,imageWidth,innerRing,instance,label,label,label,loaded,model,model,model,model,needsRendering,outerRing,player,progressed,ready,src,src,text,time,txt,txt,txt,txt,videoBufferProgressed,videoBufferingEnded,videoBufferingStarted,calculateBufferSize,destroy,destroy,destroy,destroy,getItem,hide,init,load,load,log,onIOError,onMouseDown,onMouseDown,onMouseOut,onMouseOut,onMouseOut,onMouseOut,onMouseOut,onMouseOver,onMouseOver,onMouseOver,onMouseOver,onMouseOver,onNetConnectionFail,onNetConnectionSuccess,onNetstreamBufferEmpty,onNetstreamBufferEmpty,onNetstreamBufferFlush,onNetstreamBufferFlush,onNetstreamBufferFull,onNetstreamBufferFull,onNetstreamPlayFailed,onNetstreamPlayStart,onNetstreamPlayStart,onNetstreamPlayStop,onNetstreamPlayStreamNotFound,onProgress,onSecurityError,onSecurityError,pause,play,render,render,render,render,render,resize,resize,resize,resize,resize,resume,returnItem,seek,setProgress,show,stageVideoStateChange,start,stop,stop,update,updateMask,update"/>
+         <apiClassifierDetail>
+            <apiClassifierDef>
+               <apiAccess value="public"/>
+               <apiStatic/>
+               <apiBaseClassifier>com.mpc.te.videotour.view:Button</apiBaseClassifier>
+            </apiClassifierDef>
+            <Inheritancelist>
+               <BaseInterface/>
+               <Inheritance>
+                  <Inherit id="com.mpc.te.videotour.view:Button"/>
+                  <Inherit id="flash.display:MovieClip"/>
+               </Inheritance>
+               <Implements/>
+               <Subclasses/>
+               <Implementors/>
+               <Excludes/>
+            </Inheritancelist>
+         </apiClassifierDetail>
+      </apiClassifier>
+      <apiClassifier id="com.mpc.te.videotour.view:Image">
+         <apiName>Image</apiName>
+         <shortdesc/>
+         <prolog>
+            <asMetadata/>
+         </prolog>
+            <meta name="keywords"
+               content="Image,com.mpc.te.videotour.view.Image,_clicked,_client,_length,_model,_stageVideoIndex,_stream,active,background,bandwidth,bg,bg,bg,blur,bufferProgressed,buffering,bufferingEnded,bufferingStarted,clicked,closed,hidden,hotspotClicked,id,imageHeight,imageLoadProgressed,imageLoadingEnded,imageLoadingStarted,imageWidth,innerRing,instance,label,label,label,loaded,model,model,model,model,needsRendering,outerRing,player,progressed,ready,src,src,text,time,txt,txt,txt,txt,videoBufferProgressed,videoBufferingEnded,videoBufferingStarted,calculateBufferSize,destroy,destroy,destroy,destroy,getItem,hide,init,load,load,log,onIOError,onMouseDown,onMouseDown,onMouseOut,onMouseOut,onMouseOut,onMouseOut,onMouseOut,onMouseOver,onMouseOver,onMouseOver,onMouseOver,onMouseOver,onNetConnectionFail,onNetConnectionSuccess,onNetstreamBufferEmpty,onNetstreamBufferEmpty,onNetstreamBufferFlush,onNetstreamBufferFlush,onNetstreamBufferFull,onNetstreamBufferFull,onNetstreamPlayFailed,onNetstreamPlayStart,onNetstreamPlayStart,onNetstreamPlayStop,onNetstreamPlayStreamNotFound,onProgress,onSecurityError,onSecurityError,pause,play,render,render,render,render,render,resize,resize,resize,resize,resize,resume,returnItem,seek,setProgress,show,stageVideoStateChange,start,stop,stop,update,updateMask,update"/>
+         <apiClassifierDetail>
+            <apiClassifierDef>
+               <apiAccess value="public"/>
+               <apiStatic/>
+               <apiFinal/>
+               <apiBaseClassifier>flash.display:Loader</apiBaseClassifier>
+            </apiClassifierDef>
+            <Inheritancelist>
+               <BaseInterface/>
+               <Inheritance>
+                  <Inherit id="flash.display:Loader"/>
+               </Inheritance>
+               <Implements/>
+               <Subclasses/>
+               <Implementors/>
+               <Excludes/>
+            </Inheritancelist>
+         </apiClassifierDetail>
+      </apiClassifier>
+      <apiClassifier id="com.mpc.te.videotour.view:FloorPlanButton">
+         <apiName>FloorPlanButton</apiName>
+         <shortdesc/>
+         <prolog>
+            <asMetadata/>
+         </prolog>
+            <meta name="keywords"
+               content="FloorPlanButton,com.mpc.te.videotour.view.FloorPlanButton,_clicked,_client,_length,_model,_stageVideoIndex,_stream,active,background,bandwidth,bg,bg,bg,blur,bufferProgressed,buffering,bufferingEnded,bufferingStarted,clicked,closed,hidden,hotspotClicked,id,imageHeight,imageLoadProgressed,imageLoadingEnded,imageLoadingStarted,imageWidth,innerRing,instance,label,label,label,loaded,model,model,model,model,needsRendering,outerRing,player,progressed,ready,src,src,text,time,txt,txt,txt,txt,videoBufferProgressed,videoBufferingEnded,videoBufferingStarted,calculateBufferSize,destroy,destroy,destroy,destroy,getItem,hide,init,load,load,log,onIOError,onMouseDown,onMouseDown,onMouseOut,onMouseOut,onMouseOut,onMouseOut,onMouseOut,onMouseOver,onMouseOver,onMouseOver,onMouseOver,onMouseOver,onNetConnectionFail,onNetConnectionSuccess,onNetstreamBufferEmpty,onNetstreamBufferEmpty,onNetstreamBufferFlush,onNetstreamBufferFlush,onNetstreamBufferFull,onNetstreamBufferFull,onNetstreamPlayFailed,onNetstreamPlayStart,onNetstreamPlayStart,onNetstreamPlayStop,onNetstreamPlayStreamNotFound,onProgress,onSecurityError,onSecurityError,pause,play,render,render,render,render,render,resize,resize,resize,resize,resize,resume,returnItem,seek,setProgress,show,stageVideoStateChange,start,stop,stop,update,updateMask,update"/>
+         <apiClassifierDetail>
+            <apiClassifierDef>
+               <apiAccess value="public"/>
+               <apiStatic/>
+               <apiBaseClassifier>com.mpc.te.videotour.view:Button</apiBaseClassifier>
+            </apiClassifierDef>
+            <Inheritancelist>
+               <BaseInterface/>
+               <Inheritance>
+                  <Inherit id="com.mpc.te.videotour.view:Button"/>
+                  <Inherit id="flash.display:MovieClip"/>
+               </Inheritance>
+               <Implements/>
+               <Subclasses/>
+               <Implementors/>
+               <Excludes/>
+            </Inheritancelist>
+         </apiClassifierDetail>
+      </apiClassifier>
+      <apiClassifier id="com.mpc.te.videotour.view:FloorPlan">
+         <apiName>FloorPlan</apiName>
+         <shortdesc/>
+         <prolog>
+            <asMetadata/>
+         </prolog>
+            <meta name="keywords"
+               content="FloorPlan,com.mpc.te.videotour.view.FloorPlan,calculateBufferSize,destroy,destroy,destroy,destroy,getItem,hide,init,load,load,log,onIOError,onMouseDown,onMouseDown,onMouseOut,onMouseOut,onMouseOut,onMouseOut,onMouseOut,onMouseOver,onMouseOver,onMouseOver,onMouseOver,onMouseOver,onNetConnectionFail,onNetConnectionSuccess,onNetstreamBufferEmpty,onNetstreamBufferEmpty,onNetstreamBufferFlush,onNetstreamBufferFlush,onNetstreamBufferFull,onNetstreamBufferFull,onNetstreamPlayFailed,onNetstreamPlayStart,onNetstreamPlayStart,onNetstreamPlayStop,onNetstreamPlayStreamNotFound,onProgress,onSecurityError,onSecurityError,pause,play,render,render,render,render,render,resize,resize,resize,resize,resize,resume,returnItem,seek,setProgress,show,stageVideoStateChange,start,stop,stop,update,updateMask,update"/>
+         <apiClassifierDetail>
+            <apiClassifierDef>
+               <apiAccess value="public"/>
+               <apiStatic/>
+               <apiFinal/>
+               <apiBaseClassifier>flash.display:Sprite</apiBaseClassifier>
+            </apiClassifierDef>
+            <Inheritancelist>
+               <BaseInterface/>
+               <Inheritance>
+                  <Inherit id="flash.display:Sprite"/>
+               </Inheritance>
+               <Implements/>
+               <Subclasses/>
+               <Implementors/>
+               <Excludes/>
+            </Inheritancelist>
+         </apiClassifierDetail>
+      </apiClassifier>
+      <apiClassifier id="com.mpc.te.videotour.view:PictureRenderer">
+         <apiName>PictureRenderer</apiName>
+         <shortdesc/>
+         <prolog>
+            <asMetadata/>
+         </prolog>
+            <meta name="keywords"
+               content="PictureRenderer,com.mpc.te.videotour.view.PictureRenderer,_clicked,_client,_length,_model,_stageVideoIndex,_stream,active,background,bandwidth,bg,bg,bg,blur,bufferProgressed,buffering,bufferingEnded,bufferingStarted,clicked,closed,hidden,hotspotClicked,id,imageHeight,imageLoadProgressed,imageLoadingEnded,imageLoadingStarted,imageWidth,innerRing,instance,label,label,label,loaded,model,model,model,model,needsRendering,outerRing,player,progressed,ready,src,src,text,time,txt,txt,txt,txt,videoBufferProgressed,videoBufferingEnded,videoBufferingStarted,calculateBufferSize,destroy,destroy,destroy,destroy,getItem,hide,init,load,load,log,onIOError,onMouseDown,onMouseDown,onMouseOut,onMouseOut,onMouseOut,onMouseOut,onMouseOut,onMouseOver,onMouseOver,onMouseOver,onMouseOver,onMouseOver,onNetConnectionFail,onNetConnectionSuccess,onNetstreamBufferEmpty,onNetstreamBufferEmpty,onNetstreamBufferFlush,onNetstreamBufferFlush,onNetstreamBufferFull,onNetstreamBufferFull,onNetstreamPlayFailed,onNetstreamPlayStart,onNetstreamPlayStart,onNetstreamPlayStop,onNetstreamPlayStreamNotFound,onProgress,onSecurityError,onSecurityError,pause,play,render,render,render,render,render,resize,resize,resize,resize,resize,resume,returnItem,seek,setProgress,show,stageVideoStateChange,start,stop,stop,update,updateMask,update"/>
+         <apiClassifierDetail>
+            <apiClassifierDef>
+               <apiAccess value="public"/>
+               <apiStatic/>
+               <apiFinal/>
+               <apiBaseClassifier>flash.display:Sprite</apiBaseClassifier>
+            </apiClassifierDef>
+            <Inheritancelist>
+               <BaseInterface/>
+               <Inheritance>
+                  <Inherit id="flash.display:Sprite"/>
+               </Inheritance>
+               <Implements/>
+               <Subclasses/>
+               <Implementors/>
+               <Excludes/>
+            </Inheritancelist>
+         </apiClassifierDetail>
+      </apiClassifier>
+      <apiClassifier id="com.mpc.te.videotour.view:Hotspot">
+         <apiName>Hotspot</apiName>
+         <shortdesc/>
+         <prolog>
+            <asMetadata/>
+         </prolog>
+            <meta name="keywords"
+               content="Hotspot,com.mpc.te.videotour.view.Hotspot,_clicked,_client,_length,_model,_stageVideoIndex,_stream,active,background,bandwidth,bg,bg,bg,blur,bufferProgressed,buffering,bufferingEnded,bufferingStarted,clicked,closed,hidden,hotspotClicked,id,imageHeight,imageLoadProgressed,imageLoadingEnded,imageLoadingStarted,imageWidth,innerRing,instance,label,label,label,loaded,model,model,model,model,needsRendering,outerRing,player,progressed,ready,src,src,text,time,txt,txt,txt,txt,videoBufferProgressed,videoBufferingEnded,videoBufferingStarted,calculateBufferSize,destroy,destroy,destroy,destroy,getItem,hide,init,load,load,log,onIOError,onMouseDown,onMouseDown,onMouseOut,onMouseOut,onMouseOut,onMouseOut,onMouseOut,onMouseOver,onMouseOver,onMouseOver,onMouseOver,onMouseOver,onNetConnectionFail,onNetConnectionSuccess,onNetstreamBufferEmpty,onNetstreamBufferEmpty,onNetstreamBufferFlush,onNetstreamBufferFlush,onNetstreamBufferFull,onNetstreamBufferFull,onNetstreamPlayFailed,onNetstreamPlayStart,onNetstreamPlayStart,onNetstreamPlayStop,onNetstreamPlayStreamNotFound,onProgress,onSecurityError,onSecurityError,pause,play,render,render,render,render,render,resize,resize,resize,resize,resize,resume,returnItem,seek,setProgress,show,stageVideoStateChange,start,stop,stop,update,updateMask,update"/>
+         <apiClassifierDetail>
+            <apiClassifierDef>
+               <apiAccess value="public"/>
+               <apiStatic/>
+               <apiBaseClassifier>com.mpc.te.videotour.view:Button</apiBaseClassifier>
+            </apiClassifierDef>
+            <Inheritancelist>
+               <BaseInterface/>
+               <Inheritance>
+                  <Inherit id="com.mpc.te.videotour.view:Button"/>
+                  <Inherit id="flash.display:MovieClip"/>
+               </Inheritance>
+               <Implements/>
+               <Subclasses/>
+               <Implementors/>
+               <Excludes/>
+            </Inheritancelist>
+         </apiClassifierDetail>
+      </apiClassifier>
+      <apiClassifier id="com.mpc.te.videotour.view:RemoteControl">
+         <apiName>RemoteControl</apiName>
+         <shortdesc/>
+         <prolog>
+            <asMetadata/>
+         </prolog>
+            <meta name="keywords"
+               content="RemoteControl,com.mpc.te.videotour.view.RemoteControl,_clicked,_client,_length,_model,_stageVideoIndex,_stream,active,background,bandwidth,bg,bg,bg,blur,bufferProgressed,buffering,bufferingEnded,bufferingStarted,clicked,closed,hidden,hotspotClicked,id,imageHeight,imageLoadProgressed,imageLoadingEnded,imageLoadingStarted,imageWidth,innerRing,instance,label,label,label,loaded,model,model,model,model,needsRendering,outerRing,player,progressed,ready,src,src,text,time,txt,txt,txt,txt,videoBufferProgressed,videoBufferingEnded,videoBufferingStarted,calculateBufferSize,destroy,destroy,destroy,destroy,getItem,hide,init,load,load,log,onIOError,onMouseDown,onMouseDown,onMouseOut,onMouseOut,onMouseOut,onMouseOut,onMouseOut,onMouseOver,onMouseOver,onMouseOver,onMouseOver,onMouseOver,onNetConnectionFail,onNetConnectionSuccess,onNetstreamBufferEmpty,onNetstreamBufferEmpty,onNetstreamBufferFlush,onNetstreamBufferFlush,onNetstreamBufferFull,onNetstreamBufferFull,onNetstreamPlayFailed,onNetstreamPlayStart,onNetstreamPlayStart,onNetstreamPlayStop,onNetstreamPlayStreamNotFound,onProgress,onSecurityError,onSecurityError,pause,play,render,render,render,render,render,resize,resize,resize,resize,resize,resume,returnItem,seek,setProgress,show,stageVideoStateChange,start,stop,stop,update,updateMask,update"/>
+         <apiClassifierDetail>
+            <apiClassifierDef>
+               <apiAccess value="public"/>
+               <apiStatic/>
+               <apiBaseClassifier>flash.display:Sprite</apiBaseClassifier>
+            </apiClassifierDef>
+            <Inheritancelist>
+               <BaseInterface/>
+               <Inheritance>
+                  <Inherit id="flash.display:Sprite"/>
+               </Inheritance>
+               <Implements/>
+               <Subclasses/>
+               <Implementors/>
+               <Excludes/>
+            </Inheritancelist>
+         </apiClassifierDetail>
+      </apiClassifier>
+      <apiClassifier id="com.mpc.te.videotour.view:LoaderAnimation">
+         <apiName>LoaderAnimation</apiName>
+         <shortdesc/>
+         <prolog>
+            <asMetadata/>
+         </prolog>
+            <meta name="keywords"
+               content="LoaderAnimation,com.mpc.te.videotour.view.LoaderAnimation,calculateBufferSize,destroy,destroy,destroy,destroy,getItem,hide,init,load,load,log,onIOError,onMouseDown,onMouseDown,onMouseOut,onMouseOut,onMouseOut,onMouseOut,onMouseOut,onMouseOver,onMouseOver,onMouseOver,onMouseOver,onMouseOver,onNetConnectionFail,onNetConnectionSuccess,onNetstreamBufferEmpty,onNetstreamBufferEmpty,onNetstreamBufferFlush,onNetstreamBufferFlush,onNetstreamBufferFull,onNetstreamBufferFull,onNetstreamPlayFailed,onNetstreamPlayStart,onNetstreamPlayStart,onNetstreamPlayStop,onNetstreamPlayStreamNotFound,onProgress,onSecurityError,onSecurityError,pause,play,render,render,render,render,render,resize,resize,resize,resize,resize,resume,returnItem,seek,setProgress,show,stageVideoStateChange,start,stop,stop,update,updateMask,update"/>
+         <apiClassifierDetail>
+            <apiClassifierDef>
+               <apiAccess value="public"/>
+               <apiStatic/>
+               <apiBaseClassifier>flash.display:Sprite</apiBaseClassifier>
+            </apiClassifierDef>
+            <Inheritancelist>
+               <BaseInterface/>
+               <Inheritance>
+                  <Inherit id="flash.display:Sprite"/>
+               </Inheritance>
+               <Implements/>
+               <Subclasses/>
+               <Implementors/>
+               <Excludes/>
+            </Inheritancelist>
+         </apiClassifierDetail>
+      </apiClassifier>
+   </apiPackage>
+   <apiPackage id="com.mpc.te.videotour">
+      <apiName>com.mpc.te.videotour</apiName>
+      <apiDetail/>
+      <apiClassifier id="com.mpc.te.videotour:Main">
+         <apiName>Main</apiName>
+         <shortdesc>
+	  Appliaction entry point
+	 	It reads bottom up for easy developement 
+	 </shortdesc>
+         <prolog>
+            <author>patrickwolleb
+	 </author>
+            <asMetadata/>
+         </prolog>
+            <meta name="keywords" content="Main,com.mpc.te.videotour.Main,loaderAnimation"/>
+         <apiClassifierDetail>
+            <apiClassifierDef>
+               <apiAccess value="public"/>
+               <apiStatic/>
+               <apiBaseClassifier>flash.display:Sprite</apiBaseClassifier>
+            </apiClassifierDef>
+            <apiDesc>
+	  Appliaction entry point
+	 	It reads bottom up for easy developement 
+	 </apiDesc>
+            <Inheritancelist>
+               <BaseInterface/>
+               <Inheritance>
+                  <Inherit id="flash.display:Sprite"/>
+               </Inheritance>
+               <Implements/>
+               <Subclasses/>
+               <Implementors/>
+               <Excludes/>
+            </Inheritancelist>
+         </apiClassifierDetail>
+      </apiClassifier>
+      <apiClassifier id="com.mpc.te.videotour:MainPreloader">
+         <apiName>MainPreloader</apiName>
+         <shortdesc>
+	 Preloader
+	 It is compiled into a SWF that is loaded from swfobject.js.</shortdesc>
+         <prolog>
+            <author>patrickwolleb
+	 </author>
+            <asMetadata/>
+         </prolog>
+            <meta name="keywords" content="MainPreloader,com.mpc.te.videotour.MainPreloader"/>
+         <apiClassifierDetail>
+            <apiClassifierDef>
+               <apiAccess value="public"/>
+               <apiStatic/>
+               <apiBaseClassifier>flash.display:Sprite</apiBaseClassifier>
+            </apiClassifierDef>
+            <apiDesc>
+	 Preloader
+	 It is compiled into a SWF that is loaded from swfobject.js. This object loads the Main app and addsit to stage.
+	 </apiDesc>
+            <Inheritancelist>
+               <BaseInterface/>
+               <Inheritance>
+                  <Inherit id="flash.display:Sprite"/>
+               </Inheritance>
+               <Implements/>
+               <Subclasses/>
+               <Implementors/>
+               <Excludes/>
+            </Inheritancelist>
+         </apiClassifierDetail>
+      </apiClassifier>
+   </apiPackage>
+   <apiPackage id="org.flashsandy.display">
+      <apiName>org.flashsandy.display</apiName>
+      <apiDetail/>
+      <apiClassifier id="org.flashsandy.display:DistortImage">
+         <apiName>DistortImage</apiName>
+         <shortdesc>
+	 Tesselates an area into several triangles to allow free transform distortion on BitmapData objects.</shortdesc>
+         <prolog>
+            <author>Thomas Pfeiffer (aka kiroukou)
+	 				kiroukou</author>
+            <asMetadata/>
+            <asCustoms>
+               <version>1.1.0
+	 
+	 
+	 edit 2
+	 
+	 The original Actionscript2.0 version of the class was written by Thomas Pfeiffer (aka kiroukou),
+	   inspired by Andre Michelle (andre-michelle.com).
+	   Ruben Swieringa rewrote Thomas Pfeiffer's class in Actionscript3.0, making some minor changes/additions.
+	 
+	 
+	 Copyright (c) 2005 Thomas PFEIFFER. All rights reserved.
+	 
+	 Licensed under the CREATIVE COMMONS Attribution-NonCommercial-ShareAlike 2.0 you may not use this
+	   file except in compliance with the License. You may obtain a copy of the License at:
+	   http://creativecommons.org/licenses/by-nc-sa/2.0/fr/deed.en_GB
+	 
+	 </version>
+            </asCustoms>
+         </prolog>
+            <meta name="keywords"
+               content="DistortImage,org.flashsandy.display.DistortImage,hPrecision,height,smoothing,vPrecision,width,setPrecision,setSize,setTransform"/>
+         <apiClassifierDetail>
+            <apiClassifierDef>
+               <apiAccess value="public"/>
+               <apiStatic/>
+               <apiBaseClassifier>Object</apiBaseClassifier>
+            </apiClassifierDef>
+            <apiDesc>
+	 Tesselates an area into several triangles to allow free transform distortion on BitmapData objects.
+	 
+	 </apiDesc>
+            <Inheritancelist>
+               <BaseInterface/>
+               <Inheritance>
+                  <Inherit id="Object"/>
+               </Inheritance>
+               <Implements/>
+               <Subclasses/>
+               <Implementors/>
+               <Excludes/>
+            </Inheritancelist>
+         </apiClassifierDetail>
+      </apiClassifier>
+   </apiPackage>
+</allClasses>

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?><apiPackage id="com.mpc.te.videotour.service"><apiName>com.mpc.te.videotour.service</apiName><apiDetail/><apiClassifier id="com.mpc.te.videotour.service:HTTPService"><apiName>HTTPService</apiName><shortdesc>
+	 HTTPService 
+	 	Encapsulates URLLoader providing signals for callbacks.</shortdesc><prolog><author>patrickwolleb
+	 </author><asMetadata/></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+	 HTTPService 
+	 	Encapsulates URLLoader providing signals for callbacks.
+	 	</apiDesc></apiClassifierDetail><apiConstructor id="com.mpc.te.videotour.service:HTTPService:HTTPService"><apiName>HTTPService</apiName><shortdesc>
+		 Constructor
+		 	Creates instances and adds listeners
+		 </shortdesc><prolog/><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+		 Constructor
+		 	Creates instances and adds listeners
+		 </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="com.mpc.te.videotour.service:HTTPService:destroy"><apiName>destroy</apiName><shortdesc>
+		 	Removes references and listeners to get object ready for garbage collection
+		 </shortdesc><prolog/><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+		 	Removes references and listeners to get object ready for garbage collection
+		 </apiDesc></apiOperationDetail></apiOperation><apiOperation id="com.mpc.te.videotour.service:HTTPService:protected:onComplete"><apiName>onComplete</apiName><shortdesc>
+		 Request success callback 	 
+		 </shortdesc><prolog/><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>e</apiItemName><apiType value="flash.events:Event"/><apiDesc>	 </apiDesc></apiParam></apiOperationDef><apiDesc>
+		 Request success callback 	 
+		 </apiDesc></apiOperationDetail></apiOperation><apiOperation id="com.mpc.te.videotour.service:HTTPService:protected:onIOError"><apiName>onIOError</apiName><shortdesc>
+		 IO Error callback
+		 	</shortdesc><prolog/><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>e</apiItemName><apiType value="flash.events:IOErrorEvent"/><apiDesc>	 </apiDesc></apiParam></apiOperationDef><apiDesc>
+		 IO Error callback
+		 	</apiDesc></apiOperationDetail></apiOperation><apiOperation id="com.mpc.te.videotour.service:HTTPService:protected:onProgress"><apiName>onProgress</apiName><shortdesc>
+		 	Progress callback
+		 	</shortdesc><prolog/><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>e</apiItemName><apiType value="flash.events:ProgressEvent"/><apiDesc>
+		 </apiDesc></apiParam></apiOperationDef><apiDesc>
+		 	Progress callback
+		 	</apiDesc></apiOperationDetail></apiOperation><apiOperation id="com.mpc.te.videotour.service:HTTPService:protected:onSecurityError"><apiName>onSecurityError</apiName><shortdesc>
+		 Securtiy Error callback
+		 	</shortdesc><prolog/><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>e</apiItemName><apiType value="flash.events:SecurityErrorEvent"/><apiDesc>	 </apiDesc></apiParam></apiOperationDef><apiDesc>
+		 Securtiy Error callback
+		 	</apiDesc></apiOperationDetail></apiOperation><apiOperation id="com.mpc.te.videotour.service:HTTPService:send"><apiName>send</apiName><shortdesc>
+		 Sends the request 
+		 	</shortdesc><prolog/><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>request</apiItemName><apiType value="flash.net:URLRequest"/><apiDesc>	 </apiDesc></apiParam></apiOperationDef><apiDesc>
+		 Sends the request 
+		 	</apiDesc></apiOperationDetail></apiOperation><apiValue id="com.mpc.te.videotour.service:HTTPService:bandwidth:get"><apiName>bandwidth</apiName><shortdesc>
+		 	Calculated bandwidth for last request
+		 	</shortdesc><prolog/><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Number"/></apiValueDef><apiDesc>
+		 	Calculated bandwidth for last request
+		 	</apiDesc></apiValueDetail></apiValue><apiValue id="com.mpc.te.videotour.service:HTTPService:completed:get"><apiName>completed</apiName><shortdesc>
+		 	SuccessSignal 
+		 	</shortdesc><prolog/><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="org.osflash.signals:Signal"/></apiValueDef><apiDesc>
+		 	SuccessSignal 
+		 	</apiDesc></apiValueDetail></apiValue><apiValue id="com.mpc.te.videotour.service:HTTPService:progressed:get"><apiName>progressed</apiName><shortdesc>
+		 	ProgressedSignal
+		 </shortdesc><prolog/><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="org.osflash.signals:Signal"/></apiValueDef><apiDesc>
+		 	ProgressedSignal
+		 </apiDesc></apiValueDetail></apiValue></apiClassifier></apiPackage>

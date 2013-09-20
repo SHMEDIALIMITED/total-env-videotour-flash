@@ -25,7 +25,7 @@ package com.mpc.te.videotour.view {
 			_bandwidth = val;	
 		}
 		
-		public function render(time):void {
+		public function render(time:int):void {
 			bufferProgressed.dispatch(_stream.bufferLength / _stream.bufferTime);
 		}
 		
