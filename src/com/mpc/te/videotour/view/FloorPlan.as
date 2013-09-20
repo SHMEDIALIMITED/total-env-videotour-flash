@@ -5,6 +5,8 @@ package com.mpc.te.videotour.view {
 	
 	import flash.display.Sprite;
 	
+	
+	
 	public final class FloorPlan extends Sprite {
 		
 		private var _plan:Sprite;

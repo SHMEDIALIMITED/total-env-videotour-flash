@@ -3,25 +3,83 @@ package com.mpc.te.videotour.model {
 	
 	import org.osflash.signals.Signal;
 	
+	
+	/**
+	 * App Model containing JSON data, state logic and common properties. 
+	 * @author patrickwolleb
+	 */	
 	public class Model {
 		
+		/**
+		 * 	Time since app start 
+		 */		
 		public var time:int;
+		
+		
+		/**
+		 * 	Bandwidth calculated from JSON data response time 
+		 */		
 		public var bandwidth:int;
 		
+		
+		/**
+		 * 	Array of shots as defined in JSON
+		 */		
 		private var _shots:Array;
+		
+		
+		/**
+		 * 	Array of overlays(lightboxes) as defined in JSON  
+		 */		
 		private var _overlays:Array;
+		
+		
+		/**
+		 *	Refernce to current Shot model object 
+		 */
 		private var _currentShot:Object;
-		private var _oldShot:Object;
+		
+		
+		/**
+		 * 	Refernce to previous shot 
+		 */		
+		private var _previousShot:Object;
+		
+		
+		/**
+		 *	Refernce to current Overlay(lightbox) model object  
+		 */		
 		private var _currentOverlay:Object;
+		
+		
+		/**
+		 *	Signal that is dispatched when shotID has been validated successfully
+		 */		
 		private var _shotChanged:Signal;
+		
+		
+		/**
+		 *	Signal that is dispatched when overlayID has been validated successfully 
+		 */		
 		private var _overlayChanged:Signal;
 		
+		
+		/**
+		 * Constructor
+		 * Creates instances of Signals and get current Time. 
+		 */		
 		public function Model() {
 			_shotChanged = new Signal(Object);
 			_overlayChanged = new Signal(Object);
 			time = getTimer();
 		}
 		
+		
+		/**
+		 * Parse changes the video file extensions to .f4v for use in Flash. This is due to the JSON data being shared between the JS and Flash apps.  
+		 * @param json
+		 * 
+		 */		
 		public function parse(json:Object):void {
 			_shots = json[0] as Array;
 			_overlays = json[1] as Array;
@@ -45,6 +103,12 @@ package com.mpc.te.videotour.model {
 			}
 		}
 		
+		
+		/**
+		 * 	Validates shot ID.
+		 * 	Dispatches shotChanged signal on success or throws a VideoID error
+		 * 	@param val
+		 */		
 		public function setShotByID(val:String):void {
 			
 			if(_currentShot && _currentShot.videoId == val) return;
@@ -55,7 +119,7 @@ package com.mpc.te.videotour.model {
 			while( --i > -1 ) {
 				shot = shots[i];
 				if(shot.videoId == val) {
-					_oldShot = _currentShot;
+					_previousShot = _currentShot;
 					_currentShot = shot;
 					_shotChanged.dispatch(shot);
 					return;
@@ -65,6 +129,11 @@ package com.mpc.te.videotour.model {
 		}
 		
 		
+		/**
+		 * 	Validates overlay ID.
+		 * 	Dispatches overlayChanged signal on success or throws a OverlayID error
+		 * 	@param val
+		 */	
 		public function setOverlayByID(val:String):void {
 			
 			if(_currentShot && _currentShot.videoId == val) return;
@@ -83,29 +152,51 @@ package com.mpc.te.videotour.model {
 			throw new Error('Overlay ID not found: ', val);	
 		}
 		
+		
+		/**
+		 *	Updates time and returns delta;
+		 * 	@return time in milliseconds
+		 */		
 		public function updateDeltaTime():int {
 			const newTime:int = getTimer();
 			const dt:int = newTime - time;
 			time = newTime;
-			return time;
+			return dt;
 		}
 		
-		public function get shots():Array {
-			return _shots;
-		}
 		
+		/**
+		 * Current active shot model
+		 * @return 
+		 */		
 		public function get shot():Object {
 			return _currentShot;
 		}
 		
+		
+		/**
+		 * 	Previous shot
+		 * 	Returns null when staring up  
+		 * 	@return 
+		 */		
 		public function get previousShot():Object {
-			return _oldShot;
+			return _previousShot;
 		}
 		
+		
+		/**
+		 * 	ShotChanedSignal containing Shot object payload
+		 * 	@return  
+		 */		
 		public function get shotChanged():Signal {
 			return _shotChanged;
 		}
 		
+		
+		/**
+		 * 	OverlayChangedSignal containing Overlay object payload
+		 * 	@return  
+		 */	
 		public function get overlayChanged():Signal {
 			return _overlayChanged;
 		}

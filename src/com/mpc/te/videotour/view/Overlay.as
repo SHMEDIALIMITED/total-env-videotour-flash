@@ -9,6 +9,8 @@ package com.mpc.te.videotour.view {
 	
 	import org.osflash.signals.Signal;
 	
+	
+	
 	public final class Overlay extends Sprite {
 
 		private var _video:VideoPlayer;	
@@ -266,7 +268,7 @@ package com.mpc.te.videotour.view {
 		}
 		
 		public function get videoBufferingStarted():Signal {
-			return _video.bufferingStarted
+			return _video.bufferingStarted;
 		}
 		
 		public function get videoBufferingEnded():Signal {

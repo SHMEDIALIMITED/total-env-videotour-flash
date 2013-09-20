@@ -5,11 +5,17 @@ package com.mpc.te.videotour.view {
 	import flash.text.TextField;
 	import flash.text.TextFormat;
 	
+	
+	/**
+	 *	Debug Textfield 
+	 * 	Singleton
+	 * 	@author patrickwolleb
+	 */	
 	public class Debug extends Sprite {
+		
 		
 		public static const instance:Debug = new Debug();
 		private var _txt:TextField;
-		
 		
 		public function Debug() {
 			_txt = new TextField();
@@ -23,12 +29,25 @@ package com.mpc.te.videotour.view {
 			var format:TextFormat = _txt.defaultTextFormat;
 			format.bold = true;
 			_txt.defaultTextFormat = format;
+			this.visible = false;
 		}
 		
+		
+		/**
+		 *	Appends a string to text in the textarea
+		 * 	@param val
+		 */		
 		public function log(val:String):void {
 			_txt.appendText(val + '\n');
+			this.visible = true;
 		}
 		
+		
+		/**
+		 *	Initializes with stage for docking bottom left 
+		 * 	@param stage
+		 * 
+		 */		
 		public function init(stage:Stage):void {
 			stage.addChild(this);
 			stage.addEventListener(Event.RESIZE, onResize);

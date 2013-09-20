@@ -22,8 +22,12 @@ package com.mpc.te.videotour
 	import flash.geom.Rectangle;
 	import flash.net.URLRequest;
 	
-	import org.osflash.signals.Signal;
 	
+	/**
+	 *  Appliaction entry point
+	 * 	It reads bottom up for easy developement 
+	 *	@author patrickwolleb
+	 */
 	
 	[SWF(width="1200", height="800", backgroundColor="#000000", frameRate="60")]
 	public class Main extends Sprite {
@@ -35,6 +39,11 @@ package com.mpc.te.videotour
 		///////////////// RENDER CALLBACK TRAGET 60FPS ////////////////////////////////////////////////////////////////////////
 		///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+		
+		/**
+		 * Render callback is called when stage ENTER_FRAME event is fired.
+		 * @param e 
+		 */		
 		private function render(e:Event):void {
 			
 			_model.updateDeltaTime();
@@ -57,6 +66,12 @@ package com.mpc.te.videotour
 		///////////////// STAGE RESIZE CALLBACK ///////////////////////////////////////////////////////////////////////////////
 		///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+		/**
+		 * Resize callback is called when stage RESIZE event is fired.
+		 * It calculates the videoRectangle and the stageRectangle and then positions and resizes all UI elements. 
+		 * Note that stageRectangle's x and y are stage center positions
+		 * @param e
+		 */		
 		private function onResize(e:Event):void {
 			var stageWidth:Number = stage.stageWidth;
 			var stageHeight:Number = stage.stageHeight;
@@ -113,6 +128,11 @@ package com.mpc.te.videotour
 		///////////////// SIGNAL CALLBACKS ////////////////////////////////////////////////////////////////////////////////////
 		///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+		/**
+		 * HotpsotClicked callback is called when a Hotspot is receives a MOUSE_DOWN from the user. 
+		 * The callback is hooked up through a Signal containing the traget model.
+		 * @param hotspot Shot model object as defined in JSON. Note it's not strong-typed.
+		 */		
 		private function onHotpsotClicked(hotspot:Object):void {
 			if(hotspot.hotspotType == 1) {			
 				_model.setShotByID(hotspot.target);
@@ -121,6 +141,10 @@ package com.mpc.te.videotour
 			}
 		}
 		
+		/**
+		 * ShotChanged callback is called when the Model validated the traget id as a new shot and found the respective Shot value Object.
+		 * @param shot Shot model object as defined in JSON. Note it's not strong-typed.
+		 */		
 		private function onShotChanged(shot:Object):void {
 			_black.visible = true;
 			_black.alpha = 0;
@@ -154,6 +178,11 @@ package com.mpc.te.videotour
 			}
 		}
 		
+		
+		/**
+		 * ShotChanged callback is called when the Model validated the traget id as a new overlay and found the respective Overlay value Object
+		 * @param overlay Overlay model object as defined in JSON. Note it's not strong-typed.
+		 */		
 		private function onOverlayChanged(overlay:Object):void {
 			addChild(_black);
 			_black.alpha = 0;
@@ -176,6 +205,10 @@ package com.mpc.te.videotour
 			}, ease:Linear.easeNone});	
 		}
 		
+		/**
+		 * OverlayClosed callback is called when overlay close button received MOUSE_DOWN event. That event triggers a signal containing the current Overlay value object as a payload.
+		 * @param overlay Overlay model object as defined in JSON. Note it's not strong-typed. 
+		 */		
 		private function onOverlayClosed(overlay:Object):void {
 			_loaderAnimation.stop();
 			_overlay.hide(overlay);
@@ -185,6 +218,10 @@ package com.mpc.te.videotour
 			TweenMax.to(_black, 1.0, {alpha:1, ease:Linear.easeNone});
 		}
 		
+		/**
+		 * OverlayHidden callback is called when the overlay has been completely faded out and is ready to be removed from stage.
+		 * This method is hooked up through a signal being dispatched from the Overaly view object. 
+		 */		
 		private function onOverlayHidden():void {
 			if(contains(_overlay)) {
 				addChild(_black);
@@ -211,6 +248,9 @@ package com.mpc.te.videotour
 		///////////////// INIT CODE ////////////////////////////////////////////////////////////////////////////////////
 		///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+		/**
+		 * Start is called when the app has loaded the JSON into the Model and the StageVideoPLayer is ready. 
+		 */		
 		private function start():void {
 			_loaderAnimation.stop();
 			onResize(null);
@@ -218,14 +258,14 @@ package com.mpc.te.videotour
 			stage.addEventListener(Event.ENTER_FRAME, render);		
 		}
 		
+		/**
+		 * ParseData is called from the JSON data HTTPService passing itself and the server response.
+		 * @param res JSON String
+		 * @param service HTTPService
+		 */		
 		private function parseData(res:Object, service:HTTPService):void {
-			
-			
 			_model.bandwidth = _player.bandwidth = _overlay.player.bandwidth = service.bandwidth;
-		
-			
 			service.destroy();
-			
 			var json:Object = JSON.parse(res as String);
 			_model.parse(json)
 			_model.shotChanged.add(onShotChanged);
@@ -234,6 +274,10 @@ package com.mpc.te.videotour
 			start();							///////////////////// when Model has parsed JSON app starts rendering
 		}
 		
+		/**
+		 * LoadData is called when the StageVideoPlayer dispatches it's ready signal.
+		 * It creates an instance of HTTPService to load to app JSON data.
+		 */		
 		private function loadData():void {
 			var service:HTTPService = new HTTPService();
 			service.completed.add(parseData); 	///////////////////// when data is loaded then Model parses JSON
@@ -243,56 +287,47 @@ package com.mpc.te.videotour
 			
 		}
 		
+		/**
+		 * AddedToStage is called when the app main view has been added to stage. 
+		 * In development mode this should happen righ after the constructor gets called. When the app is loaded by the MainPreloader the app waits until the ADDED_TO_STAGE event is fired.  
+		 * @param e
+		 */		
 		private function onAddedToStage(e:Event):void {
 			
+			
+			// DEBUG TOOLS
 			SWFProfiler.init(stage, this);
-			//Debug.instance.init(stage);
+			Debug.instance.init(stage);
 			
 			stage.align = StageAlign.TOP_LEFT;
 			stage.scaleMode = StageScaleMode.NO_SCALE;
 			
-			
 			_model = new Model();
 			
+			// If the animation ahs been created in the MainPrelader we reuse the instance.
 			if(!_loaderAnimation) _loaderAnimation = new LoaderAnimation();
 			_loaderAnimation.start();
 			
-			
 			_player = new VideoPlayer(0);
 			_player.ready.add(loadData); 		///////////////////// when player is ready then JSON data files starts being loaded
+			_player.bufferingStarted.add(_loaderAnimation.start);
+			_player.bufferingEnded.add(_loaderAnimation.stop);
+			_player.bufferProgressed.add(_loaderAnimation.setProgress);
 			addChild(_player);
 			
 			_floorPlan = new FloorPlan();
 			addChild(_floorPlan);
-			
+						
 			_hotpsotRenderer = new HotspotRenderer();
 			_hotpsotRenderer.hotspotClicked.add(onHotpsotClicked);
 			addChild(_hotpsotRenderer);
 			
 			_pictureRenderer = new PictureRenderer();
 			addChild(_pictureRenderer);
-			
-			
-			
+		
 			_overlay = new Overlay();
 			_overlay.closed.add(onOverlayClosed);
 			_overlay.hidden.add(onOverlayHidden);
-			
-			
-			addChild(_loaderAnimation);
-			
-			
-			_black = new Shape();
-			_black.visible = false;
-			_black.graphics.beginFill(0);
-			_black.graphics.drawRect(0,0,10,10);
-			_black.graphics.endFill();
-			addChild(_black);
-			
-			_player.bufferingStarted.add(_loaderAnimation.start);
-			_player.bufferingEnded.add(_loaderAnimation.stop);
-			_player.bufferProgressed.add(_loaderAnimation.setProgress);
-			
 			_overlay.imageLoadingStarted.add(_loaderAnimation.start);
 			_overlay.imageLoadingEnded.add(_loaderAnimation.stop);
 			_overlay.imageLoadProgressed.add(_loaderAnimation.setProgress);
@@ -300,31 +335,76 @@ package com.mpc.te.videotour
 			_overlay.videoBufferingEnded.add(_loaderAnimation.stop);
 			_overlay.videoBufferProgressed.add(_loaderAnimation.setProgress);
 			
+			// Stack on top of everthing else
+			addChild(_loaderAnimation);
 			
+			// Black fullscreen shape for shot and overaly transisitons
+			_black = new Shape();
+			_black.visible = false;
+			_black.graphics.beginFill(0);
+			_black.graphics.drawRect(0,0,10,10);
+			_black.graphics.endFill();
+			addChild(_black);
 			
-			onResize(null)
-			
+			onResize(null);
 			stage.addEventListener(Event.RESIZE, onResize);	
 		}
 		
+		
+		/**
+		 * Set the LoaderAnimation if preloading the Main app. Set by MainPreloader. 
+		 * @param val
+		 */		
 		public function set loaderAnimation(val:LoaderAnimation):void {
 			_loaderAnimation = val;
 		}
 		
+		/**
+		 * Contructor 
+		 */		
 		public function Main() {
 			if(!stage) this.addEventListener(Event.ADDED_TO_STAGE, onAddedToStage);
 			else onAddedToStage(null);
 		}
 		
-		
+		/**
+		 * Main VideoPlayer object
+		 */		
 		private var _player:VideoPlayer;
+		
+		/**
+		 * Overlay(Lightbox) view 
+		 */		
 		private var _overlay:Overlay;
-		private var _hotspotClicked:Signal;
+		
+		/**
+		 * App Model
+		 */				
 		private var _model:Model;
+		
+		/**
+		 *  Container for hotspots
+		 */		
 		private var _hotpsotRenderer:HotspotRenderer;
+		
+		/**
+		 * 	Container for pictures mapped onto the video
+		 */		
 		private var _pictureRenderer:PictureRenderer;
+		
+		/**
+		 *  Loader Animation AKA Prelaoder
+		 */		
 		private var _loaderAnimation:LoaderAnimation;
+		
+		/**
+		 * 	House blueprint top-left corner 
+		 */		
 		private var _floorPlan:FloorPlan;
+		
+		/**
+		 *	Black fullscreen shape for shot and overaly transisitons 
+		 */		
 		private var _black:Shape;
 		
 	}
