@@ -8,7 +8,6 @@ package com.mpc.te.videotour.view {
 	import flash.display.Shape;
 	import flash.display.Sprite;
 	import flash.filters.BlurFilter;
-	import flash.geom.Point;
 	
 	import org.flashsandy.display.DistortImage;
 	
@@ -45,11 +44,7 @@ package com.mpc.te.videotour.view {
 			if(!_distort) return;
 			_distort.setTransform(
 				this.graphics, 
-				_bitmapData, 
-				new Point(quad.Bx, quad.By),
-				new Point(quad.Ax, quad.Ay),
-				new Point(quad.Cx, quad.Cy),
-				new Point(quad.Dx, quad.Dy));
+				_bitmapData, quad.B, quad.A, quad.C, quad.D);
 					
 		}
 		
