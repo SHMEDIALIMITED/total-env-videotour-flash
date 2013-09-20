@@ -40,23 +40,23 @@ function run() {
 		// }
 
 
-		for(var j = 0; j < shot.hotspotTracks.length; ++j) {
+		// for(var j = 0; j < shot.hotspotTracks.length; ++j) {
 
-			hotspot = shot.hotspotTracks[j];
+		// 	hotspot = shot.hotspotTracks[j];
 
-			for(var k = 0; k < hotspot.keyframes.length; ++k) {
+		// 	for(var k = 0; k < hotspot.keyframes.length; ++k) {
 
-				keyframe = hotspot.keyframes[k];
+		// 		keyframe = hotspot.keyframes[k];
 
-				for(var q = 1; q < keyframe.length; q++) {
+		// 		for(var q = 1; q < keyframe.length; q++) {
 
-					keyframe[q] = keyframe[q].toFixed(3);
+		// 			keyframe[q] = keyframe[q].toFixed(3);
 
-				}
+		// 		}
 
-			}
+		// 	}
 
-		}
+		// }
 
 
 	}

@@ -19,7 +19,7 @@ package com.mpc.te.videotour.view {
 		
 		private const _pictures:Vector.<RenderModel> = new Vector.<RenderModel>();
 		
-		private const quad:Quad = new Quad();
+
 		private const quadA:Quad = new Quad();
 		private const quadB:Quad = new Quad();
 		private const clipQuad:Quad = new Quad();
@@ -43,9 +43,13 @@ package com.mpc.te.videotour.view {
 		 */	
 		public function set model(val:Array):void {
 			
+			trace('shold be twice', _pictures.length)
+			
 			for(var i:int = 0; i < _pictures.length; ++i) {
-				_pictures.pop().destroy();
+				_pictures[i].destroy();
 			}
+			
+			_pictures.length = 0;
 			
 			for(i = 0; i < val.length; ++i) {
 				_pictures.push(new RenderModel(val[i]));
@@ -76,13 +80,16 @@ package com.mpc.te.videotour.view {
 			
 			// update picture tracks
 			var i:int,j:int,k:int, size:int,mf:Number;
-			var pic:Photo, vidpic:Object;
+			
 			
 			var renderModel:RenderModel;
-			for( i = 0; i < _pictures.length; i++ ){
+			i = 0;
+			const l:int = _pictures.length;
+			
+			while (i < l) {
+			
 				
-				vidpic = pictureTracks[i];
-				pic = vidpic.view as Photo;
+			
 				
 				renderModel = _pictures[i];
 				
@@ -105,45 +112,29 @@ package com.mpc.te.videotour.view {
 					mf = (time - keyframeA[ 0 ]) / ( keyframeB[ 0 ] - keyframeA[ 0 ]);
 					
 					
-					quadA.Ax = keyframeA[ 1 ];
-					quadA.Ay = keyframeA[ 2 ];
-					quadA.Bx = keyframeA[ 3 ];
-					quadA.By = keyframeA[ 4 ];
-					quadA.Cx = keyframeA[ 5 ];
-					quadA.Cy = keyframeA[ 6 ];
-					quadA.Dx = keyframeA[ 7 ];
-					quadA.Dy = keyframeA[ 8 ];
+					quadA.setFromVector(keyframeA);
+					quadB.setFromVector(keyframeB);
 					
-					quadB.Ax = keyframeB[ 1 ];
-					quadB.Ay = keyframeB[ 2 ];
-					quadB.Bx = keyframeB[ 3 ];
-					quadB.By = keyframeB[ 4 ];
-					quadB.Cx = keyframeB[ 5 ];
-					quadB.Cy = keyframeB[ 6 ];
-					quadB.Dx = keyframeB[ 7 ];
-					quadB.Dy = keyframeB[ 8 ];
-					
-					quad.Ax = quadA.Ax * (1 - mf) + quadB.Ax * mf;
-					quad.Ay = quadA.Ay * (1 - mf) + quadB.Ay * mf;
-					quad.Bx = quadA.Bx * (1 - mf) + quadB.Bx * mf;
-					quad.By = quadA.By * (1 - mf) + quadB.By * mf;
-					quad.Cx = quadA.Cx * (1 - mf) + quadB.Cx * mf;
-					quad.Cy = quadA.Cy * (1 - mf) + quadB.Cy * mf;
-					quad.Dx = quadA.Dx * (1 - mf) + quadB.Dx * mf;
-					quad.Dy = quadA.Dy * (1 - mf) + quadB.Dy * mf;
+					quadA.scale(1-mf, 1-mf);
+					quadB.scale(mf, mf);
 					
 					
-					quad.scale(videoWidth, videoHeight);
-					renderModel.view.render(quad);
+					quadA.add(quadB);
+					
+					
+					quadA.scale(videoWidth, videoHeight);
+					renderModel.view.render(quadA);
 					addChild(renderModel.view);
 					
 					
-					// apply clipping (if used)
 					var clipX0mf:Number = 0;
 					var clipX1mf:Number = 1;
 					var clipY0mf:Number = 0;
 					var clipY1mf:Number = 1;
 					if( renderModel.clippings ){
+						// apply clipping (if used)
+						
+						
 						if( time < renderModel.clippings[0][0] ){
 							
 							// use clipping position of first data
@@ -187,24 +178,24 @@ package com.mpc.te.videotour.view {
 					}
 					
 					
-					var top:Number = (clipY0mf * quad.height >>0);
-					var left:Number = (clipX0mf * quad.width >>0);
-					var right:Number = (clipX1mf * quad.width >>0);
-					var bottom:Number = (clipY1mf * quad.height >>0);
+					var top:Number = (clipY0mf * quadA.height >>0);
+					var left:Number = (clipX0mf * quadA.width >>0);
+					var right:Number = (clipX1mf * quadA.width >>0);
+					var bottom:Number = (clipY1mf * quadA.height >>0);
 					
 					
 					
-					clipQuad.Ax = quad.Ax;
-					clipQuad.Ay = quad.Ay;
+					clipQuad.Ax = quadA.Ax;
+					clipQuad.Ay = quadA.Ay;
 					
-					clipQuad.Bx = quad.Bx - (quad.width - right);
-					clipQuad.By = quad.By - top;
+					clipQuad.Bx = quadA.Bx - (quadA.width - right);
+					clipQuad.By = quadA.By - top;
 					
-					clipQuad.Cx = quad.Cx;
-					clipQuad.Cy = quad.Cy;
+					clipQuad.Cx = quadA.Cx;
+					clipQuad.Cy = quadA.Cy;
 					
-					clipQuad.Dx = quad.Dx - (quad.width - right);
-					clipQuad.Dy = quad.Dy;
+					clipQuad.Dx = quadA.Dx - (quadA.width - right);
+					clipQuad.Dy = quadA.Dy;
 					
 					
 					
@@ -216,8 +207,10 @@ package com.mpc.te.videotour.view {
 				}
 //					
 					
-			
+				++i;
 			}
+		
+		
 		}
 		
 		
@@ -276,10 +269,14 @@ class RenderModel {
 	
 	public function destroy():void {
 		view.destroy();
-		keyframes.length = 0;
-		clippings.length = 0;
-		view = null;
-		clippings = null;
+		var i:int = keyframes.length;
+		while( --i > -1 ) keyframes[i] = null;
+		if(clippings) {
+			i = clippings.length;
+			while( --i > -1 ) clippings[i] = null;
+			clippings = null;
+		}
+		keyframes = null;
 		view = null;
 	}
 	

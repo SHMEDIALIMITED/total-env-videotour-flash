@@ -14,6 +14,38 @@ package com.mpc.te.videotour.model {
 		private const _D:Point = new Point();
 		
 		
+		
+		/**
+		 * 	Add the quad value to this instance
+		 * 	@param quad 
+		 */		
+		public function add(quad:Quad):void {
+			_A.x += quad.A.x;
+			_A.y += quad.A.y;
+			_B.x += quad.B.x;
+			_B.y += quad.B.y;
+			_C.x += quad.C.x;
+			_C.y += quad.C.y;
+			_D.x += quad.D.x;
+			_D.y += quad.D.y;
+		}
+		
+		
+		/**
+		 * 	Sets a keyframe Vector to the quad which is faster than setting coordinates individually
+		 * 	@param vector Requires to be length of 9 where first Number is keyframe time and the rest the quad coordinates;
+		 */		
+		public function setFromVector(vector:Vector.<Number>):void {
+			_A.x = vector[1];
+			_A.y = vector[2];
+			_B.x = vector[3];
+			_B.y = vector[4];
+			_C.x = vector[5];
+			_C.y = vector[6];
+			_D.x = vector[7];
+			_D.y = vector[8];
+		}
+		
 		/**
 		 *	Returns string represantation for debugging
 		 * 	@return
