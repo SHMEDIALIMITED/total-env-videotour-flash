@@ -48,7 +48,11 @@ package com.mpc.te.videotour {
 			stage.scaleMode = StageScaleMode.NO_SCALE;
 			stage.align = 'tl';
 			_loader.contentLoaderInfo.addEventListener(Event.COMPLETE, onLoadComplete);
-			_loader.load(new URLRequest('Main.swf'));
+			
+			
+			
+			if(!this.root.loaderInfo.parameters.flashRoot) _loader.load(new URLRequest('Main.swf'));
+			else _loader.load(new URLRequest(this.root.loaderInfo.parameters.flashRoot + '/Main.swf'));
 			_animation.start();
 			stage.addEventListener(Event.ENTER_FRAME, render);
 		}

@@ -10,6 +10,9 @@ package com.mpc.te.videotour.model {
 	 */	
 	public class Model {
 		
+		
+		
+		
 		/**
 		 * 	Time since app start 
 		 */		
@@ -64,11 +67,19 @@ package com.mpc.te.videotour.model {
 		private var _overlayChanged:Signal;
 		
 		
+		
+		/**
+		 *	When Main SWF is loaded from preloader the Video URLs must be corrected to look in the parent directory for the videos  
+		 */		
+		private var _resolveRoot:Boolean;
+		
+		
 		/**
 		 * Constructor
 		 * Creates instances of Signals and get current Time. 
 		 */		
-		public function Model() {
+		public function Model(flashRoot:String) {
+			_resolveRoot = flashRoot ? true : false;
 			_shotChanged = new Signal(Object);
 			_overlayChanged = new Signal(Object);
 			time = getTimer();
@@ -89,6 +100,7 @@ package com.mpc.te.videotour.model {
 			for(; i < l; ++i) {
 				shot = _shots[i];
 				source = shot.videoSource[0];
+				source = _resolveRoot ? '../' + source : source;
 				shot.videoSource[0] = source.substr(0, source.length-3) + 'f4v';
 			}
 			
@@ -98,6 +110,7 @@ package com.mpc.te.videotour.model {
 				overlay = _overlays[i];
 				if(overlay.type != 2) {
 					source = overlay.videoSource[0];
+					source = _resolveRoot ? '../' + source : source;	
 					overlay.videoSource[0] = source.substr(0, -3) + 'f4v';
 				}
 			}

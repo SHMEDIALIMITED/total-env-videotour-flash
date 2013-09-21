@@ -192,13 +192,10 @@ package com.mpc.te.videotour.view {
 		
 		protected function stageVideoStateChange(event:StageVideoEvent):void {          
 			var status:String = event.status;  
-			trace('STAGE VIDEO STATUS:', status);
 		}
 		
 		private function onAddedToStage(e:Event):void {
 			this.removeEventListener(Event.ADDED_TO_STAGE, onAddedToStage);
-			
-			trace('STAGE VIDEOS:' , stage.stageVideos)
 			
 			if(stage.stageVideos.length > _stageVideoIndex && _stageVideoIndex != -1) {
 				_stageVideo = stage.stageVideos[_stageVideoIndex];
