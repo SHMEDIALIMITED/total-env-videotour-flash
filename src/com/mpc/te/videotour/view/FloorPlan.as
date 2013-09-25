@@ -95,7 +95,7 @@ package com.mpc.te.videotour.view {
 		 */		
 		public function load(data:Object):void {
 			
-			_image.src = 'img/floor-plan' + data.image + '.png';	
+			_image.src = 'images/floor-plan' + data.image + '.png';	
 			
 			if(_keyframes) _keyframes.length = 0;
 			var keyframes:Array = data.keyframes, i:int = keyframes.length;

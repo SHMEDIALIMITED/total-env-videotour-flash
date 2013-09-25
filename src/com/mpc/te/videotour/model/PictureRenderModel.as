@@ -23,7 +23,7 @@ package com.mpc.te.videotour.model
 			view = new Picture();
 			view.alpha = data.opacity;
 			view.blur = data.blur;
-			view.src = 'img/gandhi.jpg';
+			view.src = 'images/gandhi.jpg';
 			
 			var i:int = 0, 
 				l:int = data.keyframes.length,
